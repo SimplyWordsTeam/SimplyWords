@@ -18,7 +18,6 @@
             android:minHeight="?attr/actionBarSize"
             app:title="@string/app_name"
             app:titleCentered="true"
-            android:background=""
             />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -35,6 +34,7 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/toggleStartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottomAppBar"
