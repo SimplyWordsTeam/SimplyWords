@@ -1,5 +1,7 @@
 package sg.edu.np.mad.simplywords;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int OVERLAY_REQUEST_CODE=100;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -43,26 +44,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
 
-        overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result->{
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-                        Log.d("MainActivity","Check OverlayPermission: Not Allowed");
-                    }
-                    else{
-                        Log.d("MainActivity","Check OverlayPermission: Allowed");
-                    }
-                }
-                );
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this))
-        {
-            Log.d("MainActivity","Check OverlayPermission: Not Allowed");
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            overlayPermissionLauncher.launch(intent);
-        }else{
-            Log.d("MainActivity","Check OverlayPermission: Allowed");
-        }
+        checkPermissions();
 
 
         binding.toggleStartButton.setOnClickListener(new View.OnClickListener() {
@@ -86,4 +69,42 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
+
+    //Check if user has allowed  the overlay permission
+    public void checkPermissions(){
+        overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result->{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+                        Log.d("MainActivity","Check OverlayPermission: Not Allowed");
+                    }
+                    else{
+                        Log.d("MainActivity","Check OverlayPermission: Allowed");
+                    }
+                }
+        );
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this))
+        {
+            Log.d("MainActivity","Check OverlayPermission: Not Allowed");
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            overlayPermissionLauncher.launch(intent);
+        }else{
+            Log.d("MainActivity","Check OverlayPermission: Allowed");
+        }
+    }
+
+    public boolean isServiceRunning(){
+        ActivityManager manager=(ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (SimplyWordsService.class.getName().equals(service.service)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
 }
