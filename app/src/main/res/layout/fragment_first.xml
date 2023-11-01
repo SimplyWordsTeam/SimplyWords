@@ -16,20 +16,71 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next"
-            app:layout_constraintBottom_toTopOf="@id/textview_first"
+            app:layout_constraintTop_toBottomOf="@id/homePage_CardBrand"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/homePage_CardBrand"
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardBackgroundColor="@color/brandColorPurple"
+            android:clickable="true"
+            android:focusable="true"
+            android:checkable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:textSize="32dp"
+                android:layout_gravity="center"
+                ></TextView>
+    </com.google.android.material.card.MaterialCardView>
+
         <TextView
-            android:id="@+id/textview_first"
+            android:id="@+id/homePage_TextView_Recents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/lorem_ipsum"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/app_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_first" />
+            app:layout_constraintTop_toBottomOf="@id/homePage_CardBrand"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp">
+        </TextView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/homePage_CardRecents"
+            android:layout_height="150dp"
+            android:layout_width="match_parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homePage_TextView_Recents"
+            app:cardBackgroundColor="@color/brandColorPurple"
+            android:clickable="true"
+            android:focusable="true"
+            android:checkable="true">
+            <TextView
+                android:id="@+id/homePage_CardRecents_TextViewContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:text="@string/app_name"
+                android:textSize="12dp"
+                ></TextView>
+        </com.google.android.material.card.MaterialCardView>
+
+<!--        <TextView-->
+<!--            android:id="@+id/textview_first"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="@string/lorem_ipsum"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/button_first" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
