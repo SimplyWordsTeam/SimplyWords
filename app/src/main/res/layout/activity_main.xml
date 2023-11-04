@@ -7,37 +7,117 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+
+<!--        <com.google.android.material.appbar.MaterialToolbar-->
+<!--            android:id="@+id/topAppBar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:minHeight="?attr/actionBarSize"-->
+<!--            app:title="@string/app_name"-->
+<!--            app:logo="@mipmap/ic_launcher_round"-->
+<!--            android:gravity="end"-->
+
+<!--            android:paddingBottom="10dp"-->
+<!--            >-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="end|center_vertical"-->
+<!--                android:layout_gravity="start"-->
+
+
+<!--                >-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/topAppBar_tutorial"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/outline_info_24"-->
+<!--                    app:tint="@color/grey"/>-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/topAppBar_Profile"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:src="@drawable/baseline_account_circle_24"-->
+<!--                    app:tint="@color/brandColorPurpleOff"-->
+<!--                    />-->
+
+<!--            </LinearLayout>-->
+<!--        </com.google.android.material.appbar.MaterialToolbar>-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:titleCentered="true"
-            />
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
 
-    </com.google.android.material.appbar.AppBarLayout>
+                android:paddingBottom="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/app_name"
+                        android:textSize="32dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end|center_vertical"
+                    android:layout_gravity="start"
+                    android:layout_alignParentEnd="true">
 
-    <include layout="@layout/content_main" />
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+                    <ImageView
+                        android:id="@+id/topAppBar_tutorial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/outline_info_24"
+                        app:tint="@color/grey"
+                        />
+                    <ImageView
+                        android:id="@+id/topAppBar_Profile"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/baseline_account_circle_24"
+                        app:tint="@color/brandColorPurpleOff"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+
+        <include layout="@layout/content_main" />
+    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        style="@style/Widget.Material3.BottomAppBar"
-            app:navigationIcon="@drawable/baseline_menu_24"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_app_bar"
+        app:itemIconTint="@color/bottom_navigation_icon_color"
+        app:itemTextColor="@color/bottom_navigation_icon_color"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/toggleStartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/baseline_play_arrow_24" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

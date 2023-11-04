@@ -3,17 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/settings"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="@string/settings"
-        android:contentDescription="@string/content_description_settings"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/bottomAppBar_simplify"
+        android:icon="@drawable/baseline_edit_24"
+        android:title="@string/simplify2"
+        android:enabled="true"
+        />
 
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/bottomAppBar_home"
         android:icon="@drawable/baseline_home_24"
         android:title="@string/home"
-        android:contentDescription="@string/content_description_home"
-        app:showAsAction="ifRoom"/>
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/bottomAppBar_settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/settings"
+        android:enabled="true"
+        />
 
 </menu>

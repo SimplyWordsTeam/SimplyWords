@@ -38,11 +38,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.bottomAppBar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         // If launched through the context menu, fetch the highlighted text
         CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
@@ -51,18 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermissions();
 
-        binding.toggleStartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(MainActivity.this, SimplyWordsService.class);
-                startService(intent);
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.toggleStartButton)
-                        .setAction("Action", null).show();
-            }
-        });
+//        binding.toggleStartButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent = new Intent(MainActivity.this, SimplyWordsService.class);
+//                startService(intent);
+//
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAnchorView(R.id.toggleStartButton)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
     }
 
