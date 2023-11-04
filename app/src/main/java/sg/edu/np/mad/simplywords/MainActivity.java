@@ -1,6 +1,7 @@
 package sg.edu.np.mad.simplywords;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermissions();
 
-
         binding.toggleStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
     //Check if user has allowed  the overlay permission
     public void checkPermissions(){
         overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result->{
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+                result -> {
+                    if (!Settings.canDrawOverlays(this)) {
                         Log.d("MainActivity","Check OverlayPermission: Not Allowed");
                     }
                     else{
@@ -85,12 +85,20 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this))
+        if (!Settings.canDrawOverlays(this))
         {
             Log.d("MainActivity","Check OverlayPermission: Not Allowed");
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            overlayPermissionLauncher.launch(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("We need permission to display over other screens. You will be told that SimplyWords can access and read content on your screen. This is a standard Android message for apps that can display over other apps. SimplyWords does not access or read any of your content.")
+                    .setTitle("Permission required")
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + getPackageName()));
+                        overlayPermissionLauncher.launch(intent);
+                        dialog.dismiss();
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }else{
             Log.d("MainActivity","Check OverlayPermission: Allowed");
         }
