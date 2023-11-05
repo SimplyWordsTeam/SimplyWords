@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Text: " + text + " Read Only: " + readOnly);
 
         checkPermissions();
+        startService();
 
 //        binding.toggleStartButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -59,6 +60,20 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    public void startService() {
+        // check if the user has already granted
+        // the Draw over other apps permission
+        if (Settings.canDrawOverlays(this)) {
+            // start the service based on the android version
+            Intent intent = new Intent(this, SimplyWordsService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent);
+            } else {
+                startService(intent);
+            }
+        }
     }
 
     @Override
