@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+
+
     }
 
     @Override
@@ -82,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
         if (!Settings.canDrawOverlays(this))
         {
             Log.d("MainActivity","Check OverlayPermission: Not Allowed");
