@@ -13,17 +13,24 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.provider.Settings;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.WindowCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -142,6 +149,29 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+
+        BottomNavigationView mAppBar= findViewById(R.id.main_navigation);
+        mAppBar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id==R.id.bottomAppBar_simplify){
+                    Toast toast=Toast.makeText(MainActivity.this,"Simplify Selected",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if (id==R.id.bottomAppBar_home){
+                    Toast toast=Toast.makeText(MainActivity.this,"Home Selected",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else{
+                    Toast toast=Toast.makeText(MainActivity.this,"Settings Selected",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                return true;
+            }
+        });
     }
 
     public void startService() {
@@ -166,7 +196,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void startHomeActivity(){
+        Intent
 
+
+    }
     //Check if user has allowed  the overlay permission
     public void checkPermissions(){
         overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -179,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
         if (!Settings.canDrawOverlays(this))
         {
             Log.d("MainActivity","Check OverlayPermission: Not Allowed");

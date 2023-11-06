@@ -7,8 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="brandColorPurple">#A052EF</color>
-    <color name="brandColorPurpleOff">#D3B8EF</color>
+    <color name="brandColorPurple">#19322a</color>
+    <color name="brandColorPurpleOff">#D8D5C3</color>
+    <color name="greywhite">#8E918F</color>
+    <color name="lightgreen">#52796f</color>
+    <color name="brandColorDarkGreen">#19322a</color>
+    <color name="greybrown">#606161</color>
+    <color name="offwhite">#d8d5ce</color>
     <color name="grey">#8E918F</color>
+
+
 
 </resources>

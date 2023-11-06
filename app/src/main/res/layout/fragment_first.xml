@@ -9,78 +9,213 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        >
 
-        <Button
-            android:id="@+id/button_first"
+
+
+        <TextView
+            android:id="@+id/homePage_WelcomeStatement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next"
-            app:layout_constraintTop_toBottomOf="@id/homePage_CardBrand"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/homePage_CardBrand"
-            android:layout_height="200dp"
-            android:layout_width="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="25dp"
+            android:text="@string/welcomeStatement"
             app:layout_constraintTop_toTopOf="parent"
-            app:cardBackgroundColor="@color/brandColorPurple"
-            android:clickable="true"
-            android:focusable="true"
-            android:checkable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:gravity="center"
-                android:textSize="32dp"
-                android:layout_gravity="center"
-                ></TextView>
-    </com.google.android.material.card.MaterialCardView>
-
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_marginTop="10dp"
+            />
         <TextView
             android:id="@+id/homePage_TextView_Recents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/featuresLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homePage_CardBrand"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp">
+            app:layout_constraintTop_toBottomOf="@id/homePage_WelcomeStatement"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:fontFamily="@font/roboto_medium"
+
+            >
         </TextView>
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/homePage_CardRecents"
-            android:layout_height="150dp"
-            android:layout_width="match_parent"
-
-            app:layout_constraintStart_toStartOf="parent"
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homePage_FeaturesScroll"
             app:layout_constraintTop_toBottomOf="@+id/homePage_TextView_Recents"
-            app:cardBackgroundColor="@color/brandColorPurple"
-            android:clickable="true"
-            android:focusable="true"
-            android:checkable="true">
-            <TextView
-                android:id="@+id/homePage_CardRecents_TextViewContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:text="@string/app_name"
-                android:textSize="12dp"
-                ></TextView>
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
 
-<!--        <TextView-->
-<!--            android:id="@+id/textview_first"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:text="@string/lorem_ipsum"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/button_first" />-->
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/homePage_TextSimplifier"
+                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homePage_TextView_Recents"
+                    app:cardCornerRadius="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:checkable="true"
+                    android:outlineAmbientShadowColor="@color/brandColorPurple"
+                    android:backgroundTint="@color/offwhite"
+                    app:cardElevation="2dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+
+                            <!-- Media -->
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                app:srcCompat="@drawable/simplify_image"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="@string/lorem_ipsum"
+                                android:background="@drawable/rounded_corners_bottom" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <!-- Title, secondary and supporting text -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/app_name"
+                                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                                    android:fontFamily="@font/roboto_medium" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="@string/app_name"
+                                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    android:fontFamily="@font/roboto_medium_italic" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:checkable="true"
+                    android:outlineAmbientShadowColor="@color/brandColorPurple"
+                    android:backgroundTint="@color/offwhite"
+                    android:layout_marginStart="10dp">
+                    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!-- Media -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:srcCompat="@drawable/simplify_image"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/lorem_ipsum"
+                        android:background="@drawable/rounded_corners_bottom" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:fontFamily="@font/roboto_medium" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/app_name"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:fontFamily="@font/roboto_medium_italic" />
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+        <TextView
+            android:id="@+id/homePage_TextView_RecentsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recentActivityLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homePage_FeaturesScroll"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homePage_TextView_RecentsLabel">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/homePage_CardRecents"
+                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                app:cardCornerRadius="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:checkable="true"
+                app:cardElevation="2dp"
+                android:backgroundTint="@color/offwhite"
+                android:layout_marginTop="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summarised"
+                        android:textSize="17dp"
+                        android:fontFamily="@font/roboto_medium"
+                        ></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summarised"
+                        android:fontFamily="@font/roboto_medium_italic"
+                        ></TextView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
