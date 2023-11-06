@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import sg.edu.np.mad.simplywords.databinding.FragmentFirstBinding;
+import sg.edu.np.mad.simplywords.databinding.FragmentHomepageBinding;
 
-public class FirstFragment extends Fragment {
+public class HomePageFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentHomepageBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +20,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentHomepageBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
