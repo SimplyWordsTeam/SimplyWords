@@ -35,9 +35,9 @@ public class SummaryOverlay {
 
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.view = layoutInflater.inflate(R.layout.overlay_summary, null);
-        view.findViewById(R.id.window_close).setOnClickListener(v -> {
-            hide();
-        });
+//        view.findViewById(R.id.window_close).setOnClickListener(v -> {
+//            hide();
+//        });
 
         params.gravity = Gravity.TOP;
         this.windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
