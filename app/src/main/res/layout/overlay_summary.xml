@@ -7,11 +7,14 @@
     android:padding="4dp"
     android:background="@null">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="30dp"
+        android:backgroundTint="@color/offwhite"
+        >
+
 
         <LinearLayout
             android:padding="10dp"
@@ -22,21 +25,36 @@
             <TextView
                 android:id="@+id/overlay_summary_text"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Displaying over other apps!"
+                android:maxHeight="200dp"
+                android:text="@string/lorem_ipsum"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:padding="10dp"/>
 
-            <Button
-                android:id="@+id/window_close"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remove" />
+                android:gravity="end|center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_sync_24">
+
+                </ImageView>
+                <Button
+                    android:id="@+id/window_close"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Remove"
+                    android:layout_marginStart="5dp"
+                    />
+            </LinearLayout>
+
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

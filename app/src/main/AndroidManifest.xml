@@ -21,7 +21,8 @@
             android:name=".SimplyWordsService"
             android:enabled="true"
             android:exported="true"
-            android:foregroundServiceType="specialUse" />
+            android:foregroundServiceType="specialUse"
+            android:theme="@style/Theme.SimplyWords"/>
 
         <activity
             android:name=".MainActivity"

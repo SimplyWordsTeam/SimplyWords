@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ public class SummaryOverlay {
     public SummaryOverlay(Context context) {
         this.context = context;
 
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params = new WindowManager.LayoutParams(
                     // Shrink the window to wrap the content rather than filling the screen
@@ -33,8 +36,20 @@ public class SummaryOverlay {
             );
         }
 
-        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.view = layoutInflater.inflate(R.layout.overlay_summary, null);
+
+
+        //Wrap material theme within the service context
+        // Inside your Service
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context,R.style.Theme_SimplyWords);
+        LayoutInflater inflater = LayoutInflater.from(contextThemeWrapper);
+
+        View yourOverlayView = inflater.inflate(R.layout.overlay_summary, null, false);
+        this.view=yourOverlayView;
+
+
+
+//        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        this.view = layoutInflater.inflate(R.layout.overlay_summary, null);
         view.findViewById(R.id.window_close).setOnClickListener(v -> {
             hide();
         });

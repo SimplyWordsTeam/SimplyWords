@@ -64,6 +64,7 @@
                     android:checkable="true"
                     android:outlineAmbientShadowColor="@color/brandColorPurple"
                     android:backgroundTint="@color/offwhite"
+
                     app:cardElevation="2dp">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -150,9 +151,6 @@
                             android:textColor="?android:attr/textColorSecondary"
                             android:fontFamily="@font/roboto_medium_italic" />
                     </LinearLayout>
-
-
-
                 </LinearLayout>
 
 
