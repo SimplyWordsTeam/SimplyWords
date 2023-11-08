@@ -36,20 +36,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end|center_vertical">
-                <ImageView
+                android:gravity="end|center_vertical"
+
+                >
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_sync_24">
+                    android:gravity="center_vertical"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_sync_24">
 
-                </ImageView>
-                <Button
-                    android:id="@+id/window_close"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Remove"
-                    android:layout_marginStart="5dp"
-                    />
+                    </ImageView>
+                    <Button
+                        android:id="@+id/window_close"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Remove"
+                        android:layout_marginStart="5dp"
+                        />
+                </LinearLayout>
+
+
             </LinearLayout>
 
 
