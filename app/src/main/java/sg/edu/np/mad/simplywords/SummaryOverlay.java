@@ -21,8 +21,6 @@ public class SummaryOverlay {
     public SummaryOverlay(Context context) {
         this.context = context;
 
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params = new WindowManager.LayoutParams(
                     // Shrink the window to wrap the content rather than filling the screen
