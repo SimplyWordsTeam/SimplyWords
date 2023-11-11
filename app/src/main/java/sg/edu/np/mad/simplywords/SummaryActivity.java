@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -31,12 +32,14 @@ public class SummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
+
         // If launched through the context menu, fetch the highlighted text
         CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
         boolean readOnly = getIntent().getBooleanExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, false);
         Log.d("MainActivity", "Text: " + text + " Read Only: " + readOnly);
 
         startService();
+
 
         if (text != null) {
             Toast.makeText(this, "Starting network request...", Toast.LENGTH_SHORT).show();
@@ -75,6 +78,13 @@ public class SummaryActivity extends AppCompatActivity {
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, data,
                     response -> {
+
+                    try{
+                        sendProcessedText(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                         // Display an alert dialog with the response
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         try {
@@ -103,10 +113,13 @@ public class SummaryActivity extends AppCompatActivity {
                 }
             };
             request.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
             NetworkQueue.getInstance(this).addToRequestQueue(request);
+
         }
     }
+
+
+
 
     //Check if user has allowed  the overlay permission
     public void checkPermissions() {
@@ -138,7 +151,6 @@ public class SummaryActivity extends AppCompatActivity {
             Log.d("MainActivity","Check OverlayPermission: Allowed");
         }
     }
-
     public void startService() {
         // check if the user has already granted
         // the Draw over other apps permission
@@ -151,5 +163,10 @@ public class SummaryActivity extends AppCompatActivity {
                 startService(intent);
             }
         }
+    }
+    private void sendProcessedText(String processedText) {
+        Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
+        intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
+        sendBroadcast(intent);
     }
 }

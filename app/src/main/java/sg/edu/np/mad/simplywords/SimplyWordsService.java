@@ -4,8 +4,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.View;
@@ -18,10 +20,8 @@ import androidx.core.app.NotificationCompat;
 public class SimplyWordsService extends Service {
 
     SummaryOverlay overlay;
-
     public SimplyWordsService() {
     }
-
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -40,6 +40,19 @@ public class SimplyWordsService extends Service {
 
         overlay = new SummaryOverlay(this);
         overlay.show();
+
+
+
+        IntentFilter filter = new IntentFilter(Constants.ACTION_PROCESS_TEXT);
+        registerReceiver(textReceiver, filter);
+        overlay = new SummaryOverlay(this);
+        overlay.show();
+    }
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(textReceiver);
+        // ... other cleanup ...
+        super.onDestroy();
     }
 
     @Override
@@ -66,4 +79,16 @@ public class SimplyWordsService extends Service {
                 .build();
         startForeground(2, notification);
     }
+    private BroadcastReceiver textReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Constants.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
+                String text = intent.getStringExtra(Constants.EXTRA_PROCESSED_TEXT);
+                if (overlay != null) {
+                    overlay.updateText(text);
+                }
+            }
+        }
+    };
+
 }
