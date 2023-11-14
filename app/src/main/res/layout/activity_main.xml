@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-    android:backgroundTint="@color/brandColorPurple"
     >
 
     <LinearLayout
@@ -61,14 +60,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/outline_info_24"
-                        app:tint="@color/grey"
+                        style="@style/IconColor"
                         />
                     <ImageView
                         android:id="@+id/topAppBar_Profile"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/baseline_account_circle_24"
-                        app:tint="@color/brandColorPurpleOff"
+                        style="@style/IconColor"
 
                         />
 
@@ -86,9 +85,7 @@
         android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_app_bar"
-        app:itemIconTint="@color/brandColorDarkGreen"
-        app:itemTextColor="@color/brandColorDarkGreen"
-        app:backgroundTint="@color/lightgreen"
+        style="@style/NavigationBar"
 
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

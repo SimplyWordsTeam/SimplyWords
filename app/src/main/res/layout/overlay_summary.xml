@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="30dp"
-        android:backgroundTint="@color/offwhite"
+        style="@style/ScreenBackground"
         >
 
 

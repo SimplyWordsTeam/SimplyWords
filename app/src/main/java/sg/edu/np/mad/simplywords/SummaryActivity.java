@@ -87,15 +87,15 @@ public class SummaryActivity extends AppCompatActivity {
                     }
                         // Display an alert dialog with the response
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        try {
-                            builder.setMessage(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"))
-                                    .setTitle("Response")
-                                    .setPositiveButton("OK", (dialog, id) -> finish());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+//                        try {
+//                            builder.setMessage(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"))
+//                                    .setTitle("Response")
+//                                    .setPositiveButton("OK", (dialog, id) -> finish());
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        AlertDialog dialog = builder.create();
+//                        dialog.show();
                     },
                     error -> {
                         // Display an alert dialog with the error

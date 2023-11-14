@@ -17,7 +17,7 @@
             android:id="@+id/homePage_WelcomeStatement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            style="@style/HeaderText"
             android:text="@string/welcomeStatement"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePage_WelcomeStatement"
             android:layout_marginTop="10dp"
-            android:textSize="20dp"
+            style="@style/LabelText"
             android:fontFamily="@font/roboto_medium"
 
             >
@@ -62,8 +62,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:checkable="true"
-                    android:outlineAmbientShadowColor="@color/brandColorPurple"
-                    android:backgroundTint="@color/offwhite"
+                    style="@style/CardBackground"
+
+
 
                     app:cardElevation="2dp">
                         <LinearLayout
@@ -92,8 +93,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/app_name"
-                                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                                    android:fontFamily="@font/roboto_medium" />
+                                    android:fontFamily="@font/roboto_medium"
+                                    style="@style/LabelText"
+                                    />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -101,7 +103,8 @@
                                     android:text="@string/app_name"
                                     android:textAppearance="?attr/textAppearanceBodyMedium"
                                     android:textColor="?android:attr/textColorSecondary"
-                                    android:fontFamily="@font/roboto_medium_italic" />
+                                    android:fontFamily="@font/roboto_medium_italic"
+                                    style="@style/descriptionText"/>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -113,8 +116,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:checkable="true"
-                    android:outlineAmbientShadowColor="@color/brandColorPurple"
-                    android:backgroundTint="@color/offwhite"
+                    android:outlineAmbientShadowColor="@color/brandColorGreen"
+                    style="@style/CardBackground"
                     android:layout_marginStart="10dp">
                     <LinearLayout
                     android:layout_width="match_parent"
@@ -140,16 +143,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/app_name"
-                            android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:fontFamily="@font/roboto_medium" />
+                            android:fontFamily="@font/roboto_medium"
+                            style="@style/LabelText"
+                            />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="@string/app_name"
-                            android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?android:attr/textColorSecondary"
-                            android:fontFamily="@font/roboto_medium_italic" />
+                            android:fontFamily="@font/roboto_medium_italic"
+                            style="@style/descriptionText"
+                            />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -166,7 +171,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePage_FeaturesScroll"
             android:layout_marginTop="10dp"
-            android:textSize="20dp"
+            style="@style/LabelText"
             />
 
 
@@ -189,7 +194,7 @@
                 android:focusable="true"
                 android:checkable="true"
                 app:cardElevation="2dp"
-                android:backgroundTint="@color/offwhite"
+                style="@style/CardBackground"
                 android:layout_marginTop="10dp"
                 >
                 <LinearLayout
@@ -201,14 +206,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/summarised"
-                        android:textSize="17dp"
                         android:fontFamily="@font/roboto_medium"
+                        style="@style/LabelText"
                         ></TextView>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/summarised"
                         android:fontFamily="@font/roboto_medium_italic"
+                        style="@style/descriptionText"
                         ></TextView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

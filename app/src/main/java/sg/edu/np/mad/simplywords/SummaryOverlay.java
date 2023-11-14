@@ -90,6 +90,7 @@ public class SummaryOverlay extends AppCompatActivity {
             }
         }
     };
+
     public void registerReceiver() {
         IntentFilter filter = new IntentFilter(ACTION_SHOW_TEXT);
         context.registerReceiver(textReceiver, filter);
