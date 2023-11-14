@@ -78,27 +78,7 @@ public class SummaryOverlay extends AppCompatActivity {
             Log.d("SummaryOverlay", e.toString());
         }
     }
-    private BroadcastReceiver textReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (ACTION_SHOW_TEXT.equals(intent.getAction())) {
-                String text = intent.getStringExtra("EXTRA_TEXT");
-                // Update your overlay's TextView with this text
-                TextView textView = view.findViewById(R.id.overlay_summary_text);
-                textView.setText(text);
-                show(); // Make sure the overlay is visible
-            }
-        }
-    };
 
-    public void registerReceiver() {
-        IntentFilter filter = new IntentFilter(ACTION_SHOW_TEXT);
-        context.registerReceiver(textReceiver, filter);
-    }
-
-    public void unregisterReceiver() {
-        context.unregisterReceiver(textReceiver);
-    }
     public void updateText(String text){
         if(view!=null){
             TextView textView = view.findViewById(R.id.overlay_summary_text);
