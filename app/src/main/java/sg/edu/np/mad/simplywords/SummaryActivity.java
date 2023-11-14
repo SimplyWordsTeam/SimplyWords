@@ -1,9 +1,5 @@
 package sg.edu.np.mad.simplywords;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,8 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -24,6 +23,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SummaryActivity extends AppCompatActivity {
 
@@ -32,21 +32,21 @@ public class SummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-
-        // If launched through the context menu, fetch the highlighted text
+        // Fetch the highlighted text then start the service to display the overlay
         CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
         boolean readOnly = getIntent().getBooleanExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, false);
         Log.d("MainActivity", "Text: " + text + " Read Only: " + readOnly);
 
-        startService();
-
-
         if (text != null) {
-            Toast.makeText(this, "Starting network request...", Toast.LENGTH_SHORT).show();
+            startService();
+
+            Toast.makeText(this, "Simplifying your text...", Toast.LENGTH_LONG).show();
             String URL = "https://api.openai.com/v1/chat/completions";
+
+            // Creates the JSON object to be sent to the API
             JSONObject data = new JSONObject();
             try {
-                data.put("model", "gpt-3.5-turbo");
+                data.put("model", "gpt-3.5-turbo-1106");
                 data.put(
                         "messages",
                         new JSONArray()
@@ -76,94 +76,81 @@ public class SummaryActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, data,
-                    response -> {
-
-                    try{
-                        sendProcessedText(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                        // Display an alert dialog with the response
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                        try {
-//                            builder.setMessage(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"))
-//                                    .setTitle("Response")
-//                                    .setPositiveButton("OK", (dialog, id) -> finish());
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        AlertDialog dialog = builder.create();
-//                        dialog.show();
-                    },
-                    error -> {
-                        // Display an alert dialog with the error
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setMessage(error.getMessage())
-                                .setTitle("Error")
-                                .setPositiveButton("OK", (dialog, id) -> finish());
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }) {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, data, response ->
+            {
+                try {
+                    sendProcessedText(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> {
+                // Display an alert dialog with the error
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(error.getMessage())
+                        .setTitle("Error")
+                        .setPositiveButton("OK", (dialog, id) -> finish());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }) {
                 public Map<String, String> getHeaders() {
                     Map<String, String> params = new HashMap<>();
                     params.put("Authorization", "Bearer " + "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");
                     return params;
                 }
             };
+
             request.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             NetworkQueue.getInstance(this).addToRequestQueue(request);
-
         }
     }
 
+    public boolean checkOverlayPermission() {
+        AtomicBoolean hasPermission = new AtomicBoolean(false);
 
-
-
-    //Check if user has allowed  the overlay permission
-    public void checkPermissions() {
         ActivityResultLauncher<Intent> overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (!Settings.canDrawOverlays(this)) {
-                        Log.d("MainActivity","Check OverlayPermission: Not Allowed");
-                    }
-                    else{
-                        Log.d("MainActivity","Check OverlayPermission: Allowed");
+                        Log.d("SummaryActivity", "Overlay permission: Not Allowed");
+                    } else {
+                        Log.d("SummaryActivity", "Overlay permission: OK");
+                        hasPermission.set(true);
                     }
                 }
         );
-        if (!Settings.canDrawOverlays(this))
-        {
-            Log.d("MainActivity","Check OverlayPermission: Not Allowed");
+
+        if (!Settings.canDrawOverlays(this)) {
+            Log.d("SummaryActivity", "Overlay permission: Not Allowed");
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("We need permission to display over other screens. You will be told that SimplyWords can access and read content on your screen. This is a standard Android message for apps that can display over other apps. SimplyWords does not access or read any of your content.")
-                    .setTitle("Permission required")
-                    .setPositiveButton("OK", (dialog, id) -> {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:" + getPackageName()));
+            builder.setTitle(R.string.permission_title)
+                    .setMessage(R.string.permission_message)
+                    .setPositiveButton(android.R.string.ok, (dialog, id) -> {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                         overlayPermissionLauncher.launch(intent);
                         dialog.dismiss();
                     });
+
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            Log.d("MainActivity","Check OverlayPermission: Allowed");
+            Log.d("SummaryActivity", "Check OverlayPermission: OK");
+            hasPermission.set(true);
         }
+
+        return hasPermission.get();
     }
+
     public void startService() {
-        // check if the user has already granted
-        // the Draw over other apps permission
-        if (Settings.canDrawOverlays(this)) {
-            // start the service based on the android version
+        boolean hasOverlayPermission = checkOverlayPermission();
+        if (hasOverlayPermission) {
             Intent intent = new Intent(this, SimplyWordsService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(intent);
             } else {
-//                startService(intent);
+                startService(intent);
             }
         }
     }
+
     private void sendProcessedText(String processedText) {
         Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
         intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);

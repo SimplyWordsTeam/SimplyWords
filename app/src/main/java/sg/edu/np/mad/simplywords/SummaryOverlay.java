@@ -1,9 +1,6 @@
 package sg.edu.np.mad.simplywords;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.Log;
@@ -16,73 +13,71 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+
 public class SummaryOverlay extends AppCompatActivity {
-    private Context context;
-    private View view;
+    private final View view;
     private WindowManager.LayoutParams params;
-    private WindowManager windowManager;
-    private LayoutInflater layoutInflater;
-    public static final String ACTION_SHOW_TEXT = "sg.edu.np.mad.simplywords.SHOW_TEXT";
+    private final WindowManager windowManager;
+
     public SummaryOverlay(Context context) {
-        this.context = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params = new WindowManager.LayoutParams(
-                    // Shrink the window to wrap the content rather than filling the screen
-                    WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
-                    // Display it on top of other application windows
+                    // Display the window on top of other application windows
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    // Don't let it grab the input focus
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    // Add flags to alter the window appearance and behavior
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                     // Make the underlying application window visible through any transparent parts
                     PixelFormat.TRANSLUCENT
             );
+            params.gravity = Gravity.TOP | Gravity.START;
         }
-        //Wrap material theme within the service context
-        // Inside your Service
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context,R.style.Theme_SimplyWords);
-        LayoutInflater inflater = LayoutInflater.from(contextThemeWrapper);
-        View yourOverlayView = inflater.inflate(R.layout.overlay_summary, null, false);
-        this.view=yourOverlayView;
-//        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        this.view = layoutInflater.inflate(R.layout.overlay_summary, null);
-        view.findViewById(R.id.window_close).setOnClickListener(v -> {
-            hide();
-        });
-        params.gravity = Gravity.TOP;
+        // Wrap the Material theme within the service context
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, R.style.Theme_SimplyWords);
+        LayoutInflater layoutInflater = LayoutInflater.from(contextThemeWrapper);
+        this.view = layoutInflater.inflate(R.layout.overlay_summary, null, false);
         this.windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+
+        // Close the overlay when the close button is clicked
+        view.findViewById(R.id.window_close).setOnClickListener(v -> {
+            hideOverlay();
+        });
     }
 
-
-
-    public void show() {
+    public void showOverlay() {
         try {
-            // check if the view is already
-            // inflated or present in the window
-            if(view.getWindowToken()==null) {
-                if(view.getParent()==null) {
-                    windowManager.addView(view, params);
-                }
-            }
-        } catch (Exception e) {
-            Log.d("SummaryOverlay", e.toString());
-        }
-    }
-    public void hide() {
-        try {
-            if (view.getWindowToken() != null) {
-                if (view.getParent() != null) {
-                    windowManager.removeView(view);
-                }
+            // Add the view if it's not already inflated or present in the window
+            if (view.getWindowToken() == null || view.getParent() == null) {
+                windowManager.addView(view, params);
             }
         } catch (Exception e) {
             Log.d("SummaryOverlay", e.toString());
         }
     }
 
-    public void updateText(String text){
-        if(view!=null){
+    public void hideOverlay() {
+        try {
+            if (view.getWindowToken() != null && view.getParent() != null) {
+                windowManager.removeView(view);
+            }
+        } catch (Exception e) {
+            Log.d("SummaryOverlay", e.toString());
+        }
+    }
+
+    public void updateText(String text) {
+        if (view != null) {
             TextView textView = view.findViewById(R.id.overlay_summary_text);
             textView.setText(text);
+        }
+    }
+
+    public void updateProgress(Integer progress) {
+        LinearProgressIndicator progressIndicator = view.findViewById(R.id.overlay_summary_progress);
+        if (progress >= 0 && progress <= 100) {
+            progressIndicator.setProgressCompat(progress, true);
+        } else {
+            progressIndicator.setIndeterminate(true);
         }
     }
 }

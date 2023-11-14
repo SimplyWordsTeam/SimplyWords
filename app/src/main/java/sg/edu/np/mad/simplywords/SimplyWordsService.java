@@ -10,9 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
-import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -20,12 +17,10 @@ import androidx.core.app.NotificationCompat;
 public class SimplyWordsService extends Service {
 
     SummaryOverlay overlay;
-    public SimplyWordsService() {
-    }
+
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     @Override
@@ -38,21 +33,22 @@ public class SimplyWordsService extends Service {
             startForeground(1, new Notification());
         }
 
-        overlay = new SummaryOverlay(this);
-        overlay.show();
-
-
-
+        // Registers the broadcast receiver to receive text from other apps
         IntentFilter filter = new IntentFilter(Constants.ACTION_PROCESS_TEXT);
         registerReceiver(textReceiver, filter);
+
+        // Creates and shows the overlay
         overlay = new SummaryOverlay(this);
-        overlay.show();
+        overlay.showOverlay();
+        overlay.updateProgress(-1);
     }
+
     @Override
     public void onDestroy() {
-        unregisterReceiver(textReceiver);
-        // ... other cleanup ...
         super.onDestroy();
+
+        // Unregisters the broadcast receiver when the service is destroyed
+        unregisterReceiver(textReceiver);
     }
 
     @Override
@@ -71,24 +67,25 @@ public class SimplyWordsService extends Service {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
-                .setContentTitle("Service running")
-                .setContentText("Displaying over other apps")
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_message))
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .build();
         startForeground(2, notification);
     }
-    private BroadcastReceiver textReceiver = new BroadcastReceiver() {
+
+    private final BroadcastReceiver textReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Constants.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
                 String text = intent.getStringExtra(Constants.EXTRA_PROCESSED_TEXT);
                 if (overlay != null) {
                     overlay.updateText(text);
+                    overlay.updateProgress(100);
                 }
             }
         }
     };
-
 }

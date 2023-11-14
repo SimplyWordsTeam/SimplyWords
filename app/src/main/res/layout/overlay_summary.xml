@@ -4,20 +4,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="4dp"
+    android:padding="16dp"
     android:background="@null">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="30dp"
-        style="@style/ScreenBackground"
-        >
-
+        app:cardCornerRadius="16dp"
+        style="?attr/materialCardViewElevatedStyle">
 
         <LinearLayout
-            android:padding="10dp"
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -28,37 +26,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="200dp"
-                android:text="@string/lorem_ipsum"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="10dp"/>
+                android:text="@string/loading"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
-
-                >
+                android:paddingTop="16dp">
                 <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/overlay_summary_progress"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:indeterminate="true" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    >
+                    android:paddingStart="16dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/baseline_sync_24">
-
                     </ImageView>
                     <Button
                         android:id="@+id/window_close"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="Remove"
-                        android:layout_marginStart="5dp"
+                        android:text="@string/close"
+                        android:layout_marginStart="16dp"
                         />
                 </LinearLayout>
 
