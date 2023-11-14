@@ -18,11 +18,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import sg.edu.np.mad.simplywords.databinding.ActivityMainBinding;
@@ -39,28 +43,37 @@ public class MainActivity extends AppCompatActivity {
 
         checkOverlayPermission();
 
+        // Set the default fragment to home page
         BottomNavigationView mAppBar = findViewById(R.id.main_navigation);
+        mAppBar.setSelectedItemId(R.id.bottomAppBar_home);
+
+        HashMap<Integer, Fragment> fragments = new HashMap<>();
+        fragments.put(R.id.bottomAppBar_home, new HomePageFragment());
+        // TODO: Add fragments for other menu items
         mAppBar.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            String message;
-            if (id == R.id.bottomAppBar_simplify) {
-                message = "Simplify selected";
-            } else if (id == R.id.bottomAppBar_home) {
-                message = "Home selected";
-            } else {
-                message = "Settings selected";
-            }
 
-            Toast toast = Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
-            toast.show();
+            if (fragments.containsKey(id)) {
+                Fragment fragment = fragments.get(id);
+                assert fragment != null;
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_view, fragment)
+                        .commit();
+            } else {
+                String message;
+                if (id == R.id.bottomAppBar_simplify) {
+                    message = "Simplify selected";
+                } else if (id == R.id.bottomAppBar_home) {
+                    message = "Home selected";
+                } else {
+                    message = "Settings selected";
+                }
+
+                Toast toast = Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+                toast.show();
+            }
             return true;
         });
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
     public void checkOverlayPermission() {
