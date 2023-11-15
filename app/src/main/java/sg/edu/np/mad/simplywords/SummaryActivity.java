@@ -155,5 +155,6 @@ public class SummaryActivity extends AppCompatActivity {
         Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
         intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
         sendBroadcast(intent);
+        finish();
     }
 }
