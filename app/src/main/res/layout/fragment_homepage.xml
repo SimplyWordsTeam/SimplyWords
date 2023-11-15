@@ -11,7 +11,52 @@
         android:layout_height="match_parent"
         >
 
+        <LinearLayout
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start">
+                <ImageView
+                    android:id="@+id/topAppBar_logoSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/simplywords_logo"
+                    app:tint="@color/grey"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end|center_vertical"
+                android:layout_gravity="start">
+                <ImageView
+                    android:id="@+id/topAppBar_tutorial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/outline_info_24"
+                    style="@style/IconColor"
+                    android:paddingHorizontal="8dp"/>
+                <ImageView
+                    android:id="@+id/topAppBar_Profile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/baseline_account_circle_24"
+                    style="@style/IconColor"/>
 
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/homePage_WelcomeStatement"
@@ -19,7 +64,7 @@
             android:layout_height="wrap_content"
             style="@style/HeaderText"
             android:text="@string/welcomeStatement"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topAppBar"
             app:layout_constraintStart_toStartOf="parent"
             android:fontFamily="@font/roboto_medium"
             android:layout_marginTop="10dp"

@@ -18,50 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                android:gravity="center_vertical"
-                android:paddingTop="20dp"
-                android:paddingBottom="10dp"
-                android:baselineAligned="false">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="start">
-                    <ImageView
-                        android:id="@+id/topAppBar_logoSecondary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/simplywords_logo"
-                        app:tint="@color/grey"
-                        android:contentDescription="@string/app_name" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="end|center_vertical"
-                    android:layout_gravity="start">
-                    <ImageView
-                        android:id="@+id/topAppBar_tutorial"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/outline_info_24"
-                        style="@style/IconColor"
-                        android:paddingHorizontal="8dp"/>
-                    <ImageView
-                        android:id="@+id/topAppBar_Profile"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/baseline_account_circle_24"
-                        style="@style/IconColor"/>
 
-                </LinearLayout>
-            </LinearLayout>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_container_view"

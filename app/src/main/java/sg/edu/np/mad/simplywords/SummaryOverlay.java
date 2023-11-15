@@ -62,6 +62,9 @@ public class SummaryOverlay extends AppCompatActivity {
             }
         } catch (Exception e) {
             Log.d("SummaryOverlay", e.toString());
+
+
+
         }
     }
 

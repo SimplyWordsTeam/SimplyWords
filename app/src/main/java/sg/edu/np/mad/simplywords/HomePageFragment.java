@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import sg.edu.np.mad.simplywords.databinding.FragmentHomepageBinding;
 
+
 public class HomePageFragment extends Fragment {
 
     private FragmentHomepageBinding binding;
