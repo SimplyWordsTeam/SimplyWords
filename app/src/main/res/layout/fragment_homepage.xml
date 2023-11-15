@@ -230,7 +230,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="10dp">
-            <com.google.android.material.card.MaterialCardView
+
+                <com.google.android.material.card.MaterialCardView
                 android:id="@+id/homePage_CardRecents"
                 android:layout_height="wrap_content"
                 android:layout_width="300dp"
@@ -263,6 +264,12 @@
                         ></TextView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+                <Button
+                    android:id="@+id/home_debug_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Debug: Open Image Picker" />
 
             </LinearLayout>
         </ScrollView>
