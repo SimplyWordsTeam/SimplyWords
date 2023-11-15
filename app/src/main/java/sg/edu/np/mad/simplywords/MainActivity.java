@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         HashMap<Integer, Fragment> fragments = new HashMap<>();
         fragments.put(R.id.bottomAppBar_home, new HomePageFragment());
-
+        fragments.put(R.id.bottomAppBar_simplify,new SimplifyFragment());
         // TODO: Add fragments for other menu items
         mAppBar.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
