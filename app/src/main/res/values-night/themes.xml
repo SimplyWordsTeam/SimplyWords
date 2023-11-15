@@ -25,30 +25,30 @@
 
     <style name="HeaderText">
         <item name="android:textColor">@color/lightBeige</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">31dp</item>
     </style>
     <style name="HeaderTextContrasted">
         <item name="android:textColor">@color/lightBeige</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">31dp</item>
     </style>
 
     <style name="LabelText">
         <item name="android:textColor">@color/lightBeige</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">17dp</item>
     </style>
     <style name="LabelTextContrasted">
         <item name="android:textColor">@color/lightBeige</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">17dp</item>
     </style>
 
 
     <style name="descriptionText">
         <item name="android:textColor">@color/lightBeige</item>
-        <item name="android:textSize">10dp</item>
+        <item name="android:textSize">11dp</item>
     </style>
     <style name="descriptionTextContrasted">
         <item name="android:textColor">@color/lightBeige</item>
-        <item name="android:textSize">10dp</item>
+        <item name="android:textSize">11dp</item>
     </style>
 
     <style name="ScreenBackground"><item name="android:background">@color/white</item></style>

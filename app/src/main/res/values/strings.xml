@@ -23,7 +23,7 @@
     <string name="permission_message">We need a special permission to display over other apps. We\'ll use this to display the simplified text over the original text. If you do not grant this permission, you might not be able to make full use of this app.</string>
     <string name="notification_title">SimplyWords is running</string>
     <string name="notification_message">SimplyWords is currently running in the background.</string>
-
+    <string name="recents">Recents </string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

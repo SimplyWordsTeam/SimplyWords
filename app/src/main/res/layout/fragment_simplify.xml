@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:padding="16dp">
         <TextView
-            android:id="@+id/simplify_simplifyEditText"
+            android:id="@+id/simplify_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/simplify2"
@@ -24,7 +24,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:layout_constraintTop_toBottomOf="@id/simplify_simplifyEditText"
+            app:layout_constraintTop_toBottomOf="@id/simplify_TextView"
+            android:id="@+id/simplify_simplifyTextLayout"
+            style="@style/TextInput"
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
@@ -34,20 +36,60 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:id="@+id/simplify_simplifyTextInputEditText"
                 />
 
 
 
         </com.google.android.material.textfield.TextInputLayout>
-        <Button
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:backgroundTint="@color/brandColorGreen"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="HIHI"
-            app:layout_constraintTop_toBottomOf="@id/simplify_simplifyEditText"
-            app:layout_constraintStart_toStartOf="parent">
-        </Button>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/simplify_simplifyTextLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/simplify_simplifyButtonLayout">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_sync_24">
+            </ImageView>
+            <Button
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:backgroundTint="@color/secondaryBrandGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/simplify2"
+                android:textSize="16dp"
+                android:textColor="@color/offWhite"
+                ></Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/simplify_simplifyButtonLayout"
+            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/recentActivityLabel"
+            style="@style/LabelTextContrasted"
+            android:id="@+id/simplify_RecentActivityTextView"
+            >
+
+        </TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:backgroundTint="@color/lightBeige">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
