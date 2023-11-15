@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         HashMap<Integer, Fragment> fragments = new HashMap<>();
         fragments.put(R.id.bottomAppBar_home, new HomePageFragment());
         fragments.put(R.id.bottomAppBar_simplify,new SimplifyFragment());
+        fragments.put(R.id.bottomAppBar_history, new HistoryFragment());
         // TODO: Add fragments for other menu items
         mAppBar.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -61,16 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.fragment_container_view, fragment)
                         .commit();
             } else {
-                String message;
-                if (id == R.id.bottomAppBar_simplify) {
-                    message = "Simplify selected";
-                } else if (id == R.id.bottomAppBar_home) {
-                    message = "Home selected";
-                } else {
-                    message = "Settings selected";
-                }
-
-                Toast toast = Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(MainActivity.this, item.getTitle() + " pressed", Toast.LENGTH_SHORT);
                 toast.show();
             }
             return true;

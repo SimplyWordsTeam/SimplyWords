@@ -15,6 +15,14 @@
         android:title="@string/home"
         android:enabled="true"
         />
+
+    <item
+        android:id="@+id/bottomAppBar_history"
+        android:icon="@drawable/baseline_history_24"
+        android:title="@string/history"
+        android:enabled="true"
+        />
+
     <item
         android:id="@+id/bottomAppBar_settings"
         android:icon="@drawable/baseline_settings_24"

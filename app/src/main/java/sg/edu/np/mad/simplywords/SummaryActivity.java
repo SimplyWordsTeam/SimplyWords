@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -24,6 +25,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import sg.edu.np.mad.simplywords.model.Summary;
+import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
 
 public class SummaryActivity extends AppCompatActivity {
 
@@ -76,10 +80,16 @@ public class SummaryActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
+            SummaryViewModel mSummaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, data, response ->
             {
                 try {
-                    sendProcessedText(response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
+                    String summarizedText = response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
+
+                    Summary summary = new Summary((String) text, summarizedText);
+                    mSummaryViewModel.insertSummaries(summary);
+
+                    sendProcessedText(summarizedText);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -143,11 +153,7 @@ public class SummaryActivity extends AppCompatActivity {
         boolean hasOverlayPermission = checkOverlayPermission();
         if (hasOverlayPermission) {
             Intent intent = new Intent(this, SimplyWordsService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent);
-            } else {
-                startService(intent);
-            }
+            startForegroundService(intent);
         }
     }
 
