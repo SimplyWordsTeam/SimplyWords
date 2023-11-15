@@ -36,7 +36,7 @@ public class HomePageFragment extends Fragment {
         Button button = view.findViewById(R.id.home_debug_button);
         button.setOnClickListener(v -> {
             if (pickMedia != null) {
-                pickMedia.launch(new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
+                pickMedia.launch( new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE ).build());
             }
         });
 

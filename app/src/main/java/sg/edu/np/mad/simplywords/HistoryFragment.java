@@ -20,12 +20,10 @@ import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
  * create an instance of this fragment.
  */
 public class HistoryFragment extends Fragment {
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -60,7 +58,6 @@ public class HistoryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
         mSummaryViewModel = new ViewModelProvider(requireActivity()).get(SummaryViewModel.class);
     }
 
@@ -69,7 +66,6 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-
         RecyclerView recyclerView = view.findViewById(R.id.history_recycler);
         final SummaryAdapter adapter = new SummaryAdapter(new SummaryAdapter.SummaryDiff());
         recyclerView.setAdapter(adapter);
@@ -78,7 +74,6 @@ public class HistoryFragment extends Fragment {
             Log.d("HistoryFragment", "Summaries size: " + summaries.size());
             adapter.submitList(summaries);
         });
-
         return view;
     }
 }
