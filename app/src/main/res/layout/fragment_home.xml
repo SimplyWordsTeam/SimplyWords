@@ -174,8 +174,8 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/simplify_image"
-                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/work_in_progress_image"
+                        android:scaleType="fitCenter"
                         android:contentDescription="@string/lorem_ipsum"
                         android:background="@drawable/rounded_corners_bottom" />
 
@@ -189,7 +189,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/app_name"
+                            android:text="@string/coming_soon"
                             android:fontFamily="@font/roboto_medium"
                             style="@style/labelText"
                             />
@@ -197,7 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
                             android:layout_marginTop="8dp"
-                            android:text="@string/settings_description"
+                            android:text="@string/coming_soon_description"
                             android:textColor="?android:attr/textColorSecondary"
                             android:fontFamily="@font/roboto_medium_italic"
                             style="@style/descriptionText"
@@ -210,70 +210,5 @@
             </LinearLayout>
 
         </HorizontalScrollView>
-        <TextView
-            android:id="@+id/homePage_TextView_RecentsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/recentActivityLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homePage_FeaturesScroll"
-            android:layout_marginTop="10dp"
-            style="@style/labelText"
-            />
-
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homePage_TextView_RecentsLabel">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="10dp">
-
-                <com.google.android.material.card.MaterialCardView
-                android:id="@+id/homePage_CardRecents"
-                android:layout_height="wrap_content"
-                android:layout_width="300dp"
-                app:cardCornerRadius="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:checkable="true"
-                app:cardElevation="2dp"
-                style="@style/cardBackground"
-                android:layout_marginTop="10dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/summarised"
-                        android:fontFamily="@font/roboto_medium"
-                        style="@style/labelText" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/summarised"
-                        android:fontFamily="@font/roboto_medium_italic"
-                        style="@style/descriptionText" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-<!--                <Button-->
-<!--                    android:id="@+id/home_debug_button"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Debug: Open Image Picker" />-->
-
-            </LinearLayout>
-        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
