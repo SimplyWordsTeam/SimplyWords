@@ -39,7 +39,7 @@
             android:enabled="true"
             android:theme="@style/Theme.Transparent"
             android:exported="true"
-            android:label="@string/simplify">
+            android:label="@string/simplify_this">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />

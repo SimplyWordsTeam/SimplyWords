@@ -9,90 +9,111 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
-        <TextView
-            android:id="@+id/simplify_TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/simplify2"
-            style="@style/headerText"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </TextView>
+        android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintTop_toBottomOf="@id/simplify_TextView"
             android:id="@+id/simplify_simplifyTextLayout"
             style="@style/textInput"
-            app:boxCornerRadiusBottomStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
 
-            >
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp">
+
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/simplify_simplifyTextInputEditText"
-                />
-
-
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/simplify_simplifyButtonLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/simplify_simplifyTextLayout"
+            android:gravity="center_vertical|end"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/simplify_simplifyButtonLayout">
+            app:layout_constraintStart_toStartOf="@+id/simplify_simplifyTextLayout"
+            app:layout_constraintTop_toBottomOf="@id/simplify_simplifyTextLayout">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_sync_24">
-            </ImageView>
+                android:src="@drawable/baseline_sync_24"
+                android:paddingEnd="16dp"
+                tools:ignore="RtlSymmetry" />
+
             <Button
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:backgroundTint="@color/lightGreen"
+                android:id="@+id/simplify_text_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/simplify2"
-                android:textSize="16dp"
-                android:textColor="@color/offWhite"
-                ></Button>
+                android:backgroundTint="@color/lightGreen"
+                android:text="@string/simplify_text"
+                android:textColor="@color/offWhite" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            style="?attr/textAppearanceHeadline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/or_lowercased"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/simplify_simplifyButtonLayout"
+            app:layout_constraintStart_toStartOf="@+id/simplify_simplifyButtonLayout"
+            app:layout_constraintTop_toBottomOf="@+id/simplify_simplifyButtonLayout" />
+
+        <Button
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:id="@+id/simplify_photo_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/simplify_image"
+            app:icon="@drawable/baseline_insert_photo_24"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/simplify_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/simplify_photo_button"
+            app:layout_constraintTop_toBottomOf="@id/simplify_photo_button" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/simplify_simplifyButtonLayout"
-            android:orientation="vertical">
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recentActivityLabel"
-            style="@style/labelTextContrasted"
-            android:id="@+id/simplify_RecentActivityTextView"
-            >
-
-        </TextView>
-            <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/simplify_progress"
+            tools:layout_editor_absoluteX="16dp">
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <TextView
+                android:id="@+id/simplify_RecentActivityTextView"
+                style="?attr/textAppearanceTitleLarge"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:backgroundTint="@color/beige"
-                android:id="@+id/simplify_RecentActivityRecyclerView"
+                android:layout_height="wrap_content"
+                android:text="@string/recentActivityLabel">
 
-                >
+            </TextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/simplify_RecentActivityRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/beige">
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
