@@ -2,10 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="brandColorGreen">#19322a</color>
-    <color name="greywhite">#8E918F</color>
-    <color name="secondaryBrandGreen">#52796f</color>
-    <color name="lightBeige">#d8d5ce</color>
-    <color name="grey">#606161</color>
-    <color name="offWhite">#f1f2f2</color>
+    <color name="darkGreen">#19322A</color>
+    <color name="lightGray">#8E918F</color>
+    <color name="lightGreen">#52796f</color>
+    <color name="beige">#D8D5CE</color>
+    <color name="darkGray">#606161</color>
+    <color name="offWhite">#F1F2F2</color>
 </resources>

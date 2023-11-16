@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/CardBackground"
+        style="@style/cardBackground"
         app:cardCornerRadius="20dp"
 
         >
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/LabelText"
+                style="@style/labelText"
                 android:text="test">
             </TextView>
             <TextView

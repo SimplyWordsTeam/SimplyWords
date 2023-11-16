@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/simplywords_logo"
-                    app:tint="@color/grey"
+                    app:tint="@color/darkGray"
                     android:contentDescription="@string/app_name" />
             </LinearLayout>
             <LinearLayout
@@ -46,14 +46,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/outline_info_24"
-                    style="@style/IconColor"
+                    style="@style/iconColor"
                     android:paddingHorizontal="8dp"/>
                 <ImageView
                     android:id="@+id/topAppBar_Profile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/baseline_account_circle_24"
-                    style="@style/IconColor"/>
+                    style="@style/iconColor"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -62,7 +62,7 @@
             android:id="@+id/homePage_WelcomeStatement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/HeaderText"
+            style="@style/headerText"
             android:text="@string/welcomeStatement"
             app:layout_constraintTop_toBottomOf="@id/topAppBar"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +77,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePage_WelcomeStatement"
             android:layout_marginTop="10dp"
-            style="@style/LabelText"
+            style="@style/labelText"
             android:fontFamily="@font/roboto_medium"
 
             >
@@ -107,7 +107,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:checkable="true"
-                    style="@style/CardBackground"
+                    style="@style/cardBackground"
 
 
 
@@ -139,7 +139,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/app_name"
                                     android:fontFamily="@font/roboto_medium"
-                                    style="@style/LabelText"
+                                    style="@style/labelText"
                                     />
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -161,8 +161,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:checkable="true"
-                    android:outlineAmbientShadowColor="@color/brandColorGreen"
-                    style="@style/CardBackground"
+                    android:outlineAmbientShadowColor="@color/darkGreen"
+                    style="@style/cardBackground"
                     android:layout_marginStart="10dp">
                     <LinearLayout
                     android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/app_name"
                             android:fontFamily="@font/roboto_medium"
-                            style="@style/LabelText"
+                            style="@style/labelText"
                             />
                         <TextView
                             android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/homePage_FeaturesScroll"
             android:layout_marginTop="10dp"
-            style="@style/LabelText"
+            style="@style/labelText"
             />
 
 
@@ -240,7 +240,7 @@
                 android:focusable="true"
                 android:checkable="true"
                 app:cardElevation="2dp"
-                style="@style/CardBackground"
+                style="@style/cardBackground"
                 android:layout_marginTop="10dp"
                 >
                 <LinearLayout
@@ -253,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/summarised"
                         android:fontFamily="@font/roboto_medium"
-                        style="@style/LabelText"
+                        style="@style/labelText"
                         ></TextView>
                     <TextView
                         android:layout_width="wrap_content"

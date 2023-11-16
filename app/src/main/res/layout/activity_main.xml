@@ -38,7 +38,7 @@
         android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_app_bar"
-        style="@style/NavigationBar"
-
+        app:itemIconTint="@color/bottom_navigation_icon_color"
+        style="@style/navigationBar"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/simplify2"
-            style="@style/HeaderText"
+            style="@style/headerText"
             app:layout_constraintTop_toTopOf="parent">
 
         </TextView>
@@ -26,7 +26,7 @@
             android:layout_height="200dp"
             app:layout_constraintTop_toBottomOf="@id/simplify_TextView"
             android:id="@+id/simplify_simplifyTextLayout"
-            style="@style/TextInput"
+            style="@style/textInput"
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
@@ -57,7 +57,7 @@
             </ImageView>
             <Button
                 style="@style/Widget.Material3.Button.ElevatedButton"
-                android:backgroundTint="@color/secondaryBrandGreen"
+                android:backgroundTint="@color/lightGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simplify2"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/recentActivityLabel"
-            style="@style/LabelTextContrasted"
+            style="@style/labelTextContrasted"
             android:id="@+id/simplify_RecentActivityTextView"
             >
 
@@ -85,7 +85,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:backgroundTint="@color/lightBeige"
+                android:backgroundTint="@color/beige"
                 android:id="@+id/simplify_RecentActivityRecyclerView"
                 >
 
