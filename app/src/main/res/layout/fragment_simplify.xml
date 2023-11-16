@@ -87,6 +87,7 @@
                 android:layout_height="250dp"
                 android:backgroundTint="@color/beige"
                 android:id="@+id/simplify_RecentActivityRecyclerView"
+
                 >
 
             </androidx.recyclerview.widget.RecyclerView>

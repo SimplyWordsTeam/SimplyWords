@@ -13,10 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
+
 public class HomeFragment extends Fragment {
 
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    MaterialCardView simplyWordsCardView ;
+    MaterialCardView settingsCardView ;
 
+
+
+    public HomeFragment(){
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +42,18 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Button button = view.findViewById(R.id.home_debug_button);
-        button.setOnClickListener(v -> {
-            if (pickMedia != null) {
-                pickMedia.launch( new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE ).build());
+
+        view.findViewById(R.id.homePage_TextSimplifier_MaterialCardView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_view, new SimplifyFragment())
+                        .commit();
+                BottomNavigationView mAppBar= view.getRootView().findViewById(R.id.main_navigation);
+                mAppBar.setSelectedItemId(R.id.bottomAppBar_simplify);
             }
         });
-
-        return view;
+                return view;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

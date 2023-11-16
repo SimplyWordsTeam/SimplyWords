@@ -27,6 +27,10 @@
     <string name="notification_title">SimplyWords is running</string>
     <string name="notification_message">SimplyWords is currently running in the background.</string>
     <string name="recents">Recents </string>
+    <string name="simplify_description">View your past queries and configure our Simplifier tool here.</string>
+    <string name="settings_description">Change various settings for the app here.</string>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

@@ -28,7 +28,7 @@ public class SummaryAdapter extends ListAdapter<Summary, SummaryViewHolder> {
             @Override
             public void onClick(View view) {
                 if (onClickListener != null) {
-                    onClickListener.onClick(position, summary );
+                    onClickListener.onClick(holder.getAdapterPosition(), summary );
                 }            }
         });
     }

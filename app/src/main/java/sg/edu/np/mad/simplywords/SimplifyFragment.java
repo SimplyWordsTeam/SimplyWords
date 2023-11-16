@@ -34,6 +34,11 @@ public class SimplifyFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private SummaryViewModel mSummaryViewModel;
+    private FragmentChangeListenerInterface listener;
+
+
+    public SimplifyFragment(){
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,7 +121,6 @@ public class SimplifyFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mSummaryViewModel = new ViewModelProvider(requireActivity()).get(SummaryViewModel.class);
-
 
     }
 

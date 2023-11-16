@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,7 +21,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import sg.edu.np.mad.simplywords.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentChangeListenerInterface{
+
+
+    BottomNavigationView mAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,31 +34,38 @@ public class MainActivity extends AppCompatActivity {
 
         checkOverlayPermission();
 
+
         // Set the default fragment to home page
-        BottomNavigationView mAppBar = findViewById(R.id.main_navigation);
+        mAppBar = findViewById(R.id.main_navigation);
         mAppBar.setSelectedItemId(R.id.bottomAppBar_home);
 
         HashMap<Integer, Fragment> fragments = new HashMap<>();
         fragments.put(R.id.bottomAppBar_home, new HomeFragment());
         fragments.put(R.id.bottomAppBar_simplify,new SimplifyFragment());
-        fragments.put(R.id.bottomAppBar_history, new HistoryFragment());
+//        fragments.put(R.id.bottomAppBar_history, new HistoryFragment());
+
+
         // TODO: Add fragments for other menu items
         mAppBar.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-
             if (fragments.containsKey(id)) {
                 Fragment fragment = fragments.get(id);
                 assert fragment != null;
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_view, fragment)
                         .commit();
+
             } else {
                 Toast toast = Toast.makeText(MainActivity.this, item.getTitle() + " pressed", Toast.LENGTH_SHORT);
                 toast.show();
             }
             return true;
         });
+
     }
+
+
+
 
     public void checkOverlayPermission() {
         AtomicBoolean hasPermission = new AtomicBoolean(false);
@@ -90,4 +101,24 @@ public class MainActivity extends AppCompatActivity {
 
         hasPermission.get();
     }
+    @Override
+    public void onFragmentChange(String fragmentTag) {
+        Fragment fragment = getFragmentByTag(fragmentTag);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_view, fragment)
+                .commit();
+    }
+
+    private Fragment getFragmentByTag(String tag) {
+        // Logic to return the right fragment based on tag
+
+        return new Fragment();
+    }
+
+
+    public BottomNavigationView getBottomNavigationView(){
+        return mAppBar;
+    }
+
+
 }
