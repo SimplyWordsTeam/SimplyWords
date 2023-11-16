@@ -12,12 +12,18 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 
 import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.ViewModelProvider;
 
+import sg.edu.np.mad.simplywords.model.Summary;
+import sg.edu.np.mad.simplywords.repo.SummaryRepository;
 import sg.edu.np.mad.simplywords.util.LLMInteraction;
+import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
 
 public class SimplyWordsService extends Service {
     SummaryOverlay overlay;
+    private SummaryRepository mRepository;
 
+    SummaryViewModel mSummaryViewModel;
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -29,7 +35,7 @@ public class SimplyWordsService extends Service {
         super.onCreate();
 
         startCustomForeground();
-
+        mRepository= new SummaryRepository(getApplication());
         // Registers the broadcast receiver to receive text from other apps
         IntentFilter overlayDestructionFilter = new IntentFilter("overlay_destroyed");
         registerReceiver(receiver, overlayDestructionFilter);
@@ -47,15 +53,18 @@ public class SimplyWordsService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
+
+
         // Creates and shows the overlay
         overlay = new SummaryOverlay(this);
         overlay.showOverlay();
         overlay.updateProgress(-1);
-
         String originalText = intent.getStringExtra(Constants.EXTRA_ORIGINAL_TEXT);
         new LLMInteraction().generateSummarizedText(this, originalText, new LLMInteraction.ResponseCallback() {
             @Override
             public void onSuccess(String summarizedText) {
+                Summary summary = new Summary((String) summarizedText, summarizedText);
+                mRepository.insertSummaries(summary);
                 overlay.updateText(summarizedText);
                 overlay.updateProgress(100);
             }
@@ -66,7 +75,6 @@ public class SimplyWordsService extends Service {
                 overlay.updateProgress(100);
             }
         });
-
         return START_NOT_STICKY;
     }
 

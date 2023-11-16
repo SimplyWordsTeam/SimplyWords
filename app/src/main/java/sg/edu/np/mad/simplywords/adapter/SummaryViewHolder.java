@@ -24,6 +24,9 @@ class SummaryViewHolder extends RecyclerView.ViewHolder {
         createdAtTextView = itemView.findViewById(R.id.item_summary_created_at);
         originalTextView = itemView.findViewById(R.id.item_summary_original);
         summarizedTextView = itemView.findViewById(R.id.item_summary_summarized);
+
+
+
     }
 
     public void bind(long createdAt, String originalText, String summarizedText) {
