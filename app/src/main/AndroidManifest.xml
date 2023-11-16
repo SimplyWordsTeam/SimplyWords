@@ -22,7 +22,7 @@
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="specialUse"
-            android:theme="@style/Theme.SimplyWords"/>
+            android:theme="@style/Theme.SimplyWords" />
 
         <activity
             android:name=".MainActivity"
@@ -37,9 +37,9 @@
         <activity
             android:name=".SummaryActivity"
             android:enabled="true"
-            android:theme="@style/Theme.Transparent"
             android:exported="true"
-            android:label="@string/simplify_this">
+            android:label="@string/simplify_this"
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
