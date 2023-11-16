@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageFragment">
+    tools:context=".HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -248,20 +248,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/summarised"
                         android:fontFamily="@font/roboto_medium"
-                        style="@style/labelText"
-                        ></TextView>
+                        style="@style/labelText" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/summarised"
                         android:fontFamily="@font/roboto_medium_italic"
-                        style="@style/descriptionText"
-                        ></TextView>
+                        style="@style/descriptionText" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
