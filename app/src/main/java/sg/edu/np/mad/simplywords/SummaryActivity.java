@@ -6,18 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import sg.edu.np.mad.simplywords.model.Summary;
-import sg.edu.np.mad.simplywords.util.LLMInteraction;
-import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
 
 public class SummaryActivity extends AppCompatActivity {
 
@@ -32,30 +27,30 @@ public class SummaryActivity extends AppCompatActivity {
         Log.d("MainActivity", "Text: " + text + " Read Only: " + readOnly);
 
         if (text != null) {
-            startService();
+            startService(text);
 
-            SummaryViewModel mSummaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
-            Toast.makeText(this, "Simplifying your text...", Toast.LENGTH_LONG).show();
-            new LLMInteraction().generateSummarizedText(this, text, new LLMInteraction.ResponseCallback() {
-                @Override
-                public void onSuccess(String summarizedText) {
-                    Summary summary = new Summary((String) text, summarizedText);
-                    mSummaryViewModel.insertSummaries(summary);
-
-                    sendProcessedText(summarizedText);
-                }
-
-                @Override
-                public void onError(Exception exception) {
-                    // Display an alert dialog with the error
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
-                    builder.setMessage(exception.getMessage())
-                            .setTitle("Error")
-                            .setPositiveButton("OK", (dialog, id) -> finish());
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            });
+//            SummaryViewModel mSummaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
+//            Toast.makeText(this, "Simplifying your text...", Toast.LENGTH_LONG).show();
+//            new LLMInteraction().generateSummarizedText(this, text, new LLMInteraction.ResponseCallback() {
+//                @Override
+//                public void onSuccess(String summarizedText) {
+//                    Summary summary = new Summary((String) text, summarizedText);
+//                    mSummaryViewModel.insertSummaries(summary);
+//
+//                    sendProcessedText(summarizedText);
+//                }
+//
+//                @Override
+//                public void onError(Exception exception) {
+//                    // Display an alert dialog with the error
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
+//                    builder.setMessage(exception.getMessage())
+//                            .setTitle("Error")
+//                            .setPositiveButton("OK", (dialog, id) -> finish());
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }
+//            });
         }
     }
 
@@ -94,18 +89,29 @@ public class SummaryActivity extends AppCompatActivity {
         return hasPermission.get();
     }
 
-    public void startService() {
+    public void startService(CharSequence originalText) {
         boolean hasOverlayPermission = checkOverlayPermission();
         if (hasOverlayPermission) {
             Intent intent = new Intent(this, SimplyWordsService.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Constants.EXTRA_ORIGINAL_TEXT, originalText.toString());
             startForegroundService(intent);
         }
-    }
-
-    private void sendProcessedText(String processedText) {
-        Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
-        intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
-        sendBroadcast(intent);
         finish();
     }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        Intent intent = new Intent("overlay_destroyed");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    //    private void sendProcessedText(String processedText) {
+//        Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
+//        intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
+//        sendBroadcast(intent);
+//        finish();
+//    }
 }
