@@ -36,9 +36,13 @@ public class LLMInteraction {
                             .put(
                                     new JSONObject()
                                             .put("role", "system")
-                                            .put("content", "You are part of a system and you are tasked to simplify language of a text input. You are expected to give an output of the summarized text, and the output will be directly shown to the user; therefore, do not give any comments, remarks, opinions, or analysis on the task you are given to do.\n" +
+                                            .put("content", "You are part of a system and you are tasked to simplify language of a text input. You are expected to give an output of the rewritten text, and the output will be directly shown to the user; therefore, do not give any comments, remarks, opinions, or analysis on the task you are given to do.\n" +
                                                     "\n" +
                                                     "The target audience that you will be rewriting the text input for are seniors who are not tech literate. They have trouble understanding user interfaces because of the complex language used in them, the confusing layouts, and complicated iconography. Your job is to take complicated phrases in the text input and simplify them such that it is easy for them to understand. Jargon, technical terms, and metaphors are common bottlenecks for the target audience. Avoid changing information that would change the meaning of the text input, but synonyms are acceptable.\n" +
+                                                    "\n" +
+                                                    "If there is essential information that cannot be simplified, fit it into the rewritten simplified text as best you can.\n" +
+                                                    "\n" +
+                                                    "Only if there is incoherent information such that a simplification cannot be made, reply exactly with '[ERRAMBIG]' as the only thing in first line. Make a new line, then explain why in technical detail after adding '[REASON_TECHNICAL] = ' before your explanation. Then, add a new line, and simplify the technical reason so that the target audience can understand it after adding '[REASON] = ' before your explanation.\n" +
                                                     "\n" +
                                                     "The following demonstrate the original (O) and simplified (S) variants of sentences you are expected to replicate:\n" +
                                                     "\n" +
@@ -55,6 +59,7 @@ public class LLMInteraction {
                             )
             );
             data.put("temperature", 1.25);
+            Log.d("LLMInteraction", "JSON object created: " + data);
         } catch (JSONException e) {
             Log.d("LLMInteraction", "Error while creating JSON object: " + e.getMessage());
             callback.onError(e);
@@ -63,8 +68,16 @@ public class LLMInteraction {
         {
             try {
                 String summarizedText = response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
+
+                if (summarizedText.contains("[ERRAMBIG]")) {
+                    String technicalReason = summarizedText.substring(summarizedText.indexOf("[REASON_TECHNICAL] = ") + 21, summarizedText.indexOf("[REASON] = "));
+                    String friendlyReason = summarizedText.substring(summarizedText.indexOf("[REASON] = ") + 11);
+                    Log.e("LLMInteraction", "ERRAMBIG response: " + technicalReason);
+                    throw new Exception(friendlyReason);
+                }
+
                 callback.onSuccess(summarizedText);
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 Log.d("LLMInteraction", "Error while performing request: " + e.getMessage());
                 callback.onError(e);
             }
