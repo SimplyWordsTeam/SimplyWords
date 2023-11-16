@@ -30,6 +30,7 @@
     <string name="recents">Recents </string>
     <string name="simplify_description">View your past queries and configure our Simplifier tool here.</string>
     <string name="settings_description">Change various settings for the app here.</string>
+    <string name="simplify_input_hint">Paste/Type what you want to simplify here...</string>
 
 
     <string name="lorem_ipsum">

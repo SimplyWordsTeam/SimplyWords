@@ -121,12 +121,16 @@ public class SimplifyFragment extends Fragment {
                 TextInputEditText simplifyEditText= getView().findViewById(R.id.simplify_simplifyTextInputEditText);
                 CharSequence text=simplifyEditText.getText().toString();
                 if(text!=null){
+                    toggleState(-1);
                     new LLMInteraction().generateSummarizedText(requireContext(), text, new LLMInteraction.ResponseCallback() {
                         @Override
                         public void onSuccess(String summarizedText) {
                             Summary summary = new Summary((String) text, summarizedText);
                             mSummaryViewModel.insertSummaries(summary);
                             sendProcessedText(summarizedText);
+                            toggleState(100);
+                            simplifyEditText.setText("");
+
                         }
 
                         @Override
