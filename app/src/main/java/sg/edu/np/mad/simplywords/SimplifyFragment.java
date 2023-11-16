@@ -2,6 +2,7 @@ package sg.edu.np.mad.simplywords;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -110,6 +112,41 @@ public class SimplifyFragment extends Fragment {
                 });
 
             }
+
+        });
+
+        view.findViewById(R.id.simplify_text_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextInputEditText simplifyEditText= getView().findViewById(R.id.simplify_simplifyTextInputEditText);
+                CharSequence text=simplifyEditText.getText().toString();
+                if(text!=null){
+                    new LLMInteraction().generateSummarizedText(requireContext(), text, new LLMInteraction.ResponseCallback() {
+                        @Override
+                        public void onSuccess(String summarizedText) {
+                            Summary summary = new Summary((String) text, summarizedText);
+                            mSummaryViewModel.insertSummaries(summary);
+                            sendProcessedText(summarizedText);
+                        }
+
+                        @Override
+                        public void onError(Exception exception) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                            builder.setMessage(exception.getMessage())
+                                    .setTitle("Error")
+                                    .setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                    });
+                }
+                else{
+
+                }
+
+
+
+            }
         });
 
         Button button = view.findViewById(R.id.simplify_photo_button);
@@ -188,6 +225,10 @@ public class SimplifyFragment extends Fragment {
             }
         });
     }
-
+    private void sendProcessedText(String processedText) {
+        Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
+        intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
+        requireContext().sendBroadcast(intent);
+    }
 
 }

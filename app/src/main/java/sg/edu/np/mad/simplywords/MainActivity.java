@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,7 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import sg.edu.np.mad.simplywords.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements FragmentChangeListenerInterface{
+public class MainActivity extends AppCompatActivity{
 
 
     BottomNavigationView mAppBar;
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
 
         HashMap<Integer, Fragment> fragments = new HashMap<>();
         fragments.put(R.id.bottomAppBar_home, new HomeFragment());
-        fragments.put(R.id.bottomAppBar_simplify,new SimplifyFragment());
+        fragments.put(R.id.bottomAppBar_simplify, new SimplifyFragment());
 //        fragments.put(R.id.bottomAppBar_history, new HistoryFragment());
 
 
@@ -62,8 +66,19 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
             return true;
         });
 
-    }
 
+        getWindow().getDecorView().setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @NonNull
+            @Override
+            public WindowInsets onApplyWindowInsets(@NonNull View view, @NonNull WindowInsets windowInsets) {
+                WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets, view);
+                boolean isKeyboardVisible = insetsCompat.isVisible(WindowInsetsCompat.Type.ime());
+                mAppBar.setVisibility(isKeyboardVisible ? View.GONE : View.VISIBLE);
+
+                return windowInsets;
+            }
+        });
+    }
 
 
 
@@ -101,24 +116,11 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
 
         hasPermission.get();
     }
-    @Override
-    public void onFragmentChange(String fragmentTag) {
-        Fragment fragment = getFragmentByTag(fragmentTag);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_view, fragment)
-                .commit();
-    }
-
-    private Fragment getFragmentByTag(String tag) {
-        // Logic to return the right fragment based on tag
-
-        return new Fragment();
-    }
-
-
     public BottomNavigationView getBottomNavigationView(){
         return mAppBar;
     }
+
+
 
 
 }

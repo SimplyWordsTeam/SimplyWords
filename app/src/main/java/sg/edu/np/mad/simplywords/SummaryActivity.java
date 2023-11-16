@@ -41,7 +41,6 @@ public class SummaryActivity extends AppCompatActivity {
                 public void onSuccess(String summarizedText) {
                     Summary summary = new Summary((String) text, summarizedText);
                     mSummaryViewModel.insertSummaries(summary);
-
                     sendProcessedText(summarizedText);
                 }
 
