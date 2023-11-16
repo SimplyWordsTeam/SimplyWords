@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:maxHeight="200dp"
                 android:text="@string/loading"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:scrollbars="vertical"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,12 +41,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
-                    android:indeterminate="true" />
+                    android:indeterminate="true"
+                    app:trackCornerRadius="@dimen/cardview_default_radius"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    tools:ignore="RtlSymmetry">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

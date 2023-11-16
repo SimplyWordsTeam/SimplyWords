@@ -3,14 +3,12 @@
     <string name="simplify_this">Simplify this</string>
     <string name="simplify_text">Simplify text</string>
     <string name="simplify_image">Simplify a photo</string>
-    <string name="title_activity_main">MainActivity</string>"
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="title_activity_main">MainActivity</string>
     <string name="or_lowercased">or</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="profile">Profile</string>
-    <string name="welcomeStatement">Welcome User! Ready to Simplify?</string>
+    <string name="welcomeStatement">Welcome to SimplyWords! What do you want to do?</string>
     <string name="featuresLabel">Features to Explore</string>
     <string name="recentActivityLabel">Recent Activity</string>
     <string name="summarised">Summarised</string>
@@ -21,19 +19,19 @@
     <string name="home">Home</string>
     <string name="history">History</string>
     <string name="original_text">Original text</string>
-    <string name="summarized_text">Summarised text</string>
+    <string name="simplified_text">Simplified text</string>
     <string name="content_description_home">Homepage of SimplyWords</string>
     <string name="permission_title">Permission required</string>
     <string name="permission_message">We need a special permission to display over other apps. We\'ll use this to display the simplified text over the original text. If you do not grant this permission, you might not be able to make full use of this app.</string>
     <string name="notification_title">SimplyWords is running</string>
     <string name="notification_message">SimplyWords is currently running in the background.</string>
-    <string name="recents">Recents </string>
+    <string name="recents">Recents</string>
     <string name="simplify_description">View your past queries and configure our Simplifier tool here.</string>
     <string name="settings_description">Change various settings for the app here.</string>
-    <string name="simplify_input_hint">Paste/Type what you want to simplify here...</string>
+    <string name="simplify_input_hint" tools:ignore="TypographyEllipsis">Text to simplify</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="coming_soon_description">More features coming soon!</string>
-
+    <string name="error_enter_text">Please enter some text to simplify.</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

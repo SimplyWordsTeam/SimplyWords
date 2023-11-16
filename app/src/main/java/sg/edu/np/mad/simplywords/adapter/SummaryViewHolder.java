@@ -31,7 +31,7 @@ class SummaryViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(long createdAt, String originalText, String summarizedText) {
         Date date = new Date(createdAt);
-        String formattedDate = new SimpleDateFormat("dd MMM yyyy (HH:mm a)", Locale.ENGLISH).format(date);
+        String formattedDate = new SimpleDateFormat("dd MMM yyyy (h:mm a)", Locale.ENGLISH).format(date);
         createdAtTextView.setText(formattedDate);
         originalTextView.setText(originalText);
         summarizedTextView.setText(summarizedText);

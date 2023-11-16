@@ -24,16 +24,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import sg.edu.np.mad.simplywords.adapter.SummaryAdapter;
 import sg.edu.np.mad.simplywords.model.Summary;
@@ -41,11 +41,11 @@ import sg.edu.np.mad.simplywords.util.LLMInteraction;
 import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
 
 public class SimplifyFragment extends Fragment {
-    private SummaryViewModel mSummaryViewModel;
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     Button simplifyTextButton;
     Button simplifyPhotoButton;
     LinearProgressIndicator progressIndicator;
+    private SummaryViewModel mSummaryViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,96 +65,87 @@ public class SimplifyFragment extends Fragment {
         simplifyPhotoButton = view.findViewById(R.id.simplify_photo_button);
         progressIndicator = view.findViewById(R.id.simplify_progress);
 
-        adapter.setOnClickListener(new SummaryAdapter.OnClickListener() {
-            @Override
-            public void onClick(int position, Summary model) {
-                // inflate the layout of the popup window
-                LayoutInflater inflater = (LayoutInflater)
-                        requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.floating_full_summary, null);
+        // Configure the adapter to show the popup window when the user clicks on a summary
+        adapter.setOnClickListener((position, model) -> {
+            // Inflate the layout of the popup window
+            LayoutInflater popupInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View popupView = popupInflater.inflate(R.layout.floating_full_summary, null);
 
-                // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+            // Create the popup window
+            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            boolean focusable = true; // Let taps outside the popup also dismiss it
+            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-                // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            // Show the popup window
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                TextView textView = popupWindow.getContentView().findViewById(R.id.floating_summary_MainTextView);
-                textView.setText(model.getOriginalText());
+            TextView textView = popupWindow.getContentView().findViewById(R.id.floating_summary_MainTextView);
+            textView.setText(model.getSummarizedText());
 
-                //change the text to the original when the original button is pressed.
-                popupWindow.getContentView().findViewById(R.id.floating_summary_OriginalButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        TextView textView = popupWindow.getContentView().findViewById(R.id.floating_summary_MainTextView);
+            // Toggle between the original and simplified text when the user interacts with the tab layout
+            ((TabLayout) popupWindow.getContentView().findViewById(R.id.floating_summary_TabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    if (Objects.equals(tab.getText(), getString(R.string.original_text))) {
                         textView.setText(model.getOriginalText());
-                    }
-                });
-                //change the text to the simplified when the simplified button is pressed.
-                popupWindow.getContentView().findViewById(R.id.floating_summary_SimplifyButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        TextView textView = popupWindow.getContentView().findViewById(R.id.floating_summary_MainTextView);
+                    } else {
                         textView.setText(model.getSummarizedText());
                     }
-                });
+                }
 
-                // dismiss the popup window when touched
-                popupWindow.getContentView().findViewById(R.id.floating_summary_ExitImageView).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
-                    }
-                });
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    // Do nothing
+                }
 
-            }
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                    // Do nothing
+                }
+            });
+
+            // Dismiss the popup window when the close image is touched
+            popupWindow.getContentView().findViewById(R.id.floating_summary_ExitImageView).setOnClickListener(view12 -> popupWindow.dismiss());
 
         });
 
-        view.findViewById(R.id.simplify_text_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextInputEditText simplifyEditText= getView().findViewById(R.id.simplify_simplifyTextInputEditText);
-                CharSequence text=simplifyEditText.getText().toString();
-                if(text!=null){
-                    toggleState(-1);
-                    new LLMInteraction().generateSummarizedText(requireContext(), text, new LLMInteraction.ResponseCallback() {
-                        @Override
-                        public void onSuccess(String summarizedText) {
-                            Summary summary = new Summary((String) text, summarizedText);
-                            mSummaryViewModel.insertSummaries(summary);
-                            sendProcessedText(summarizedText);
-                            toggleState(100);
-                            simplifyEditText.setText("");
-
-                        }
-
-                        @Override
-                        public void onError(Exception exception) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-                            builder.setMessage(exception.getMessage())
-                                    .setTitle("Error")
-                                    .setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        }
-                    });
-                }
-                else{
-
-                }
-
-
-
+        // Handle processing manually entered text
+        view.findViewById(R.id.simplify_text_button).setOnClickListener(view1 -> {
+            TextInputEditText simplifyEditText = view.findViewById(R.id.simplify_simplifyTextInputEditText);
+            String text = Objects.requireNonNull(simplifyEditText.getText()).toString();
+            if (text.trim().isEmpty()) {
+                Toast.makeText(getContext(), getString(R.string.error_enter_text), Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            toggleState(-1);
+            new LLMInteraction().generateSummarizedText(requireContext(), text, new LLMInteraction.ResponseCallback() {
+                @Override
+                public void onSuccess(String summarizedText) {
+                    Summary summary = new Summary(text, summarizedText);
+                    mSummaryViewModel.insertSummaries(summary);
+                    sendProcessedText(summarizedText);
+                    toggleState(100);
+                    simplifyEditText.setText("");
+                }
+
+                @Override
+                public void onError(Exception exception) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                    builder.setMessage(exception.getMessage())
+                            .setTitle("Error")
+                            .setPositiveButton("OK", (dialog, id) -> {
+                                dialog.dismiss();
+                                toggleState(0);
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
         });
 
-        Button button = view.findViewById(R.id.simplify_photo_button);
-        button.setOnClickListener(v -> {
+        simplifyPhotoButton.setOnClickListener(v -> {
             if (pickMedia != null) {
                 pickMedia.launch(new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
             }
@@ -229,6 +220,7 @@ public class SimplifyFragment extends Fragment {
             }
         });
     }
+
     private void sendProcessedText(String processedText) {
         Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
         intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);

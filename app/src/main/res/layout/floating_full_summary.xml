@@ -1,93 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:backgroundTint="@color/offWhite"
-        app:cardCornerRadius="20dp"
         android:elevation="10dp"
-        >
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical"
-            android:padding="15dp"
-
-            >
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/floating_summary_Buttons_LinearLayout"
-            android:padding="10dp"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Simplified"
-                android:id="@+id/floating_summary_SimplifyButton"
-                >
-            </com.google.android.material.button.MaterialButton>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Original"
-                android:id="@+id/floating_summary_OriginalButton"
-                >
-            </com.google.android.material.button.MaterialButton>
 
             <LinearLayout
+                android:id="@+id/floating_summary_Buttons_LinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|end"
-                >
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:paddingBottom="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/floating_summary_TabLayout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_close_24"
-                    android:id="@+id/floating_summary_ExitImageView"
-                    ></ImageView>
+                    android:layout_weight="1"
+                    android:background="@color/offWhite">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/simplified_text" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/original_text" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|end"
+                    android:paddingStart="32dp"
+                    tools:ignore="RtlSymmetry">
+
+                    <ImageView
+                        android:id="@+id/floating_summary_ExitImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_close_24" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/floating_summary_Buttons_LinearLayout"
                 android:orientation="vertical"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/floating_summary_Buttons_LinearLayout">
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="250dp">
 
                     <TextView
+                        android:id="@+id/floating_summary_MainTextView"
+                        style="?attr/textAppearanceBodyLarge"
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:textSize="13dp"
                         android:text="@string/lorem_ipsum"
-                        android:id="@+id/floating_summary_MainTextView"
-
-                        >
-                    </TextView>
+                        android:textSize="13sp" />
 
 
                 </androidx.core.widget.NestedScrollView>

@@ -2,6 +2,7 @@ package sg.edu.np.mad.simplywords;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -38,6 +39,9 @@ public class SummaryOverlay extends AppCompatActivity {
 
         // Close the overlay when the close button is clicked
         view.findViewById(R.id.window_close).setOnClickListener(v -> hideOverlay());
+
+        // Enable scrolling for the text view
+        ((TextView) view.findViewById(R.id.overlay_summary_text)).setMovementMethod(new ScrollingMovementMethod());
     }
 
     public void showOverlay() {

@@ -12,18 +12,23 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import sg.edu.np.mad.simplywords.model.Summary;
 import sg.edu.np.mad.simplywords.repo.SummaryRepository;
 import sg.edu.np.mad.simplywords.util.LLMInteraction;
-import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
 
 public class SimplyWordsService extends Service {
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("overlay_destroyed".equals(intent.getAction())) {
+                stopSelf();
+            }
+        }
+    };
     SummaryOverlay overlay;
     private SummaryRepository mRepository;
 
-    SummaryViewModel mSummaryViewModel;
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -35,7 +40,7 @@ public class SimplyWordsService extends Service {
         super.onCreate();
 
         startCustomForeground();
-        mRepository= new SummaryRepository(getApplication());
+        mRepository = new SummaryRepository(getApplication());
         // Registers the broadcast receiver to receive text from other apps
         IntentFilter overlayDestructionFilter = new IntentFilter("overlay_destroyed");
         registerReceiver(receiver, overlayDestructionFilter);
@@ -53,8 +58,6 @@ public class SimplyWordsService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-
-
         // Creates and shows the overlay
         overlay = new SummaryOverlay(this);
         overlay.showOverlay();
@@ -63,7 +66,7 @@ public class SimplyWordsService extends Service {
         new LLMInteraction().generateSummarizedText(this, originalText, new LLMInteraction.ResponseCallback() {
             @Override
             public void onSuccess(String summarizedText) {
-                Summary summary = new Summary((String) summarizedText, summarizedText);
+                Summary summary = new Summary(originalText, summarizedText);
                 mRepository.insertSummaries(summary);
                 overlay.updateText(summarizedText);
                 overlay.updateProgress(100);
@@ -96,13 +99,4 @@ public class SimplyWordsService extends Service {
                 .build();
         startForeground(2, notification);
     }
-
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if ("overlay_destroyed".equals(intent.getAction())) {
-                stopSelf();
-            }
-        }
-    };
 }
