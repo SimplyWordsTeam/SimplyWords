@@ -30,32 +30,32 @@
                 <ImageView
                     android:id="@+id/topAppBar_logoSecondary"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:src="@drawable/simplywords_logo"
                     app:tint="@color/darkGray"
                     android:contentDescription="@string/app_name" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="end|center_vertical"
-                android:layout_gravity="start">
-                <ImageView
-                    android:id="@+id/topAppBar_tutorial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/outline_info_24"
-                    style="@style/iconColor"
-                    android:paddingHorizontal="8dp"/>
-                <ImageView
-                    android:id="@+id/topAppBar_Profile"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/baseline_account_circle_24"
-                    style="@style/iconColor"/>
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="end|center_vertical"-->
+<!--                android:layout_gravity="start">-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/topAppBar_tutorial"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/outline_info_24"-->
+<!--                    style="@style/iconColor"-->
+<!--                    android:paddingHorizontal="8dp"/>-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/topAppBar_Profile"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:src="@drawable/baseline_account_circle_24"-->
+<!--                    style="@style/iconColor"/>-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
         </LinearLayout>
 
         <TextView
