@@ -25,8 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:name="sg.edu.np.mad.simplywords.HomePageFragment"
-                tools:layout="@layout/fragment_homepage" />
+                android:name="sg.edu.np.mad.simplywords.HomeFragment"
+                tools:layout="@layout/fragment_home" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -38,7 +38,7 @@
         android:elevation="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_app_bar"
-        style="@style/NavigationBar"
-
+        app:itemIconTint="@color/bottom_navigation_icon_color"
+        style="@style/navigationBar"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

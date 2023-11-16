@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class HomePageFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
@@ -32,7 +32,7 @@ public class HomePageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homepage, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         Button button = view.findViewById(R.id.home_debug_button);
         button.setOnClickListener(v -> {
             if (pickMedia != null) {
