@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import sg.edu.np.mad.simplywords.NetworkQueue;
+import sg.edu.np.mad.simplywords.BuildConfig;
 
 public class LLMInteraction {
     public interface ResponseCallback {
@@ -25,6 +26,7 @@ public class LLMInteraction {
 
     public void generateSummarizedText(Context context, CharSequence originalText, ResponseCallback callback) {
         String URL = "https://api.openai.com/v1/chat/completions";
+        String API_KEY = BuildConfig.OPENAI_KEY;
 
         // Creates the JSON object to be sent to the API
         JSONObject data = new JSONObject();
@@ -84,7 +86,7 @@ public class LLMInteraction {
         }, callback::onError) {
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "Bearer " + "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");
+                params.put("Authorization", "Bearer " + API_KEY);
                 return params;
             }
         };

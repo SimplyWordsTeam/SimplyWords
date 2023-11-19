@@ -14,7 +14,10 @@ Based on this, we decided to focus on the elderly in Singapore. We found that ma
 
 ## Getting started
 
-0. We use the OpenAI API to simplify and rewrite text. You will need to create an account and get an API key from the [OpenAI Platform](https://platform.openai.com/). If paid less than $5, there is significant chance that rate limits will be hit.
+0. We use the OpenAI API to simplify and rewrite text. You will need to create an account and get an API key from the [OpenAI Platform](https://platform.openai.com/). If paid less than $5, there is significant chance that rate limits will be hit. Create a `env.properties` file like so:
+   ```
+   OPENAI_KEY="YOUR API KEY HERE"
+   ```
 
 1. Clone the repository to a desired location on your computer:
 

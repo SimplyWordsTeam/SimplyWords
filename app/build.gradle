@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
 }
 
+def env = new Properties()
+env.load(new FileInputStream(rootProject.file("env.properties")))
 android {
     namespace 'sg.edu.np.mad.simplywords'
     compileSdk 34
@@ -14,6 +16,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "OPENAI_KEY", env["OPENAI_KEY"])
     }
 
     buildTypes {
@@ -28,6 +32,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 }
 
