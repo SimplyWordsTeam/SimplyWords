@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +13,6 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,8 +20,6 @@
             android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-
             <LinearLayout
                 android:id="@+id/floating_summary_Buttons_LinearLayout"
                 android:layout_width="match_parent"
@@ -32,19 +28,16 @@
                 android:paddingBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/floating_summary_TabLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/offWhite">
-
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/simplified_text" />
-
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -57,14 +50,12 @@
                     android:gravity="center|end"
                     android:paddingStart="32dp"
                     tools:ignore="RtlSymmetry">
-
                     <ImageView
                         android:id="@+id/floating_summary_ExitImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/baseline_close_24" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -72,11 +63,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/floating_summary_Buttons_LinearLayout">
-
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="250dp">
-
                     <TextView
                         android:id="@+id/floating_summary_MainTextView"
                         style="?attr/textAppearanceBodyLarge"
@@ -84,15 +73,8 @@
                         android:layout_height="250dp"
                         android:text="@string/lorem_ipsum"
                         android:textSize="13sp" />
-
-
                 </androidx.core.widget.NestedScrollView>
-
-
             </LinearLayout>
-
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

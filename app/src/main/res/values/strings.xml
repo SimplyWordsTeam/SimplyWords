@@ -13,6 +13,7 @@
     <string name="recentActivityLabel">Recent Activity</string>
     <string name="summarised">Summarised</string>
     <string name="loading" tools:ignore="TypographyEllipsis">Loading...</string>
+    <string name="simplifying_text" tools:ignore="TypographyEllipsis">Simplifying your text...</string>
     <string name="close">Close</string>
     <string name="settings">Settings</string>
     <string name="content_description_settings">Manage the settings of SimplyWords</string>

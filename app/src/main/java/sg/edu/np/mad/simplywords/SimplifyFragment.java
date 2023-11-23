@@ -2,7 +2,6 @@ package sg.edu.np.mad.simplywords;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -65,7 +64,7 @@ public class SimplifyFragment extends Fragment {
         simplifyPhotoButton = view.findViewById(R.id.simplify_photo_button);
         progressIndicator = view.findViewById(R.id.simplify_progress);
 
-        // Configure the adapter to show the popup window when the user clicks on a summary
+        // Configure the adapter to show the popup window when the user taps on a summary
         adapter.setOnClickListener((position, model) -> {
             // Inflate the layout of the popup window
             LayoutInflater popupInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -96,18 +95,15 @@ public class SimplifyFragment extends Fragment {
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
-                    // Do nothing
                 }
 
                 @Override
                 public void onTabReselected(TabLayout.Tab tab) {
-                    // Do nothing
                 }
             });
 
             // Dismiss the popup window when the close image is touched
-            popupWindow.getContentView().findViewById(R.id.floating_summary_ExitImageView).setOnClickListener(view12 -> popupWindow.dismiss());
-
+            popupWindow.getContentView().findViewById(R.id.floating_summary_ExitImageView).setOnClickListener(imageView -> popupWindow.dismiss());
         });
 
         // Handle processing manually entered text
@@ -125,7 +121,6 @@ public class SimplifyFragment extends Fragment {
                 public void onSuccess(String summarizedText) {
                     Summary summary = new Summary(text, summarizedText);
                     mSummaryViewModel.insertSummaries(summary);
-                    sendProcessedText(summarizedText);
                     toggleState(100);
                     simplifyEditText.setText("");
                 }
@@ -145,6 +140,7 @@ public class SimplifyFragment extends Fragment {
             });
         });
 
+        // Launches the media picker to select an image to process if the user taps on the simplify photo button
         simplifyPhotoButton.setOnClickListener(v -> {
             if (pickMedia != null) {
                 pickMedia.launch(new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
@@ -186,7 +182,7 @@ public class SimplifyFragment extends Fragment {
                             .addOnSuccessListener(visionText -> {
                                 String text = visionText.getText();
                                 Log.d("SimplifyFragment", "Text from image: " + text);
-                                Toast.makeText(getContext(), "Simplifying your text...", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.simplifying_text), Toast.LENGTH_LONG).show();
 
                                 toggleState(-1);
                                 new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
@@ -220,11 +216,4 @@ public class SimplifyFragment extends Fragment {
             }
         });
     }
-
-    private void sendProcessedText(String processedText) {
-        Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
-        intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
-        requireContext().sendBroadcast(intent);
-    }
-
 }

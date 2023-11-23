@@ -9,11 +9,9 @@ import com.android.volley.toolbox.Volley;
 public class NetworkQueue {
     private static NetworkQueue instance;
     private RequestQueue requestQueue;
-    private static Context ctx;
 
     private NetworkQueue(Context context) {
-        ctx = context;
-        requestQueue = getRequestQueue();
+        requestQueue = getRequestQueue(context);
     }
 
     public static synchronized NetworkQueue getInstance(Context context) {
@@ -23,14 +21,14 @@ public class NetworkQueue {
         return instance;
     }
 
-    public RequestQueue getRequestQueue() {
+    public RequestQueue getRequestQueue(Context context) {
         if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
+            requestQueue = Volley.newRequestQueue(context.getApplicationContext());
         }
         return requestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> req) {
-        getRequestQueue().add(req);
+    public <T> void addToRequestQueue(Request<T> request, Context context) {
+        getRequestQueue(context).add(request);
     }
 }

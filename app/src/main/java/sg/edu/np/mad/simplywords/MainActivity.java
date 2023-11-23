@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.WindowInsets;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -25,9 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import sg.edu.np.mad.simplywords.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity{
-
-
+public class MainActivity extends AppCompatActivity {
     BottomNavigationView mAppBar;
 
     @Override
@@ -38,18 +33,15 @@ public class MainActivity extends AppCompatActivity{
 
         checkOverlayPermission();
 
-
         // Set the default fragment to home page
         mAppBar = findViewById(R.id.main_navigation);
         mAppBar.setSelectedItemId(R.id.bottomAppBar_home);
 
+        // TODO: Add fragments for other menu items
         HashMap<Integer, Fragment> fragments = new HashMap<>();
         fragments.put(R.id.bottomAppBar_home, new HomeFragment());
         fragments.put(R.id.bottomAppBar_simplify, new SimplifyFragment());
-//        fragments.put(R.id.bottomAppBar_history, new HistoryFragment());
 
-
-        // TODO: Add fragments for other menu items
         mAppBar.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (fragments.containsKey(id)) {
@@ -66,21 +58,14 @@ public class MainActivity extends AppCompatActivity{
             return true;
         });
 
+        getWindow().getDecorView().setOnApplyWindowInsetsListener((view, windowInsets) -> {
+            WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets, view);
+            boolean isKeyboardVisible = insetsCompat.isVisible(WindowInsetsCompat.Type.ime());
+            mAppBar.setVisibility(isKeyboardVisible ? View.GONE : View.VISIBLE);
 
-        getWindow().getDecorView().setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
-            @NonNull
-            @Override
-            public WindowInsets onApplyWindowInsets(@NonNull View view, @NonNull WindowInsets windowInsets) {
-                WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets, view);
-                boolean isKeyboardVisible = insetsCompat.isVisible(WindowInsetsCompat.Type.ime());
-                mAppBar.setVisibility(isKeyboardVisible ? View.GONE : View.VISIBLE);
-
-                return windowInsets;
-            }
+            return windowInsets;
         });
     }
-
-
 
     public void checkOverlayPermission() {
         AtomicBoolean hasPermission = new AtomicBoolean(false);
@@ -116,11 +101,4 @@ public class MainActivity extends AppCompatActivity{
 
         hasPermission.get();
     }
-    public BottomNavigationView getBottomNavigationView(){
-        return mAppBar;
-    }
-
-
-
-
 }

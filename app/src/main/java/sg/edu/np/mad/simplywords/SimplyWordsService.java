@@ -26,6 +26,7 @@ public class SimplyWordsService extends Service {
             }
         }
     };
+
     SummaryOverlay overlay;
     private SummaryRepository mRepository;
 
@@ -39,8 +40,12 @@ public class SimplyWordsService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        // Starts the foreground service
         startCustomForeground();
+
+        // Creates a repository to store the summary
         mRepository = new SummaryRepository(getApplication());
+
         // Registers the broadcast receiver to receive text from other apps
         IntentFilter overlayDestructionFilter = new IntentFilter("overlay_destroyed");
         registerReceiver(receiver, overlayDestructionFilter);
@@ -58,7 +63,7 @@ public class SimplyWordsService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        // Creates and shows the overlay
+        // Creates and shows a new instance of the overlay
         overlay = new SummaryOverlay(this);
         overlay.showOverlay();
         overlay.updateProgress(-1);
@@ -78,6 +83,8 @@ public class SimplyWordsService extends Service {
                 overlay.updateProgress(100);
             }
         });
+
+        // Ensures that the service is not restarted when it is destroyed (i.e., manually called)
         return START_NOT_STICKY;
     }
 
@@ -96,6 +103,7 @@ public class SimplyWordsService extends Service {
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
+                .setSilent(true)
                 .build();
         startForeground(2, notification);
     }

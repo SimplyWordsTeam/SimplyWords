@@ -29,7 +29,6 @@
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
-
             app:boxCornerRadiusTopStart="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +68,6 @@
                 android:textColor="@color/offWhite" />
         </LinearLayout>
 
-
-
         <TextView
             android:id="@+id/textView2"
             style="?attr/textAppearanceHeadline6"
@@ -84,8 +81,8 @@
             app:layout_constraintTop_toBottomOf="@+id/simplify_simplifyButtonLayout" />
 
         <Button
-            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
             android:id="@+id/simplify_photo_button"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -103,26 +100,20 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/simplify_photo_button"
             tools:layout_editor_absoluteX="16dp">
-            <!--        <LinearLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
+
             <TextView
                 android:id="@+id/simplify_RecentActivityTextView"
                 style="?attr/textAppearanceTitleLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
-                android:text="@string/recentActivityLabel">
-
-            </TextView>
+                android:text="@string/recentActivityLabel" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/simplify_RecentActivityRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/beige">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:backgroundTint="@color/beige" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

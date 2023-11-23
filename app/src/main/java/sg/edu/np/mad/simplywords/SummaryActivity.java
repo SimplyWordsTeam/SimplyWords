@@ -28,56 +28,29 @@ public class SummaryActivity extends AppCompatActivity {
 
         if (text != null) {
             startService(text);
-
-//            SummaryViewModel mSummaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
-//            Toast.makeText(this, "Simplifying your text...", Toast.LENGTH_LONG).show();
-//            new LLMInteraction().generateSummarizedText(this, text, new LLMInteraction.ResponseCallback() {
-//                @Override
-//                public void onSuccess(String summarizedText) {
-//                    Summary summary = new Summary((String) text, summarizedText);
-//                    mSummaryViewModel.insertSummaries(summary);
-//
-//                    sendProcessedText(summarizedText);
-//                }
-//
-//                @Override
-//                public void onError(Exception exception) {
-//                    // Display an alert dialog with the error
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(SummaryActivity.this);
-//                    builder.setMessage(exception.getMessage())
-//                            .setTitle("Error")
-//                            .setPositiveButton("OK", (dialog, id) -> finish());
-//                    AlertDialog dialog = builder.create();
-//                    dialog.show();
-//                }
-//            });
         }
     }
 
     public boolean checkOverlayPermission() {
         AtomicBoolean hasPermission = new AtomicBoolean(false);
 
-        ActivityResultLauncher<Intent> overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (!Settings.canDrawOverlays(this)) {
-                        Log.d("SummaryActivity", "Overlay permission: Not Allowed");
-                    } else {
-                        Log.d("SummaryActivity", "Overlay permission: OK");
-                        hasPermission.set(true);
-                    }
-                }
-        );
+        ActivityResultLauncher<Intent> overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (!Settings.canDrawOverlays(this)) {
+                Log.d("SummaryActivity", "Overlay permission: Not Allowed");
+            } else {
+                Log.d("SummaryActivity", "Overlay permission: OK");
+                hasPermission.set(true);
+            }
+        });
 
         if (!Settings.canDrawOverlays(this)) {
             Log.d("SummaryActivity", "Overlay permission: Not Allowed");
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.permission_title)
-                    .setMessage(R.string.permission_message)
-                    .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                        overlayPermissionLauncher.launch(intent);
-                        dialog.dismiss();
-                    });
+            builder.setTitle(R.string.permission_title).setMessage(R.string.permission_message).setPositiveButton(android.R.string.ok, (dialog, id) -> {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                overlayPermissionLauncher.launch(intent);
+                dialog.dismiss();
+            });
 
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -97,6 +70,8 @@ public class SummaryActivity extends AppCompatActivity {
             intent.putExtra(Constants.EXTRA_ORIGINAL_TEXT, originalText.toString());
             startForegroundService(intent);
         }
+
+        // Destroys the activity the moment the service is started; this is to prevent the activity from interfering with the user's experience after the service is started
         finish();
     }
 
@@ -104,14 +79,8 @@ public class SummaryActivity extends AppCompatActivity {
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
+        // Broadcast to the service that the activity has been destroyed
         Intent intent = new Intent("overlay_destroyed");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
-
-    //    private void sendProcessedText(String processedText) {
-//        Intent intent = new Intent(Constants.ACTION_PROCESS_TEXT);
-//        intent.putExtra(Constants.EXTRA_PROCESSED_TEXT, processedText);
-//        sendBroadcast(intent);
-//        finish();
-//    }
 }

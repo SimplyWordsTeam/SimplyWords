@@ -24,9 +24,11 @@ class SummaryViewHolder extends RecyclerView.ViewHolder {
         createdAtTextView = itemView.findViewById(R.id.item_summary_created_at);
         originalTextView = itemView.findViewById(R.id.item_summary_original);
         summarizedTextView = itemView.findViewById(R.id.item_summary_summarized);
+    }
 
-
-
+    static SummaryViewHolder create(ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_summary, parent, false);
+        return new SummaryViewHolder(view);
     }
 
     public void bind(long createdAt, String originalText, String summarizedText) {
@@ -35,10 +37,5 @@ class SummaryViewHolder extends RecyclerView.ViewHolder {
         createdAtTextView.setText(formattedDate);
         originalTextView.setText(originalText);
         summarizedTextView.setText(summarizedText);
-    }
-
-    static SummaryViewHolder create(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_summary, parent, false);
-        return new SummaryViewHolder(view);
     }
 }

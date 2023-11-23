@@ -12,7 +12,6 @@ import sg.edu.np.mad.simplywords.model.Summary;
 import sg.edu.np.mad.simplywords.repo.SummaryRepository;
 
 public class SummaryViewModel extends AndroidViewModel {
-
     private final SummaryRepository mRepository;
     private final LiveData<List<Summary>> mAllSummaries;
 

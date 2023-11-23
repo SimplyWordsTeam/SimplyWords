@@ -27,8 +27,7 @@ public class SummaryOverlay extends AppCompatActivity {
                 // Add flags to alter the window appearance and behavior
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 // Make the underlying application window visible through any transparent parts
-                PixelFormat.TRANSLUCENT
-        );
+                PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.TOP | Gravity.START;
 
         // Wrap the Material theme within the service context

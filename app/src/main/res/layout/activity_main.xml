@@ -4,35 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity"
     android:orientation="vertical"
-    >
+    tools:context=".MainActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
-        android:layout_weight="1">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp">
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
+            android:name="sg.edu.np.mad.simplywords.HomeFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:name="sg.edu.np.mad.simplywords.HomeFragment"
             tools:layout="@layout/fragment_home" />
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_navigation"
+        style="@style/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:elevation="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_app_bar"
         app:itemIconTint="@color/bottom_navigation_icon_color"
-        style="@style/navigationBar"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_app_bar" />
 </LinearLayout>

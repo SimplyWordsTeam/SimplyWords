@@ -14,10 +14,9 @@ import sg.edu.np.mad.simplywords.model.Summary;
 
 @Database(entities = {Summary.class}, version = 2, exportSchema = false)
 public abstract class SummaryRoomDatabase extends RoomDatabase {
-    public abstract SummaryDao summaryDao();
-    private static volatile SummaryRoomDatabase INSTANCE;
     private static final int THREAD_COUNT = 4;
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static volatile SummaryRoomDatabase INSTANCE;
 
     public static SummaryRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -29,4 +28,6 @@ public abstract class SummaryRoomDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public abstract SummaryDao summaryDao();
 }
