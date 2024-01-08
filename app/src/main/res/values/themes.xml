@@ -1,5 +1,5 @@
-<resources xmlns:app="http://schemas.android.com/apk/res-auto">
-    <style name="Theme.SimplyWords" parent="Theme.Material3.Light.NoActionBar">
+<resources>
+    <style name="Theme.SimplyWords" parent="Theme.Material3.Light">
         <item name="colorPrimary">@color/darkGreen</item>
         <item name="colorPrimaryVariant">@color/darkGreen</item>
         <item name="colorOnPrimary">@color/offWhite</item>
@@ -7,6 +7,8 @@
         <item name="colorSecondaryVariant">@color/lightGreen</item>
         <item name="colorOnSecondary">@color/offWhite</item>
         <item name="android:statusBarColor">@color/darkGreen</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.Transparent" parent="Theme.Material3.Light.NoActionBar">

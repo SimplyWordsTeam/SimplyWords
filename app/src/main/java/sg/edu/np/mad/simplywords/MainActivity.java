@@ -6,13 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,14 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
             return true;
-        });
-
-        getWindow().getDecorView().setOnApplyWindowInsetsListener((view, windowInsets) -> {
-            WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets, view);
-            boolean isKeyboardVisible = insetsCompat.isVisible(WindowInsetsCompat.Type.ime());
-            mAppBar.setVisibility(isKeyboardVisible ? View.GONE : View.VISIBLE);
-
-            return windowInsets;
         });
     }
 
