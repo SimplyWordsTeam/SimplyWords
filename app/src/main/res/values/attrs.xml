@@ -1,0 +1,8 @@
+
+<resources>
+    <attr name="colorBeige" format="color" />
+    <attr name="colorOnBeige" format="color" />
+    <attr name="colorBeigeContainer" format="color" />
+    <attr name="colorOnBeigeContainer" format="color" />
+    <attr name="harmonizeBeige" format="boolean" />
+</resources>

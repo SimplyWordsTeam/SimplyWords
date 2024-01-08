@@ -63,7 +63,6 @@
                 android:id="@+id/simplify_text_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/lightGreen"
                 android:text="@string/simplify_text"
                 android:textColor="@color/offWhite" />
         </LinearLayout>

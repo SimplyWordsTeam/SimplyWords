@@ -109,6 +109,7 @@
                     style="@style/cardBackground"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/colorTertiaryContainer"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
@@ -143,7 +144,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_medium"
-                                android:text="@string/app_name" />
+                                android:text="@string/app_name"
+                                android:textColor="?attr/colorOnTertiaryContainer" />
 
                             <TextView
                                 style="@style/descriptionText"
@@ -164,6 +166,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:backgroundTint="?attr/colorTertiaryContainer"
                     android:checkable="true"
                     android:clickable="true"
                     android:focusable="true"
@@ -195,7 +198,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_medium"
-                                android:text="@string/coming_soon" />
+                                android:text="@string/coming_soon"
+                                android:textColor="?attr/colorOnTertiaryContainer" />
 
                             <TextView
                                 style="@style/descriptionText"
