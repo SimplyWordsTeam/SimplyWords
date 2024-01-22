@@ -16,12 +16,38 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import sg.edu.np.mad.simplywords.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView mAppBar;
+
+    // TODO: Add fragments for other menu items
+    HashMap<Integer, Fragment> fragments = new HashMap<Integer, Fragment>() {{
+        put(R.id.bottomAppBar_home, new HomeFragment());
+        put(R.id.bottomAppBar_simplify, new SimplifyFragment());
+    }};
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        // Listens for images shared from other apps
+        if (Intent.ACTION_SEND.equals(intent.getAction()) && intent.getType() != null && intent.getType().startsWith("image/")) {
+            Uri imageUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("imageUri", imageUri);
+            Objects.requireNonNull(fragments.get(R.id.bottomAppBar_simplify)).setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction().remove(Objects.requireNonNull(fragments.get(R.id.bottomAppBar_simplify))).commitNow();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view, Objects.requireNonNull(fragments.get(R.id.bottomAppBar_simplify)))
+                    .commit();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
         // Set the default fragment to home page
         mAppBar = findViewById(R.id.main_navigation);
         mAppBar.setSelectedItemId(R.id.bottomAppBar_home);
-
-        // TODO: Add fragments for other menu items
-        HashMap<Integer, Fragment> fragments = new HashMap<>();
-        fragments.put(R.id.bottomAppBar_home, new HomeFragment());
-        fragments.put(R.id.bottomAppBar_simplify, new SimplifyFragment());
 
         mAppBar.setOnItemSelectedListener(item -> {
             int id = item.getItemId();

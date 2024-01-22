@@ -2,6 +2,7 @@ package sg.edu.np.mad.simplywords;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -49,6 +50,54 @@ public class SimplifyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_simplify, container, false);
+
+        // Handle image sharing from other apps
+        Uri imageUri;
+        try {
+            assert getArguments() != null;
+            imageUri = getArguments().getParcelable("imageUri");
+        } catch (AssertionError e) {
+            imageUri = null;
+        }
+        Log.d("SimplifyFragment", "Image URI: " + imageUri);
+        if (imageUri != null) {
+            TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+            InputImage image;
+            try {
+                image = InputImage.fromFilePath(requireContext(), imageUri);
+                recognizer.process(image)
+                        .addOnSuccessListener(visionText -> {
+                            String text = visionText.getText();
+                            Log.d("SimplifyFragment", "Text from image: " + text);
+                            Toast.makeText(getContext(), getString(R.string.simplifying_text), Toast.LENGTH_LONG).show();
+
+                            toggleState(-1);
+                            new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
+                                @Override
+                                public void onSuccess(String summarizedText) {
+                                    Summary summary = new Summary(text, summarizedText);
+                                    mSummaryViewModel.insertSummaries(summary);
+                                    toggleState(100);
+                                }
+
+                                @Override
+                                public void onError(Exception exception) {
+                                    // Display an alert dialog with the error
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setMessage(exception.getMessage())
+                                            .setTitle("Error")
+                                            .setPositiveButton("OK", null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                    toggleState(0);
+                                }
+                            });
+                        })
+                        .addOnFailureListener(e -> Log.e("SimplifyFragment", "Error processing image", e));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         // Inflate the layout for this fragment
         RecyclerView recyclerView = view.findViewById(R.id.simplify_RecentActivityRecyclerView);
