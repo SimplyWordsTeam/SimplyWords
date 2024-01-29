@@ -120,7 +120,7 @@ public class SimplifyFragment extends Fragment {
             View popupView = popupInflater.inflate(R.layout.floating_full_summary, null);
 
             // Create the popup window
-            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int width = LinearLayout.LayoutParams.MATCH_PARENT;
             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
             boolean focusable = true; // Let taps outside the popup also dismiss it
             final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
