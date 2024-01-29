@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     HashMap<Integer, Fragment> fragments = new HashMap<Integer, Fragment>() {{
         put(R.id.bottomAppBar_home, new HomeFragment());
         put(R.id.bottomAppBar_simplify, new SimplifyFragment());
+        put(R.id.bottomAppBar_settings, new SettingsFragment());
     }};
 
     @Override

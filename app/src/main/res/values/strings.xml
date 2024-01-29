@@ -33,6 +33,17 @@
     <string name="coming_soon">Coming Soon</string>
     <string name="coming_soon_description">More features coming soon!</string>
     <string name="error_enter_text">Please enter some text to simplify.</string>
+    <string name="customization">Customization</string>
+    <string name="change_behavior">Change behavior</string>
+    <string name="change_behavior_description">Not happy with your summaries? Change the behavior of the summarizer here.</string>
+    <string name="change_style">Change style</string>
+    <string name="change_style_description">Don\'t like the way your summaries look? Change the styling of your summaries here.</string>
+    <string name="about">About SimplyWords (for the curious!)</string>
+    <string name="about_team">About the team</string>
+    <string name="about_team_description">Learn more about the team behind SimplyWords.</string>
+    <string name="credits_attributions">Credits and attributions</string>
+    <string name="version">Version</string>
+    <string name="version_number">0.0.0</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="customization"
+        app:title="@string/customization">
+        <Preference
+            app:key="model-behavior"
+            app:summary="@string/change_behavior_description"
+            app:title="@string/change_behavior" />
+        <Preference
+            app:key="model-behavior"
+            app:summary="@string/change_style_description"
+            app:title="@string/change_style" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="about"
+        app:title="@string/about">
+        <Preference
+            app:key="team"
+            app:summary="@string/about_team_description"
+            app:title="@string/about_team" />
+
+        <Preference
+            app:key="credits_attributions"
+            app:title="@string/credits_attributions" />
+
+        <Preference
+            app:key="version"
+            app:summary="@string/version_number"
+            app:title="@string/version" />
+    </PreferenceCategory>
+</PreferenceScreen>
