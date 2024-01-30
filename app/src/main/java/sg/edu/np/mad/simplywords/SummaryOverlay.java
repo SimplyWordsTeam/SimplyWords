@@ -31,10 +31,11 @@ public class SummaryOverlay extends AppCompatActivity {
                 // Display the window on top of other application windowss
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 // Add flags to alter the window appearance and behaviors
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL|
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 // Make the underlying application window visible through any transparent parts
                 PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.TOP | Gravity.START;
+        params.gravity = Gravity.CENTER;
         // Wrap the Material theme within the service context
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, R.style.Theme_SimplyWords);
         LayoutInflater layoutInflater = LayoutInflater.from(contextThemeWrapper);
