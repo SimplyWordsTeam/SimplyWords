@@ -8,6 +8,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="profile">Profile</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="introduction">SimplyWords can help make any text you see easier to understand. If you don\'t understand something, just select it and tap the "Simplify this" button that appears. You can even simplify images!</string>
     <string name="welcomeStatement">Welcome to SimplyWords! What do you want to do?</string>
     <string name="featuresLabel">Features to Explore</string>
     <string name="recentActivityLabel">Recent Activity</string>
@@ -44,7 +46,45 @@
     <string name="credits_attributions">Credits and attributions</string>
     <string name="version">Version</string>
     <string name="version_number">0.0.0</string>
+    <string name="adjust_simplification_title">How simple do you want your text?</string>
+    <string name="adjust_simplification_description">Want even simpler? Press and hold the circle below and drag to the left. If you want to make it more detailed, drag to the right.</string>
+    <string name="known_topics_title">What topics do you know?</string>
+    <string name="known_topics_description">If you understand the terms and concepts used in these topics, we\'ll try to avoid simplifying them.</string>
+    <string name="very_simple">Very simple</string>
+    <string name="simple">Simple</string>
+    <string name="detailed">Detailed</string>
+    <string name="example">Example</string>
 
+    <string-array name="topics">
+        <item name="sciences">Sciences</item>
+        <item name="mathematics">Mathematics</item>
+        <item name="engineering">Engineering</item>
+        <item name="technology">Technology</item>
+        <item name="arts">Arts</item>
+        <item name="humanities">Humanities</item>
+        <item name="social_sciences">Social Sciences</item>
+        <item name="business">Business</item>
+        <item name="medicine">Medicine</item>
+        <item name="law">Law</item>
+        <item name="education">Education</item>
+    </string-array>
+
+    <string name="very_simple_example">
+        - Cybersecurity is about protecting against cyberattacks.\n
+        - Cybersecurity tries to protect your systems, devices, and data from different types of attacks, like viruses and ransomware.\n
+        - It is important to have cybersecurity measures in place to keep your information safe.
+    </string>
+    <string name="simple_example">
+        Cybersecurity means using technology, methods, and rules to stop cyberattacks or reduce their
+        effects. It helps keep people and organizations safe by defending their systems, programs,
+        computers, important information, and money from different types of threats such as viruses
+        and ransomware attacks.
+    </string>
+    <string name="detailed_example">
+        Cybersecurity is about protecting our devices and information from digital attacks. This includes
+        things like computer viruses or ransomware, which can harm our systems or steal our data. Its
+        purpose is to keep us safe from these online threats.
+    </string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

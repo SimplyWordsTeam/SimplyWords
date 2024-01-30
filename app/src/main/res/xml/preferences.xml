@@ -4,11 +4,11 @@
         app:key="customization"
         app:title="@string/customization">
         <Preference
-            app:key="model-behavior"
+            app:key="onboarding"
             app:summary="@string/change_behavior_description"
             app:title="@string/change_behavior" />
         <Preference
-            app:key="model-behavior"
+            app:key="summary_stile"
             app:summary="@string/change_style_description"
             app:title="@string/change_style" />
     </PreferenceCategory>
