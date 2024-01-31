@@ -372,7 +372,13 @@ public class SimplifyFragment extends Fragment {
                             getActivity().getApplicationContext().getPackageName() + ".provider",
                             photoFile);
                     Log.d("SimplifyFragment", "Setting intents");
+                    PackageManager packageManager= getContext().getPackageManager();
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Log.d("SimplifyFragment", "Attempting to get Package Names...");
+                    List list =
+                            packageManager.queryIntentActivities(intent,
+                                    PackageManager.MATCH_DEFAULT_ONLY);
+                    Log.d("SimplifyFragment", "Number of Packages able to respond: " + list.size());
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
