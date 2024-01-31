@@ -54,11 +54,12 @@
             app:layout_constraintStart_toStartOf="@+id/simplify_simplifyTextLayout"
             app:layout_constraintTop_toBottomOf="@id/simplify_simplifyTextLayout">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Button
                 android:paddingEnd="16dp"
-                android:src="@drawable/baseline_sync_24"
+                android:background="@drawable/baseline_sync_24"
+                android:layout_height="@dimen/small_icon_wh"
+                android:layout_width="@dimen/small_icon_wh"
+                android:layout_marginEnd="@dimen/fab_margin"
                 tools:ignore="RtlSymmetry" />
 
             <Button
@@ -66,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simplify_text"
-                android:textColor="?attr/colorOnPrimary" />
+                android:textColor="?attr/colorOnPrimary"
+                />
         </LinearLayout>
 
         <TextView
@@ -124,14 +126,41 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/selectMediaLinearLayout"
             tools:layout_editor_absoluteX="16dp">
-
-            <TextView
-                android:id="@+id/simplify_RecentActivityTextView"
-                style="?attr/textAppearanceTitleLarge"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:text="@string/recentActivityLabel" />
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/simplify_RecentActivityTextView"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/recentActivityLabel"
+                    android:layout_weight="0"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingBottom="16dp">
+                    <Spinner
+                        android:id="@+id/simplify_RecentActivitySpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        style="spinner"
+                        />
+                    <Button
+                        android:id="@+id/simplify_RecentActivityToggleSort"
+                        android:background="@drawable/baseline_filter_list_24"
+                        android:layout_width="@dimen/small_icon_wh"
+                        android:layout_height="@dimen/small_icon_wh"
+                        />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/simplify_RecentActivityRecyclerView"

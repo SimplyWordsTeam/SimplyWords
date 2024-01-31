@@ -50,4 +50,13 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="welcomeStatement">Welcome to SimplyWords! What do you want to do?</string>
 
+
+
+    <string-array name="time_filter_options">
+        <item>This week</item>
+        <item>Last 3 Weeks</item>
+        <item>Last 3 Months</item>
+        <item>All time</item>
+    </string-array>
+
 </resources>

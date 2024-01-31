@@ -9,21 +9,23 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.camera2.CameraManager;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +53,16 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import kotlinx.coroutines.intrinsics.CancellableKt;
 import sg.edu.np.mad.simplywords.adapter.SummaryAdapter;
+import sg.edu.np.mad.simplywords.model.MutableLong;
 import sg.edu.np.mad.simplywords.model.Summary;
 import sg.edu.np.mad.simplywords.util.LLMInteraction;
 import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
@@ -66,15 +73,19 @@ public class SimplifyFragment extends Fragment {
     ActivityResultLauncher<Intent> takePictureLauncher;
     ActivityResultLauncher<Intent> requestStoragePermissionLauncher;
     String  currentImagePath;// This string stores the path of the photo that is being taken by the user through the camera. It ise reset to null after it is processed.
-
     CameraManager cameraManager;
     Button simplifyTextButton;
     Button simplifyPhotoButton;
     Button simplifyCameraPhotoButton;
+    ImageButton recentsIsAscendingImageButton;
+    Spinner recentsPeriodFilterSpinner;
+    RecyclerView recentsActivityRecyclerView;
     Boolean hasCamera;
+    Boolean recentsIsAscending;//  current sorting order for recents
+    Integer recentsPeriodFilter;// current period filter for recents
     LinearProgressIndicator progressIndicator;
     private SummaryViewModel mSummaryViewModel;
-    static final int REQUEST_IMAGE_CAPTURE = 1; //arbitrary value
+    SummaryAdapter summaryAdapter;
 
 
     @Override
@@ -158,8 +169,6 @@ public class SimplifyFragment extends Fragment {
         });
 
 
-
-
         //If the user has a camera, hasCamera is set to true. Otherwise false.
         hasCamera = checkCameraHardware(getContext());
 
@@ -211,16 +220,32 @@ public class SimplifyFragment extends Fragment {
             }
         }
 
-        // Inflate the layout for this fragment
-        RecyclerView recyclerView = view.findViewById(R.id.simplify_RecentActivityRecyclerView);
-        final SummaryAdapter adapter = new SummaryAdapter(new SummaryAdapter.SummaryDiff());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mSummaryViewModel.getAllSummaries().observe(getViewLifecycleOwner(), summaries -> {
-            Log.d("HistoryFragment", "Summaries size: " + summaries.size());
-            adapter.submitList(summaries);
-        });
 
+        recentsPeriodFilterSpinner = view.findViewById(R.id.simplify_RecentActivitySpinner);
+        ArrayAdapter<CharSequence> recentsFilterAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.time_filter_options, android.R.layout.simple_spinner_item);
+        recentsFilterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        recentsPeriodFilterSpinner.setAdapter(recentsFilterAdapter);
+        recentsPeriodFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                recentsPeriodFilter=position;
+                refreshRecentsSort();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        recentsPeriodFilterSpinner.setSelection(0);
+
+        // Inflate the layout for this fragment
+        recentsActivityRecyclerView = view.findViewById(R.id.simplify_RecentActivityRecyclerView);
+        summaryAdapter = new SummaryAdapter(new SummaryAdapter.SummaryDiff());
+
+
+
+        //assign the views to their holders as a class attribute
         simplifyTextButton = view.findViewById(R.id.simplify_text_button);
         simplifyPhotoButton = view.findViewById(R.id.simplify_photo_button);
         simplifyCameraPhotoButton=view.findViewById(R.id.simplify_camera_photo_button);
@@ -234,7 +259,7 @@ public class SimplifyFragment extends Fragment {
 
 
         // Configure the adapter to show the popup window when the user taps on a summary
-        adapter.setOnClickListener((position, model) -> {
+        summaryAdapter.setOnClickListener((position, model) -> {
             // Inflate the layout of the popup window
             LayoutInflater popupInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View popupView = popupInflater.inflate(R.layout.floating_full_summary, null);
@@ -415,7 +440,91 @@ public class SimplifyFragment extends Fragment {
         currentImagePath=image.getAbsolutePath();
         return image;
     }
+    public void refreshRecentsSort(){
 
+        recentsActivityRecyclerView.setAdapter(summaryAdapter);
+        recentsActivityRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mSummaryViewModel.getAllSummaries().observe(getViewLifecycleOwner(), summaries -> {
+            Log.d("HistoryFragment", "Summaries size: " + summaries.size());
+            MutableLong startOfPeriodMutableLong=new MutableLong();
+            MutableLong endOfPeriodMutableLong=new MutableLong();
+
+            if(recentsPeriodFilter==0){ //Current Selected filter is this week
+
+                //First day of the current week
+                Calendar calendar=Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                startOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
+
+                //Last Day of the current Week
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                calendar.add(Calendar.MILLISECOND, -1);
+                endOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
+            } else if (recentsPeriodFilter==1) {//Current Selected filter is Last 3 Weeks
+
+                //First day of the week 3 weeks ago.
+                Calendar calendar=Calendar.getInstance();
+                calendar.add(Calendar.WEEK_OF_YEAR,-3);
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                startOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
+
+                //Last day of last week
+                calendar=Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                calendar.add(Calendar.MILLISECOND,-1);
+                endOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
+
+
+
+            }else if (recentsPeriodFilter==2){ //Current Selected filter is Last 3 Months
+
+                //First day of the month 3 months ago
+                Calendar calendar=Calendar.getInstance();
+                calendar.add(Calendar.MONTH,-3);
+                calendar.set(Calendar.DAY_OF_MONTH,1);
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                startOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
+
+                //Last Day of last month
+                calendar=Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH,1);
+                calendar.add(Calendar.MILLISECOND,-1);
+                endOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
+            } else if (recentsPeriodFilter==3) {
+                summaryAdapter.submitList(summaries);
+                return;
+            } else{
+                Log.d("SimplifyFragment", "Period filter: option index not within range ");
+            }
+
+            List<Summary> filteredSummaries = new ArrayList<>();
+
+            for (Summary summary: summaries) {
+                if(summary.getCreatedAt()>=startOfPeriodMutableLong.getLong() && summary.getCreatedAt() <= endOfPeriodMutableLong.getLong()){
+                    filteredSummaries.add(summary);
+                }
+
+            }
+            summaryAdapter.submitList(filteredSummaries);
+        });
+
+
+    }
 
 
 
