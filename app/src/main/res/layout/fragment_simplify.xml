@@ -81,25 +81,48 @@
             app:layout_constraintStart_toStartOf="@+id/simplify_simplifyButtonLayout"
             app:layout_constraintTop_toBottomOf="@+id/simplify_simplifyButtonLayout" />
 
-        <Button
-            android:id="@+id/simplify_photo_button"
-            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        <LinearLayout
+            android:id="@+id/selectMediaLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/simplify_image"
-            app:icon="@drawable/baseline_insert_photo_24"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            android:gravity="center"
+            >
+            <Button
+                android:id="@+id/simplify_camera_photo_button"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:text="@string/simplify_camera"
+                app:icon="@drawable/baseline_add_a_photo_24"
+                app:layout_constraintEnd_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <Button
+                android:id="@+id/simplify_photo_button"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:text="@string/simplify_image"
+                app:icon="@drawable/baseline_insert_photo_24"
+                app:layout_constraintEnd_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                />
 
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/simplify_photo_button"
+            app:layout_constraintTop_toBottomOf="@+id/selectMediaLinearLayout"
             tools:layout_editor_absoluteX="16dp">
 
             <TextView
