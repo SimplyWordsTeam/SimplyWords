@@ -151,7 +151,7 @@
                         style="spinner"
                         />
                     <Button
-                        android:id="@+id/simplify_RecentActivityToggleSort"
+                        android:id="@+id/simplify_RecentActivitySortButton"
                         android:background="@drawable/baseline_filter_list_24"
                         android:layout_width="@dimen/small_icon_wh"
                         android:layout_height="@dimen/small_icon_wh"

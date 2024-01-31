@@ -48,7 +48,7 @@
     <string name="simplifying_text" tools:ignore="TypographyEllipsis">Simplifying your text...</string>
     <string name="summarised">Summarised</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="welcomeStatement">Welcome to SimplyWords! What do you want to do?</string>
+    <string name="welcomeStatement">Welcome!</string>
 
 
 

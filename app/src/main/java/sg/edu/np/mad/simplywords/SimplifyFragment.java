@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -55,12 +54,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import kotlinx.coroutines.intrinsics.CancellableKt;
 import sg.edu.np.mad.simplywords.adapter.SummaryAdapter;
 import sg.edu.np.mad.simplywords.model.MutableLong;
 import sg.edu.np.mad.simplywords.model.Summary;
@@ -77,11 +76,11 @@ public class SimplifyFragment extends Fragment {
     Button simplifyTextButton;
     Button simplifyPhotoButton;
     Button simplifyCameraPhotoButton;
-    ImageButton recentsIsAscendingImageButton;
+    Button recentActivitySortButton;
     Spinner recentsPeriodFilterSpinner;
     RecyclerView recentsActivityRecyclerView;
     Boolean hasCamera;
-    Boolean recentsIsAscending;//  current sorting order for recents
+    Boolean recentsIsLatestToEarliest;//  current sorting order for recents
     Integer recentsPeriodFilter;// current period filter for recents
     LinearProgressIndicator progressIndicator;
     private SummaryViewModel mSummaryViewModel;
@@ -250,7 +249,24 @@ public class SimplifyFragment extends Fragment {
         simplifyPhotoButton = view.findViewById(R.id.simplify_photo_button);
         simplifyCameraPhotoButton=view.findViewById(R.id.simplify_camera_photo_button);
         progressIndicator = view.findViewById(R.id.simplify_progress);
+        recentActivitySortButton=view.findViewById(R.id.simplify_RecentActivitySortButton);
 
+        recentsIsLatestToEarliest=Boolean.FALSE;
+
+        recentActivitySortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recentsIsLatestToEarliest=!recentsIsLatestToEarliest;
+                refreshRecentsSort();
+                recentActivitySortButton.setSelected(!recentsIsLatestToEarliest);
+                if(recentsIsLatestToEarliest){
+                    recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24_inverted);
+                }else{
+                    recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24);
+                }
+
+            }
+        });
 //        disable the camera button if no camera is detected
         if(!hasCamera){
             simplifyCameraPhotoButton.setEnabled(false);
@@ -519,6 +535,9 @@ public class SimplifyFragment extends Fragment {
                     filteredSummaries.add(summary);
                 }
 
+            }
+            if (!recentsIsLatestToEarliest){
+                Collections.reverse(filteredSummaries);
             }
             summaryAdapter.submitList(filteredSummaries);
         });
