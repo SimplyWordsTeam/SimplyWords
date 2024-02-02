@@ -1,5 +1,9 @@
 package sg.edu.np.mad.simplywords;
 
+import android.content.SharedPreferences;
+
+import java.util.HashSet;
+
 public class Constants {
     public static final String EXTRA_ORIGINAL_TEXT = "EXTRA_ORIGINAL_TEXT";
     public static final String LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions";
@@ -18,4 +22,29 @@ public class Constants {
             "\n" +
             "O: Click on \"Find out how\" and sign in. Once done, navigate to the Services section in the user portal and tap on Request assistance.\n" +
             "S: Find the words \"Find out how\" and tap on it. Follow the instructions on the screen, typing out all the required information, then sign in. After you are signed in, scroll and find the Services section, then find the words \"Request assistance\". Tap on it to continue.";
+
+    public static String configurePrompt(SharedPreferences preferences) {
+        int simplificationLevel = preferences.getInt("simplification_level", 0);
+        HashSet<String> topics = new HashSet<>(preferences.getStringSet("topics", new HashSet<>()));
+
+        StringBuilder prompt = new StringBuilder(LLM_PROMPT);
+        prompt.append("\n\n ");
+        switch (simplificationLevel) {
+            case 0:
+                prompt.append("Only use bullet points and simple sentences to capture the main points.");
+                break;
+            case 2:
+                prompt.append("You may use more complex words and sentences, but keep it simple overall.");
+                break;
+        }
+
+        if (topics.size() > 0) {
+            prompt.append(" You may assume that the user is knowledgeable in the following topics: ");
+            for (String topic : topics) {
+                prompt.append(topic).append(", ");
+            }
+            prompt = new StringBuilder(prompt.substring(0, prompt.length() - 2));
+        }
+        return prompt.toString();
+    }
 }

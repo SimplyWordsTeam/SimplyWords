@@ -1,10 +1,12 @@
 package sg.edu.np.mad.simplywords;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +35,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         onboardingPreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(getActivity(), OnboardingActivity.class);
             startActivity(intent);
+            return true;
+        });
+
+        Preference flushSharedPreferencesPreference = findPreference("flush_sharedpreferences");
+        assert flushSharedPreferencesPreference != null;
+        flushSharedPreferencesPreference.setOnPreferenceClickListener(preference -> {
+            requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE).edit().clear().apply();
+            Toast.makeText(getContext(), "Successfully requested the cache to be deleted.", Toast.LENGTH_SHORT).show();
             return true;
         });
 

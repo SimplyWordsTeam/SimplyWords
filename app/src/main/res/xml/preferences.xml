@@ -30,4 +30,12 @@
             app:summary="@string/version_number"
             app:title="@string/version" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="debug"
+        app:title="Debug">
+        <Preference
+            app:key="flush_sharedpreferences"
+            app:title="Flush SharedPreferences" />
+    </PreferenceCategory>
 </PreferenceScreen>

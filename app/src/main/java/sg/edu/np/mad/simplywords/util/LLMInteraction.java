@@ -1,6 +1,7 @@
 package sg.edu.np.mad.simplywords.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -23,6 +24,9 @@ public class LLMInteraction {
         String API_KEY = BuildConfig.OPENAI_KEY;
 
         // Creates the JSON object to be sent to the API
+        SharedPreferences preferences = context.getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
+        String prompt = preferences.getBoolean("has_configured", false) ? Constants.configurePrompt(preferences) : Constants.LLM_PROMPT;
+
         JSONObject data = new JSONObject();
         try {
             data.put("model", "gpt-3.5-turbo-1106");
@@ -32,7 +36,7 @@ public class LLMInteraction {
                             .put(
                                     new JSONObject()
                                             .put("role", "system")
-                                            .put("content", Constants.LLM_PROMPT)
+                                            .put("content", prompt)
                             )
                             .put(
                                     new JSONObject()

@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
         checkOverlayPermission();
 
+        // Onboards user if they have not configured the app
+        if (!getSharedPreferences("userPreferences", MODE_PRIVATE).getBoolean("has_configured", false)) {
+            Intent intent = new Intent(this, OnboardingActivity.class);
+            startActivity(intent);
+        }
+
         // Set the default fragment to home page
         mAppBar = findViewById(R.id.main_navigation);
         mAppBar.setSelectedItemId(R.id.bottomAppBar_home);

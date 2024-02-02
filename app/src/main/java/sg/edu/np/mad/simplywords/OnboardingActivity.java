@@ -15,7 +15,6 @@ import sg.edu.np.mad.simplywords.onboarding.AdjustFragment;
 import sg.edu.np.mad.simplywords.onboarding.WelcomeFragment;
 
 public class OnboardingActivity extends AppCompatActivity {
-
     ArrayList<Fragment> fragments = new ArrayList<Fragment>() {{
         add(new WelcomeFragment());
         add(new AdjustFragment());
@@ -39,14 +38,21 @@ public class OnboardingActivity extends AppCompatActivity {
         // Handle navigating through the fragments with the buttons
         Button nextButton = findViewById(R.id.onboarding_next);
         nextButton.setOnClickListener(v -> {
+            previousButton.setVisibility(View.VISIBLE);
             int currentFragmentIndex = fragments.indexOf(getSupportFragmentManager().findFragmentById(R.id.onboarding_fragment_container_view));
             Log.d("OnboardingActivity:nextButtonPressed", "Current fragment index: " + currentFragmentIndex);
+            if (getSupportFragmentManager().findFragmentById(R.id.onboarding_fragment_container_view) instanceof AdjustFragment) {
+                AdjustFragment fragment = (AdjustFragment) getSupportFragmentManager().findFragmentById(R.id.onboarding_fragment_container_view);
+                assert fragment != null;
+                fragment.saveUserPreferences();
+            }
             if (currentFragmentIndex < fragments.size() - 1) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.onboarding_fragment_container_view, fragments.get(currentFragmentIndex + 1))
                         .commit();
+            } else {
+                finish();
             }
-            previousButton.setVisibility(View.VISIBLE);
         });
         previousButton.setOnClickListener(v -> {
             int currentFragmentIndex = fragments.indexOf(getSupportFragmentManager().findFragmentById(R.id.onboarding_fragment_container_view));
@@ -55,12 +61,6 @@ public class OnboardingActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.onboarding_fragment_container_view, fragments.get(currentFragmentIndex - 1))
                         .commit();
-            }
-            if (getSupportFragmentManager().findFragmentById(R.id.onboarding_fragment_container_view) instanceof AdjustFragment) {
-                // Saves the user preferences
-                AdjustFragment fragment = (AdjustFragment) getSupportFragmentManager().findFragmentById(R.id.onboarding_fragment_container_view);
-                assert fragment != null;
-                fragment.saveUserPreferences();
             }
             if (currentFragmentIndex - 1 == 0) {
                 previousButton.setVisibility(View.GONE);
