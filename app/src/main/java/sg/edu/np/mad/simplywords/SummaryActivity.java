@@ -1,7 +1,9 @@
 package sg.edu.np.mad.simplywords;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -10,6 +12,7 @@ import android.util.Log;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -34,7 +37,8 @@ public class SummaryActivity extends AppCompatActivity {
     public boolean checkOverlayPermission() {
         AtomicBoolean hasPermission = new AtomicBoolean(false);
 
-        ActivityResultLauncher<Intent> overlayPermissionLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        ActivityResultLauncher<Intent> overlayPermissionLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (!Settings.canDrawOverlays(this)) {
                 Log.d("SummaryActivity", "Overlay permission: Not Allowed");
             } else {
@@ -46,8 +50,8 @@ public class SummaryActivity extends AppCompatActivity {
         if (!Settings.canDrawOverlays(this)) {
             Log.d("SummaryActivity", "Overlay permission: Not Allowed");
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.permission_title).setMessage(R.string.permission_message).setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            builder.setTitle(R.string.permission_title).setMessage(R.string.permission_overlay_message).setPositiveButton(android.R.string.ok, (dialog, id) -> {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package"+ getPackageName()));
                 overlayPermissionLauncher.launch(intent);
                 dialog.dismiss();
             });
@@ -61,6 +65,7 @@ public class SummaryActivity extends AppCompatActivity {
 
         return hasPermission.get();
     }
+
 
     public void startService(CharSequence originalText) {
         boolean hasOverlayPermission = checkOverlayPermission();
