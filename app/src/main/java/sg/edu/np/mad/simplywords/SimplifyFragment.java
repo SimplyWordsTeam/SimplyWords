@@ -2,7 +2,6 @@ package sg.edu.np.mad.simplywords;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;

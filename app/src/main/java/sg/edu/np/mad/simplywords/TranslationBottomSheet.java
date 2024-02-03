@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.Objects;
-
 public class TranslationBottomSheet extends BottomSheetDialogFragment {
     @Nullable
     @Override

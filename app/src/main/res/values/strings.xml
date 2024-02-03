@@ -113,4 +113,5 @@
         things like computer viruses or ransomware, which can harm our systems or steal our data. Its
         purpose is to keep us safe from these online threats.
     </string>
+    <string name="pick_a_language">Pick a language</string>
 </resources>

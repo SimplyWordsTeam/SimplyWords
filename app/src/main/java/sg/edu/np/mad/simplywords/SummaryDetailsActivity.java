@@ -45,9 +45,7 @@ public class SummaryDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "Summary ID: " + summaryId);
         TextView textView = findViewById(R.id.summary_details_text);
         mSummaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
-        mSummaryViewModel.getSummaryById(summaryId).observe(this, summary -> {
-            textView.setText(summary.getSummarizedText());
-        });
+        mSummaryViewModel.getSummaryById(summaryId).observe(this, summary -> textView.setText(summary.getSummarizedText()));
 
         // Listens for changes to the tabs to toggle between the simplified and original text
         TabLayout tabLayout = findViewById(R.id.summary_details_tab_layout);
