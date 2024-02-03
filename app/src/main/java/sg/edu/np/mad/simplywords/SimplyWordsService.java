@@ -65,8 +65,11 @@ public class SimplyWordsService extends Service {
         super.onStartCommand(intent, flags, startId);
 
         // Creates and shows a new instance of the overlay
-        Log.d("SimplyWordsService", "instanciating overlay...");
-        overlay = new SummaryOverlay(this);
+        if (overlay == null) {
+            Log.d("SimplyWordsService", "instanciating overlay...");
+            overlay = new SummaryOverlay(this);
+        }
+
         Log.d("SimplyWordsService", "showing overlay...");
         overlay.showOverlay();
         overlay.updateProgress(-1);
