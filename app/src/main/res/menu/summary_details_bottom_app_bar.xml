@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/summary_details_translate"
+        android:icon="@drawable/baseline_translate_24"
+        android:iconTint="?attr/colorPrimaryVariant"
+        android:title="@string/translate"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/summary_details_share"
+        android:icon="@drawable/baseline_share_24"
+        android:iconTint="?attr/colorPrimaryVariant"
+        android:title="@string/share"
+        app:showAsAction="ifRoom|withText" />
+</menu>

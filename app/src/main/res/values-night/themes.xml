@@ -33,6 +33,8 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <style name="Theme.Transparent" parent="Theme.Material3.Dark.NoActionBar">

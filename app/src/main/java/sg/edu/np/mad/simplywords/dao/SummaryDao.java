@@ -23,5 +23,5 @@ public interface SummaryDao {
     LiveData<List<Summary>> getAllSummaries();
 
     @Query("SELECT * FROM summary WHERE id = :id")
-    Summary getSummaryById(int id);
+    LiveData<Summary> getSummaryById(int id);
 }

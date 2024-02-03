@@ -36,7 +36,7 @@ public class SummaryRepository {
         });
     }
 
-    public Summary getSummaryById(int id) {
+    public LiveData<Summary> getSummaryById(int id) {
         return mSummaryDao.getSummaryById(id);
     }
 }

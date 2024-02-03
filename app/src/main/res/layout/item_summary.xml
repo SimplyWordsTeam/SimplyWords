@@ -78,7 +78,8 @@
                         android:ellipsize="end"
                         android:maxLines="5"
                         android:scrollHorizontally="true"
-                        android:text="" />
+                        android:text=""
+                        android:transitionName="simplifiedText" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
