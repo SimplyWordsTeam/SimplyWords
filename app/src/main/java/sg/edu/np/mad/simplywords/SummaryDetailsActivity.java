@@ -1,5 +1,6 @@
 package sg.edu.np.mad.simplywords;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,8 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.tabs.TabLayout;
 
+import sg.edu.np.mad.simplywords.databinding.ActivitySummaryDetailsBinding;
+import sg.edu.np.mad.simplywords.util.LLMInteraction;
 import sg.edu.np.mad.simplywords.viewmodel.SummaryViewModel;
 
 public class SummaryDetailsActivity extends AppCompatActivity {
@@ -17,11 +21,13 @@ public class SummaryDetailsActivity extends AppCompatActivity {
     String TAG = "SummaryDetailsActivity";
 
     SummaryViewModel mSummaryViewModel;
+    ActivitySummaryDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_summary_details);
+        binding = ActivitySummaryDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Closes the activity when the back button is pressed
         MaterialToolbar appBar = findViewById(R.id.summary_details_app_bar);
@@ -57,6 +63,8 @@ public class SummaryDetailsActivity extends AppCompatActivity {
                     } else {
                         textView.setText(summary.getOriginalText());
                     }
+
+                    ((TextView) findViewById(R.id.summary_details_translation)).setText("");
                 });
             }
 
@@ -68,6 +76,42 @@ public class SummaryDetailsActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 // Do nothing
+            }
+        });
+
+        // Configures the sheet for translations
+        TranslationBottomSheet translationBottomSheet = new TranslationBottomSheet();
+        BottomAppBar bottomAppBar = findViewById(R.id.summary_details_bottom_app_bar);
+        bottomAppBar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.summary_details_translate) {
+                translationBottomSheet.show(getSupportFragmentManager(), translationBottomSheet.getTag());
+                return true;
+            }
+            return false;
+        });
+    }
+
+    public void onTranslate(String language) {
+        // Translates the text
+        Log.d(TAG, "Translating to " + language);
+
+        TextView textView = binding.summaryDetailsTranslation;
+        textView.setText(getString(R.string.translation_in_progress));
+        new LLMInteraction().generateTranslatedText(this, binding.summaryDetailsText.getText(), language, new LLMInteraction.ResponseCallback() {
+            @Override
+            public void onSuccess(String translatedText) {
+                textView.setText(translatedText);
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                // Display an alert dialog with the error
+                AlertDialog.Builder builder = new AlertDialog.Builder(SummaryDetailsActivity.this);
+                builder.setMessage(exception.getMessage())
+                        .setTitle("Error")
+                        .setPositiveButton("OK", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

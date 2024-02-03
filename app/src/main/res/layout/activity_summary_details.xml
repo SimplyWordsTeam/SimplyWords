@@ -17,7 +17,7 @@
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:navigationIconTint="?attr/colorPrimaryVariant"
-            app:title="Summary" />
+            app:title="@string/summary_details_title_cased" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,13 +39,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/summary_details_tab_simplified_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/simplified_text" />
 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/summary_details_tab_original_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/original_text" />
@@ -59,17 +57,35 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:textIsSelectable="true"
                 android:transitionName="simplifiedText"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/summary_details_tab_layout" />
+                app:layout_constraintTop_toBottomOf="@id/summary_details_tab_layout"/>
+
+            <TextView
+                android:id="@+id/summary_details_translation"
+                style="?attr/textAppearanceBodyMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/summary_details_text"
+                app:layout_constraintStart_toStartOf="@+id/summary_details_text"
+                app:layout_constraintTop_toBottomOf="@id/summary_details_text" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <FrameLayout
+        android:id="@+id/summary_details_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+
     <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/summary_details_bottom_app_bar"
         style="@style/Widget.Material3.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

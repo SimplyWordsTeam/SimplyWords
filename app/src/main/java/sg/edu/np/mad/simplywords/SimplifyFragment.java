@@ -274,45 +274,6 @@ public class SimplifyFragment extends Fragment {
             Intent intent = new Intent(getContext(), SummaryDetailsActivity.class);
             intent.putExtra("summaryId", model.id);
             startActivity(intent);
-
-//            // Inflate the layout of the popup window
-//            LayoutInflater popupInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            View popupView = popupInflater.inflate(R.layout.floating_full_summary, null);
-//
-//            // Create the popup window
-//            int width = LinearLayout.LayoutParams.MATCH_PARENT;
-//            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//            boolean focusable = true; // Let taps outside the popup also dismiss it
-//            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-//
-//            // Show the popup window
-//            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-//
-//            TextView textView = popupWindow.getContentView().findViewById(R.id.floating_summary_MainTextView);
-//            textView.setText(model.getSummarizedText());
-//
-//            // Toggle between the original and simplified text when the user interacts with the tab layout
-//            ((TabLayout) popupWindow.getContentView().findViewById(R.id.floating_summary_TabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//                @Override
-//                public void onTabSelected(TabLayout.Tab tab) {
-//                    if (Objects.equals(tab.getText(), getString(R.string.original_text))) {
-//                        textView.setText(model.getOriginalText());
-//                    } else {
-//                        textView.setText(model.getSummarizedText());
-//                    }
-//                }
-//
-//                @Override
-//                public void onTabUnselected(TabLayout.Tab tab) {
-//                }
-//
-//                @Override
-//                public void onTabReselected(TabLayout.Tab tab) {
-//                }
-//            });
-//
-//            // Dismiss the popup window when the close image is touched
-//            popupWindow.getContentView().findViewById(R.id.floating_summary_ExitImageView).setOnClickListener(imageView -> popupWindow.dismiss());
         });
 
         // Handle processing manually entered text
