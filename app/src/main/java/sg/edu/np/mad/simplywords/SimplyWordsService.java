@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -21,7 +22,7 @@ public class SimplyWordsService extends Service {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if ("overlay_destroyed".equals(intent.getAction())) {
+            if ("sg.edu.np.mad.simplywords.OVERLAY_DESTROYED".equals(intent.getAction())) {
                 stopSelf();
             }
         }
@@ -47,8 +48,8 @@ public class SimplyWordsService extends Service {
         mRepository = new SummaryRepository(getApplication());
 
         // Registers the broadcast receiver to receive text from other apps
-        IntentFilter overlayDestructionFilter = new IntentFilter("overlay_destroyed");
-        registerReceiver(receiver, overlayDestructionFilter);
+        IntentFilter overlayDestructionFilter = new IntentFilter("sg.edu.np.mad.simplywords.OVERLAY_DESTROYED");
+        registerReceiver(receiver, overlayDestructionFilter,RECEIVER_EXPORTED);
     }
 
     @Override
@@ -64,7 +65,12 @@ public class SimplyWordsService extends Service {
         super.onStartCommand(intent, flags, startId);
 
         // Creates and shows a new instance of the overlay
-        overlay = new SummaryOverlay(this);
+        if (overlay == null) {
+            Log.d("SimplyWordsService", "instanciating overlay...");
+            overlay = new SummaryOverlay(this);
+        }
+
+        Log.d("SimplyWordsService", "showing overlay...");
         overlay.showOverlay();
         overlay.updateProgress(-1);
         String originalText = intent.getStringExtra(Constants.EXTRA_ORIGINAL_TEXT);
