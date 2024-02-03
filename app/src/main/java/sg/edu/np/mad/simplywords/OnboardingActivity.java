@@ -26,6 +26,12 @@ public class OnboardingActivity extends AppCompatActivity {
         ActivityOnboardingBinding binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Receive intent and check if the intro should be skipped
+        boolean skipIntro = getIntent().getBooleanExtra("skipIntro", false);
+        if (skipIntro) {
+            fragments.remove(0);
+        }
+
         // Since the activity begins with the first fragment, we can hide the previous button
         Button previousButton = findViewById(R.id.onboarding_previous);
         previousButton.setVisibility(View.GONE);

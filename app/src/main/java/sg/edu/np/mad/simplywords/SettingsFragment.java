@@ -34,6 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         assert onboardingPreference != null;
         onboardingPreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(getActivity(), OnboardingActivity.class);
+            intent.putExtra("skipIntro", true);
             startActivity(intent);
             return true;
         });
