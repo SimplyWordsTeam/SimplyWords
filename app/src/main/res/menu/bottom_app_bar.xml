@@ -5,7 +5,7 @@
         android:id="@+id/bottomAppBar_simplify"
         android:enabled="true"
         android:icon="@drawable/baseline_edit_24"
-        android:title="@string/simplify_text" />
+        android:title="@string/simplify" />
 
     <item
         android:id="@+id/bottomAppBar_home"
