@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "Overlay permission: Not Allowed");
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.permission_title)
-                    .setMessage(R.string.permission_message)
+                    .setMessage(R.string.permission_overlay_message)
                     .setPositiveButton(android.R.string.ok, (dialog, id) -> {
                         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                         overlayPermissionLauncher.launch(intent);

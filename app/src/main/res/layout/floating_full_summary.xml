@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/offWhite"
+        android:backgroundTint="@color/black"
         android:elevation="10dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/baseline_close_24"
-                        android:tint="?android:attr/textColorPrimary" />
+                        app:tint="?android:attr/textColorPrimary" />
                 </LinearLayout>
             </LinearLayout>
 
