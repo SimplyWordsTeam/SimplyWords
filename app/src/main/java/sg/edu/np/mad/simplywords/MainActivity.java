@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     HashMap<Integer, Fragment> fragments = new HashMap<Integer, Fragment>() {{
         put(R.id.bottomAppBar_home, new HomeFragment());
         put(R.id.bottomAppBar_simplify, new SimplifyFragment());
+        put(R.id.bottomAppBar_settings, new SettingsFragment());
     }};
 
     @Override
@@ -56,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         checkOverlayPermission();
+
+        // Onboards user if they have not configured the app
+        if (!getSharedPreferences("userPreferences", MODE_PRIVATE).getBoolean("has_configured", false)) {
+            Intent intent = new Intent(this, OnboardingActivity.class);
+            startActivity(intent);
+        }
 
         // Set the default fragment to home page
         mAppBar = findViewById(R.id.main_navigation);

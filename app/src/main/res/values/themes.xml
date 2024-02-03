@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Theme.SimplyWords" parent="Theme.Material3.Light">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -93,4 +94,13 @@
     <style name="textInput">
         <item name="android:tint">@color/beige</item>
     </style>
+
+    <style name="Theme.SimplyWords.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SimplyWords.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SimplyWords.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

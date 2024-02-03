@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".onboarding.AdjustFragment">
+
+    <TextView
+        android:id="@+id/adjust_title"
+        style="?attr/textAppearanceTitleLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/adjust_simplification_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="asdasdads"
+        android:stepSize="1"
+        android:tooltipText="asdasdasd"
+        android:value="1"
+        android:valueTo="2"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="@+id/adjust_slider_label"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/adjust_slider_label"
+        app:layout_constraintTop_toBottomOf="@+id/adjust_slider_description" />
+
+    <TextView
+        android:id="@+id/adjust_slider_label"
+        style="?attr/textAppearanceLabelLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/simple"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slider" />
+
+    <TextView
+        android:id="@+id/adjust_slider_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/adjust_simplification_description"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+    <TextView
+        android:id="@+id/topics_title"
+        style="?attr/textAppearanceTitleLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/known_topics_title"
+        app:layout_constraintEnd_toEndOf="@+id/adjust_slider_label"
+        app:layout_constraintStart_toStartOf="@+id/adjust_slider_label"
+        app:layout_constraintTop_toBottomOf="@+id/adjust_slider_label" />
+
+    <TextView
+        android:id="@+id/topics_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/known_topics_description"
+        app:layout_constraintEnd_toEndOf="@+id/topics_title"
+        app:layout_constraintStart_toStartOf="@+id/topics_title"
+        app:layout_constraintTop_toBottomOf="@+id/topics_title" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/topics_chips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/topics_description"
+        app:layout_constraintStart_toStartOf="@+id/topics_description"
+        app:layout_constraintTop_toBottomOf="@+id/topics_description" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/adjust_title"
+        app:layout_constraintStart_toStartOf="@+id/adjust_title"
+        app:layout_constraintTop_toBottomOf="@+id/adjust_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                style="?attr/textAppearanceLabelLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/example" />
+
+            <TextView
+                android:id="@+id/adjust_preview"
+                style="?attr/textAppearanceBodyLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="6"
+                android:scrollbars="vertical"
+                android:text="@string/simple_example" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
