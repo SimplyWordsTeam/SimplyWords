@@ -89,6 +89,7 @@ public class SimplifyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_simplify, container, false);
         TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
@@ -111,8 +112,11 @@ public class SimplifyFragment extends Fragment {
                 Log.d("SimplifyFragment", "takePictureLauncher: operation was successful");
 
                 try{
+
                     File imageFile = new File(currentImagePath);
-                    Log.d("SimplifyFragment", "takePictureLauncher: got image file...");
+                    Log.d("SimplifyFragment", "takePictureLauncher: got image file..."+imageFile);
+
+
                     Bitmap imageBitMap= BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                     Log.d("SimplifyFragment", "takePictureLauncher: converted file to bitmap...");
 
@@ -429,6 +433,10 @@ public class SimplifyFragment extends Fragment {
             }
         }
 
+    }
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save relevant state data here
     }
     /** Check if this device has a camera */
     private boolean checkCameraHardware(Context context) {
