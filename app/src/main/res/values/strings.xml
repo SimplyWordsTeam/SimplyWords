@@ -1,31 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SimplyWords</string>
+    <string name="simplify">Simplify</string>
     <string name="simplify_this">Simplify this</string>
-    <string name="simplify_text">Simplify text</string>
     <string name="simplify_image">Simplify a photo</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="or_lowercased">or</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="profile">Profile</string>
     <string name="welcome_to">Welcome to</string>
     <string name="introduction">SimplyWords can help make any text you see easier to understand. If you don\'t understand something, just select it and tap the "Simplify this" button that appears. You can even simplify images!</string>
-    <string name="welcomeStatement">Welcome!</string>
-    <string name="recentActivityLabel">Recent Activity</string>
-    <string name="summarised">Summarised</string>
-    <string name="simplifying_text" tools:ignore="TypographyEllipsis">Simplifying your text...</string>
+    <string name="welcome_exclamation">Welcome!</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="summarized">Summarized</string>
+    <string name="simplifying_text_in_progress" tools:ignore="TypographyEllipsis">Simplifying your text...</string>
     <string name="close">Close</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="coming_soon_description">More features coming soon!</string>
-    <string name="content_description_home">Homepage of SimplyWords</string>
-    <string name="content_description_settings">Manage the settings of SimplyWords</string>
-    <string name="error_enter_text">Please enter some text to simplify.</string>
-    <string name="featuresLabel">Features to Explore</string>
+    <string name="no_text_error">Please enter some text to simplify.</string>
+    <string name="features_to_explore">Features to Explore</string>
     <string name="history">History</string>
     <string name="home">Home</string>
-    <string name="loading" tools:ignore="TypographyEllipsis">Loading...</string>
-    <string name="notification_message">SimplyWords is currently running in the background.</string>
-    <string name="notification_title">SimplyWords is running</string>
+    <string name="loading_in_progress" tools:ignore="TypographyEllipsis">Loading...</string>
+    <string name="service_running_in_background">SimplyWords is currently running in the background.</string>
+    <string name="service_is_running">SimplyWords is running</string>
     <string name="original_text">Original text</string>
     <string name="permission_overlay_message">We need a special permission to display over other apps. We\'ll use this to display the simplified text over the original text. If you do not grant this permission, you might not be able to make full use of this app.</string>
     <string name="permission_camera_message">We need access to your camera for us to scan and simplify the words. </string>
@@ -33,10 +30,10 @@
     <string name="recents">Recents</string>
     <string name="settings">Settings</string>
     <string name="settings_description">Change various settings for the app here.</string>
-    <string name="simplify_camera">Take a picture</string>
+    <string name="take_picture">Take a picture</string>
     <string name="simplify_description">View your past queries and configure our Simplifier tool here.</string>
     <string name="simplified_text">Simplified text</string>
-    <string name="simplify_input_hint" tools:ignore="TypographyEllipsis">Text to simplify</string>
+    <string name="simplify_input_hint">Text to simplify</string>
     <string name="customization">Customization</string>
     <string name="change_behavior">Change behavior</string>
     <string name="change_behavior_description">Not happy with your summaries? Change the behavior of the summarizer here.</string>
@@ -78,7 +75,6 @@
         <item name="technology">Technology</item>
         <item name="arts">Arts</item>
         <item name="humanities">Humanities</item>
-        <item name="social_sciences">Social Sciences</item>
         <item name="business">Business</item>
         <item name="medicine">Medicine</item>
         <item name="law">Law</item>

@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="@string/welcomeStatement"
+            android:text="@string/welcome_exclamation"
             android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topAppBar" />
@@ -53,7 +53,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:textStyle="italic"
-            android:text="@string/featuresLabel"
+            android:text="@string/features_to_explore"
             android:textColor="?attr/colorPrimary"
 
             app:layout_constraintStart_toStartOf="parent"

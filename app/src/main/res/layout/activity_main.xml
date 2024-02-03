@@ -12,6 +12,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false">
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
             android:name="sg.edu.np.mad.simplywords.HomeFragment"
@@ -27,10 +28,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorPrimaryVariant"
         android:elevation="5dp"
         app:itemIconTint="@color/bottom_navigation_icon_color"
         app:itemTextColor="?attr/colorOnPrimary"
+        app:labelVisibilityMode="auto"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_app_bar" />
+
+<!--    android:background="?attr/colorPrimary"-->
+<!--    app:itemIconTint="?attr/colorOnPrimary"-->
+<!--    app:itemRippleColor="?attr/colorPrimary"-->
+<!--    app:itemTextColor="?attr/colorOnPrimary"-->
 </LinearLayout>

@@ -132,7 +132,7 @@ public class SimplifyFragment extends Fragment {
                                 String text=visionText.getText();
                                 Log.d("SimplifyFragment", "Text from image: " + text);
 
-                                Toast.makeText(getContext(), getString(R.string.simplifying_text), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.simplifying_text_in_progress), Toast.LENGTH_LONG).show();
 
                                 toggleState(-1);
                                 new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
@@ -193,7 +193,7 @@ public class SimplifyFragment extends Fragment {
                         .addOnSuccessListener(visionText -> {
                             String text = visionText.getText();
                             Log.d("SimplifyFragment", "Text from image: " + text);
-                            Toast.makeText(getContext(), getString(R.string.simplifying_text), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getString(R.string.simplifying_text_in_progress), Toast.LENGTH_LONG).show();
 
                             toggleState(-1);
                             new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
@@ -325,7 +325,7 @@ public class SimplifyFragment extends Fragment {
             TextInputEditText simplifyEditText = view.findViewById(R.id.simplify_simplifyTextInputEditText);
             String text = Objects.requireNonNull(simplifyEditText.getText()).toString();
             if (text.trim().isEmpty()) {
-                Toast.makeText(getContext(), getString(R.string.error_enter_text), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.no_text_error), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -583,7 +583,7 @@ public class SimplifyFragment extends Fragment {
                             .addOnSuccessListener(visionText -> {
                                 String text = visionText.getText();
                                 Log.d("SimplifyFragment", "Text from image: " + text);
-                                Toast.makeText(getContext(), getString(R.string.simplifying_text), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.simplifying_text_in_progress), Toast.LENGTH_LONG).show();
 
                                 toggleState(-1);
                                 new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
