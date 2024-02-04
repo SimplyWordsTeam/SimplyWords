@@ -2,7 +2,7 @@
 
 # SimplyWords
 
-Welcome to the repository for SimplyWords! SimplyWords is an Android app made to make it easier for senior Singaporeans who have difficulty comprehending content on digital services. It is an app made to simplify and rewrite text to increase readability and understandability. This project is created as part of the Portfolio Development module at Ngee Ann Polytechnic.
+Welcome to the repository for SimplyWords! SimplyWords is an Android app made to make it easier for senior Singaporeans who have difficulty comprehending content on digital services. It is an app made to simplify and rewrite text to increase readability and understandability. This project is created as part of the Portfolio Development module at Ngee Ann Polytechnic. [To learn more about it, watch this video here.](https://connectnpedu.sharepoint.com/:v:/s/PFDTeams/EavDLRo0MIZBnamYbZ2iyM8BUeMBfqcnR6a2OtUxP8VDcA?e=57koWJ&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) (Note: You need an NP staff or student account for this!)
 
 ## Motivation
 
