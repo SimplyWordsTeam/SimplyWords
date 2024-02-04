@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class Constants {
     public static final String EXTRA_ORIGINAL_TEXT = "EXTRA_ORIGINAL_TEXT";
     public static final String LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions";
-    public static final String LLM_PROMPT = "You are part of a system and you are tasked to simplify language of a text input. You are expected to give an output of the rewritten text, and the output will be directly shown to the user; therefore, do not give any comments, remarks, opinions, or analysis on the task you are given to do.\n" +
+    public static final String LLM_SUMMARIZE_PROMPT = "You are part of a system and you are tasked to simplify language of a text input. You are expected to give an output of the rewritten text, and the output will be directly shown to the user; therefore, do not give any comments, remarks, opinions, or analysis on the task you are given to do.\n" +
             "\n" +
             "The target audience that you will be rewriting the text input for are seniors who are not tech literate. They have trouble understanding user interfaces because of the complex language used in them, the confusing layouts, and complicated iconography. Your job is to take complicated phrases in the text input and simplify them such that it is easy for them to understand. Jargon, technical terms, and metaphors are common bottlenecks for the target audience. Avoid changing information that would change the meaning of the text input, but synonyms are acceptable.\n" +
             "\n" +
@@ -22,12 +22,13 @@ public class Constants {
             "\n" +
             "O: Click on \"Find out how\" and sign in. Once done, navigate to the Services section in the user portal and tap on Request assistance.\n" +
             "S: Find the words \"Find out how\" and tap on it. Follow the instructions on the screen, typing out all the required information, then sign in. After you are signed in, scroll and find the Services section, then find the words \"Request assistance\". Tap on it to continue.";
+    public static final String LLM_TRANSLATE_PROMPT = "Translate the text that is given to you to [LANGUAGE]. Ensure that the translation is as accurate as possible, and that the meaning of the text is not lost in translation. The translated text will be directly shown to the user; therefore, do not give any comments, remarks, opinions, or analysis on the task you are given to do.";
 
-    public static String configurePrompt(SharedPreferences preferences) {
+    public static String configureSummarizePrompt(SharedPreferences preferences) {
         int simplificationLevel = preferences.getInt("simplification_level", 0);
         HashSet<String> topics = new HashSet<>(preferences.getStringSet("topics", new HashSet<>()));
 
-        StringBuilder prompt = new StringBuilder(LLM_PROMPT);
+        StringBuilder prompt = new StringBuilder(LLM_SUMMARIZE_PROMPT);
         prompt.append("\n\n ");
         switch (simplificationLevel) {
             case 0:
@@ -46,5 +47,9 @@ public class Constants {
             prompt = new StringBuilder(prompt.substring(0, prompt.length() - 2));
         }
         return prompt.toString();
+    }
+
+    public static String configureTranslatePrompt(String language) {
+        return LLM_TRANSLATE_PROMPT.replace("[LANGUAGE]", language);
     }
 }

@@ -104,8 +104,8 @@ public class SimplyWordsService extends Service {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
-                .setContentTitle(getString(R.string.notification_title))
-                .setContentText(getString(R.string.notification_message))
+                .setContentTitle(getString(R.string.service_is_running))
+                .setContentText(getString(R.string.service_running_in_background))
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)

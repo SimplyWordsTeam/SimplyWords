@@ -45,7 +45,7 @@
                 android:layout_gravity="center"
                 android:maxHeight="200dp"
                 android:scrollbars="vertical"
-                android:text="@string/loading"
+                android:text="@string/loading_in_progress"
                 android:textSize="18sp" />
 
             <LinearLayout

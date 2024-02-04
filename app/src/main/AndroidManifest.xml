@@ -6,15 +6,17 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" android:required="false"/>
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-<!--    <queries>-->
-<!--        &lt;!&ndash; Declare packages related to camera here &ndash;&gt;-->
-<!--        <package android:name="com.android.camera" />-->
-<!--        <package android:name="com.google.android.camera" />-->
-
-<!--    </queries>-->
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="false" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" /> <!-- <queries> -->
+    <!-- &lt;!&ndash; Declare packages related to camera here &ndash;&gt; -->
+    <!-- <package android:name="com.android.camera" /> -->
+    <!-- <package android:name="com.google.android.camera" /> -->
+    <!-- </queries> -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:name=".SimplyWordsApplication"
@@ -27,7 +29,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimplyWords"
         tools:targetApi="31">
-      <provider
+        <activity
+            android:name=".SummaryDetailsActivity"
+            android:exported="false" />
+
+        <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
@@ -36,10 +42,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".OnboardingActivity"
             android:exported="false"
             android:theme="@style/Theme.SimplyWords.NoActionBar" />
+
         <service
             android:name=".SimplyWordsService"
             android:enabled="true"
@@ -49,8 +57,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true"
             android:theme="@style/Theme.SimplyWords">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
