@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SimplyWords</string>
     <string name="apply">Apply</string>
+    <string name="text_styling">Text styling</string>
     <string name="simplify">Simplify</string>
     <string name="simplify_this">Simplify this</string>
     <string name="simplify_image">Simplify a photo</string>
