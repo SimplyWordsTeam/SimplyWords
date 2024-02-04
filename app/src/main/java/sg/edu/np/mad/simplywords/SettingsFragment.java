@@ -47,6 +47,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         });
 
+        // Updates the version number in the settings
+        Preference versionPreference = findPreference("version");
+        assert versionPreference != null;
+        versionPreference.setSummary(BuildConfig.VERSION_NAME);
+
         return view;
     }
 }
