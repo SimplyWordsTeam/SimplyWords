@@ -55,6 +55,7 @@
     <string name="detailed">Detailed</string>
     <string name="example">Example</string>
     <string name="translate">Translate</string>
+    <string name="pick_a_language">Pick a language</string>
     <string name="no_language_error">Please pick a language to translate to.</string>
     <string name="translation_in_progress" tools:ignore="TypographyEllipsis">Translating...</string>
     <string name="share">Share</string>
@@ -113,5 +114,4 @@
         things like computer viruses or ransomware, which can harm our systems or steal our data. Its
         purpose is to keep us safe from these online threats.
     </string>
-    <string name="pick_a_language">Pick a language</string>
 </resources>
