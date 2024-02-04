@@ -20,12 +20,14 @@ import sg.edu.np.mad.simplywords.Constants;
 import sg.edu.np.mad.simplywords.NetworkQueue;
 
 public class LLMInteraction {
+    String TAG = "LLMInteraction";
+
     public void generateSummarizedText(Context context, CharSequence originalText, ResponseCallback callback) {
         String API_KEY = BuildConfig.OPENAI_KEY;
 
         // Creates the JSON object to be sent to the API
         SharedPreferences preferences = context.getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
-        String prompt = preferences.getBoolean("has_configured", false) ? Constants.configurePrompt(preferences) : Constants.LLM_PROMPT;
+        String prompt = preferences.getBoolean("has_configured", false) ? Constants.configureSummarizePrompt(preferences) : Constants.LLM_SUMMARIZE_PROMPT;
 
         JSONObject data = new JSONObject();
         try {
@@ -45,9 +47,9 @@ public class LLMInteraction {
                             )
             );
             data.put("temperature", 1.25);
-            Log.d("LLMInteraction", "JSON object created: " + data);
+            Log.d(TAG, "JSON object created: " + data);
         } catch (JSONException e) {
-            Log.d("LLMInteraction", "Error while creating JSON object: " + e.getMessage());
+            Log.d(TAG, "Error while creating JSON object: " + e.getMessage());
             callback.onError(e);
         }
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.LLM_ENDPOINT, data, response ->
@@ -58,13 +60,63 @@ public class LLMInteraction {
                 if (summarizedText.contains("[ERRAMBIG]")) {
                     String technicalReason = summarizedText.substring(summarizedText.indexOf("[REASON_TECHNICAL] = ") + 21, summarizedText.indexOf("[REASON] = "));
                     String friendlyReason = summarizedText.substring(summarizedText.indexOf("[REASON] = ") + 11);
-                    Log.e("LLMInteraction", "ERRAMBIG response: " + technicalReason);
+                    Log.e(TAG, "ERRAMBIG response: " + technicalReason);
                     throw new Exception(friendlyReason);
                 }
 
                 callback.onSuccess(summarizedText);
             } catch (Exception e) {
-                Log.d("LLMInteraction", "Error while performing request: " + e.getMessage());
+                Log.d(TAG, "Error while performing request: " + e.getMessage());
+                callback.onError(e);
+            }
+        }, callback::onError) {
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer " + API_KEY);
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        NetworkQueue.getInstance(context).addToRequestQueue(request, context);
+    }
+
+    public void generateTranslatedText(Context context, CharSequence originalText, String language, ResponseCallback callback) {
+        String API_KEY = BuildConfig.OPENAI_KEY;
+
+        // Creates the JSON object to be sent to the API
+        JSONObject data = new JSONObject();
+        try {
+            data.put("model", "gpt-4-0125-preview");
+            data.put(
+                    "messages",
+                    new JSONArray()
+                            .put(
+                                    new JSONObject()
+                                            .put("role", "system")
+                                            .put("content", Constants.configureTranslatePrompt(language))
+                            )
+                            .put(
+                                    new JSONObject()
+                                            .put("role", "user")
+                                            .put("content", originalText)
+                            )
+            );
+            data.put("temperature", 1.25);
+            Log.d(TAG, "JSON object created: " + data);
+        } catch (JSONException e) {
+            Log.d(TAG, "Error while creating JSON object: " + e.getMessage());
+            callback.onError(e);
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.LLM_ENDPOINT, data, response ->
+        {
+            try {
+                String translatedText = response.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
+
+                callback.onSuccess(translatedText);
+            } catch (Exception e) {
+                Log.d(TAG, "Error while performing request: " + e.getMessage());
                 callback.onError(e);
             }
         }, callback::onError) {

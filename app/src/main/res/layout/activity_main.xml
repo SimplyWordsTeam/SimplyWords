@@ -34,7 +34,7 @@
         app:itemTextColor="?attr/colorOnPrimary"
         app:labelVisibilityMode="auto"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_app_bar" />
+        app:menu="@menu/main_bottom_navigation" />
 
 <!--    android:background="?attr/colorPrimary"-->
 <!--    app:itemIconTint="?attr/colorOnPrimary"-->

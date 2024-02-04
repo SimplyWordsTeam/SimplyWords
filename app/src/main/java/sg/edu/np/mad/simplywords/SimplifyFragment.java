@@ -15,17 +15,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -41,7 +37,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
@@ -71,7 +66,7 @@ public class SimplifyFragment extends Fragment {
     ActivityResultLauncher<String> requestCameraPermissionLauncher;
     ActivityResultLauncher<Intent> takePictureLauncher;
     ActivityResultLauncher<Intent> requestStoragePermissionLauncher;
-    String  currentImagePath;// This string stores the path of the photo that is being taken by the user through the camera. It ise reset to null after it is processed.
+    String currentImagePath;// This string stores the path of the photo that is being taken by the user through the camera. It ise reset to null after it is processed.
     CameraManager cameraManager;
     Button simplifyTextButton;
     Button simplifyPhotoButton;
@@ -83,9 +78,8 @@ public class SimplifyFragment extends Fragment {
     Boolean recentsIsLatestToEarliest;//  current sorting order for recents
     Integer recentsPeriodFilter;// current period filter for recents
     LinearProgressIndicator progressIndicator;
-    private SummaryViewModel mSummaryViewModel;
     SummaryAdapter summaryAdapter;
-
+    private SummaryViewModel mSummaryViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,30 +100,30 @@ public class SimplifyFragment extends Fragment {
                 });
 
         //register the ActivityResultsContract to launch the camera
-        takePictureLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
+        takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             Log.d("SimplifyFragment", "takePictureLauncher: received call back");
-            if (result.getResultCode() == Activity.RESULT_OK ) {
+            if (result.getResultCode() == Activity.RESULT_OK) {
                 Log.d("SimplifyFragment", "takePictureLauncher: operation was successful");
 
-                try{
+                try {
 
                     File imageFile = new File(currentImagePath);
-                    Log.d("SimplifyFragment", "takePictureLauncher: got image file..."+imageFile);
+                    Log.d("SimplifyFragment", "takePictureLauncher: got image file..." + imageFile);
 
 
-                    Bitmap imageBitMap= BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                    Bitmap imageBitMap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                     Log.d("SimplifyFragment", "takePictureLauncher: converted file to bitmap...");
 
                     try {
-                        InputImage image = InputImage.fromBitmap(imageBitMap,0);
-                        Log.d("SimplifyFragment", "takePictureLauncher: converted BitMap to mlkit InputImage..."+image);
+                        InputImage image = InputImage.fromBitmap(imageBitMap, 0);
+                        Log.d("SimplifyFragment", "takePictureLauncher: converted BitMap to mlkit InputImage..." + image);
 
                         recognizer.process(image).addOnSuccessListener(new OnSuccessListener<Text>() {
                             @Override
                             public void onSuccess(Text visionText) {
                                 Log.d("SimplifyFragment", "takePictureLauncher: Successfully recognized text from image...");
 
-                                String text=visionText.getText();
+                                String text = visionText.getText();
                                 Log.d("SimplifyFragment", "Text from image: " + text);
 
                                 Toast.makeText(getContext(), getString(R.string.simplifying_text_in_progress), Toast.LENGTH_LONG).show();
@@ -164,10 +158,10 @@ public class SimplifyFragment extends Fragment {
                         throw new RuntimeException(e);
                     }
 
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     throw new RuntimeException(e);
                 }
-                currentImagePath=null;
+                currentImagePath = null;
             }
         });
 
@@ -232,7 +226,7 @@ public class SimplifyFragment extends Fragment {
         recentsPeriodFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                recentsPeriodFilter=position;
+                recentsPeriodFilter = position;
                 refreshRecentsSort();
             }
 
@@ -246,78 +240,39 @@ public class SimplifyFragment extends Fragment {
         recentsActivityRecyclerView = view.findViewById(R.id.simplify_RecentActivityRecyclerView);
         summaryAdapter = new SummaryAdapter(new SummaryAdapter.SummaryDiff());
 
-
-
         //assign the views to their holders as a class attribute
         simplifyTextButton = view.findViewById(R.id.simplify_text_button);
         simplifyPhotoButton = view.findViewById(R.id.simplify_photo_button);
-        simplifyCameraPhotoButton=view.findViewById(R.id.simplify_camera_photo_button);
+        simplifyCameraPhotoButton = view.findViewById(R.id.simplify_camera_photo_button);
         progressIndicator = view.findViewById(R.id.simplify_progress);
-        recentActivitySortButton=view.findViewById(R.id.simplify_RecentActivitySortButton);
+        recentActivitySortButton = view.findViewById(R.id.simplify_RecentActivitySortButton);
 
-        recentsIsLatestToEarliest=Boolean.FALSE;
+        recentsIsLatestToEarliest = Boolean.FALSE;
 
         recentActivitySortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recentsIsLatestToEarliest=!recentsIsLatestToEarliest;
+                recentsIsLatestToEarliest = !recentsIsLatestToEarliest;
                 refreshRecentsSort();
                 recentActivitySortButton.setSelected(!recentsIsLatestToEarliest);
-                if(recentsIsLatestToEarliest){
+                if (recentsIsLatestToEarliest) {
                     recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24_inverted);
-                }else{
+                } else {
                     recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24);
                 }
 
             }
         });
 //        disable the camera button if no camera is detected
-        if(!hasCamera){
+        if (!hasCamera) {
             simplifyCameraPhotoButton.setEnabled(false);
         }
 
-
-
         // Configure the adapter to show the popup window when the user taps on a summary
         summaryAdapter.setOnClickListener((position, model) -> {
-            // Inflate the layout of the popup window
-            LayoutInflater popupInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View popupView = popupInflater.inflate(R.layout.floating_full_summary, null);
-
-            // Create the popup window
-            int width = LinearLayout.LayoutParams.MATCH_PARENT;
-            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            boolean focusable = true; // Let taps outside the popup also dismiss it
-            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-            // Show the popup window
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-            TextView textView = popupWindow.getContentView().findViewById(R.id.floating_summary_MainTextView);
-            textView.setText(model.getSummarizedText());
-
-            // Toggle between the original and simplified text when the user interacts with the tab layout
-            ((TabLayout) popupWindow.getContentView().findViewById(R.id.floating_summary_TabLayout)).addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    if (Objects.equals(tab.getText(), getString(R.string.original_text))) {
-                        textView.setText(model.getOriginalText());
-                    } else {
-                        textView.setText(model.getSummarizedText());
-                    }
-                }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                }
-            });
-
-            // Dismiss the popup window when the close image is touched
-            popupWindow.getContentView().findViewById(R.id.floating_summary_ExitImageView).setOnClickListener(imageView -> popupWindow.dismiss());
+            Intent intent = new Intent(getContext(), SummaryDetailsActivity.class);
+            intent.putExtra("summaryId", model.id);
+            startActivity(intent);
         });
 
         // Handle processing manually entered text
@@ -376,7 +331,7 @@ public class SimplifyFragment extends Fragment {
                             getActivity().getApplicationContext().getPackageName() + ".provider",
                             photoFile);
                     Log.d("SimplifyFragment", "Setting intents");
-                    PackageManager packageManager= getContext().getPackageManager();
+                    PackageManager packageManager = getContext().getPackageManager();
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     Log.d("SimplifyFragment", "Attempting to get Package Names...");
                     List list =
@@ -408,8 +363,8 @@ public class SimplifyFragment extends Fragment {
     }
 
     private void toggleState(Integer progress) {
-        if(hasCamera){
-            if (simplifyTextButton != null && simplifyPhotoButton != null && simplifyCameraPhotoButton!=null&& progressIndicator != null) {
+        if (hasCamera) {
+            if (simplifyTextButton != null && simplifyPhotoButton != null && simplifyCameraPhotoButton != null && progressIndicator != null) {
                 simplifyTextButton.setEnabled(!simplifyTextButton.isEnabled());
                 simplifyPhotoButton.setEnabled(!simplifyPhotoButton.isEnabled());
                 simplifyCameraPhotoButton.setEnabled(!simplifyCameraPhotoButton.isEnabled());
@@ -419,7 +374,7 @@ public class SimplifyFragment extends Fragment {
                     progressIndicator.setIndeterminate(true);
                 }
             }
-        }else{
+        } else {
             if (simplifyTextButton != null && simplifyPhotoButton != null && progressIndicator != null) {
                 simplifyTextButton.setEnabled(!simplifyTextButton.isEnabled());
                 simplifyPhotoButton.setEnabled(!simplifyPhotoButton.isEnabled());
@@ -434,13 +389,17 @@ public class SimplifyFragment extends Fragment {
         }
 
     }
+
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save relevant state data here
     }
-    /** Check if this device has a camera */
+
+    /**
+     * Check if this device has a camera
+     */
     private boolean checkCameraHardware(Context context) {
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             // this device has a camera
             return true;
         } else {
@@ -448,6 +407,7 @@ public class SimplifyFragment extends Fragment {
             return false;
         }
     }
+
     public void checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             Log.d("SimplifyFragment", "Camera permission: Not Allowed");
@@ -457,32 +417,34 @@ public class SimplifyFragment extends Fragment {
             // Camera permission is already granted, proceed with camera operation.
         }
     }
-    public void requestCameraPermission(){
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package"+ getActivity().getPackageName()));
+
+    public void requestCameraPermission() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package" + getActivity().getPackageName()));
         requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
     }
 
-    public File createImageFile() throws IOException{
-        String timeStamp=new SimpleDateFormat("yyyyMMdd_HHmmss",Locale.getDefault()).format(new Date());
-        String imageFileName= "SimplyWords_"+timeStamp+"_";
-        File storageDir=getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image =File.createTempFile(imageFileName,".jpg",storageDir);
-        currentImagePath=image.getAbsolutePath();
+    public File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "SimplyWords_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        currentImagePath = image.getAbsolutePath();
         return image;
     }
-    public void refreshRecentsSort(){
+
+    public void refreshRecentsSort() {
 
         recentsActivityRecyclerView.setAdapter(summaryAdapter);
         recentsActivityRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSummaryViewModel.getAllSummaries().observe(getViewLifecycleOwner(), summaries -> {
             Log.d("HistoryFragment", "Summaries size: " + summaries.size());
-            MutableLong startOfPeriodMutableLong=new MutableLong();
-            MutableLong endOfPeriodMutableLong=new MutableLong();
+            MutableLong startOfPeriodMutableLong = new MutableLong();
+            MutableLong endOfPeriodMutableLong = new MutableLong();
 
-            if(recentsPeriodFilter==0){ //Current Selected filter is this week
+            if (recentsPeriodFilter == 0) { //Current Selected filter is this week
 
                 //First day of the current week
-                Calendar calendar=Calendar.getInstance();
+                Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
@@ -494,11 +456,11 @@ public class SimplifyFragment extends Fragment {
                 calendar.add(Calendar.WEEK_OF_YEAR, 1);
                 calendar.add(Calendar.MILLISECOND, -1);
                 endOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
-            } else if (recentsPeriodFilter==1) {//Current Selected filter is Last 3 Weeks
+            } else if (recentsPeriodFilter == 1) {//Current Selected filter is Last 3 Weeks
 
                 //First day of the week 3 weeks ago.
-                Calendar calendar=Calendar.getInstance();
-                calendar.add(Calendar.WEEK_OF_YEAR,-3);
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.WEEK_OF_YEAR, -3);
                 calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
@@ -507,23 +469,22 @@ public class SimplifyFragment extends Fragment {
                 startOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
 
                 //Last day of last week
-                calendar=Calendar.getInstance();
+                calendar = Calendar.getInstance();
                 calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                calendar.add(Calendar.MILLISECOND,-1);
+                calendar.add(Calendar.MILLISECOND, -1);
                 endOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
 
 
-
-            }else if (recentsPeriodFilter==2){ //Current Selected filter is Last 3 Months
+            } else if (recentsPeriodFilter == 2) { //Current Selected filter is Last 3 Months
 
                 //First day of the month 3 months ago
-                Calendar calendar=Calendar.getInstance();
-                calendar.add(Calendar.MONTH,-3);
-                calendar.set(Calendar.DAY_OF_MONTH,1);
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.MONTH, -3);
+                calendar.set(Calendar.DAY_OF_MONTH, 1);
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
@@ -531,26 +492,26 @@ public class SimplifyFragment extends Fragment {
                 startOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
 
                 //Last Day of last month
-                calendar=Calendar.getInstance();
-                calendar.set(Calendar.DAY_OF_MONTH,1);
-                calendar.add(Calendar.MILLISECOND,-1);
+                calendar = Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH, 1);
+                calendar.add(Calendar.MILLISECOND, -1);
                 endOfPeriodMutableLong.setLong(calendar.getTimeInMillis());
-            } else if (recentsPeriodFilter==3) {
+            } else if (recentsPeriodFilter == 3) {
                 summaryAdapter.submitList(summaries);
                 return;
-            } else{
+            } else {
                 Log.d("SimplifyFragment", "Period filter: option index not within range ");
             }
 
             List<Summary> filteredSummaries = new ArrayList<>();
 
-            for (Summary summary: summaries) {
-                if(summary.getCreatedAt()>=startOfPeriodMutableLong.getLong() && summary.getCreatedAt() <= endOfPeriodMutableLong.getLong()){
+            for (Summary summary : summaries) {
+                if (summary.getCreatedAt() >= startOfPeriodMutableLong.getLong() && summary.getCreatedAt() <= endOfPeriodMutableLong.getLong()) {
                     filteredSummaries.add(summary);
                 }
 
             }
-            if (!recentsIsLatestToEarliest){
+            if (!recentsIsLatestToEarliest) {
                 Collections.reverse(filteredSummaries);
             }
             summaryAdapter.submitList(filteredSummaries);
@@ -560,15 +521,9 @@ public class SimplifyFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
 
 
         mSummaryViewModel = new ViewModelProvider(requireActivity()).get(SummaryViewModel.class);

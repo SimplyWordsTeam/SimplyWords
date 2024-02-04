@@ -33,7 +33,7 @@ public class SummaryViewModel extends AndroidViewModel {
         mRepository.deleteSummaries(summary);
     }
 
-    public void getSummaryById(Integer id) {
-        mRepository.getSummaryById(id);
+    public LiveData<Summary> getSummaryById(Integer id) {
+        return mRepository.getSummaryById(id);
     }
 }

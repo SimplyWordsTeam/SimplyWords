@@ -12,6 +12,7 @@
     <string name="welcome_exclamation">Welcome!</string>
     <string name="recent_activity">Recent Activity</string>
     <string name="summarized">Summarized</string>
+    <string name="summary_details_title_cased">Summary Details</string>
     <string name="simplifying_text_in_progress" tools:ignore="TypographyEllipsis">Simplifying your text...</string>
     <string name="close">Close</string>
     <string name="coming_soon">Coming Soon</string>
@@ -53,6 +54,11 @@
     <string name="simple">Simple</string>
     <string name="detailed">Detailed</string>
     <string name="example">Example</string>
+    <string name="translate">Translate</string>
+    <string name="pick_a_language">Pick a language</string>
+    <string name="no_language_error">Please pick a language to translate to.</string>
+    <string name="translation_in_progress" tools:ignore="TypographyEllipsis">Translating...</string>
+    <string name="share">Share</string>
     <string name="lorem_ipsum">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
     volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -80,12 +86,16 @@
         <item name="law">Law</item>
         <item name="education">Education</item>
     </string-array>
-
     <string-array name="time_filter_options">
         <item>This week</item>
         <item>Last 3 Weeks</item>
         <item>Last 3 Months</item>
         <item>All time</item>
+    </string-array>
+    <string-array name="translation_languages">
+        <item>Mandarin</item>
+        <item>Malay</item>
+        <item>Tamil</item>
     </string-array>
 
     <string name="very_simple_example">
