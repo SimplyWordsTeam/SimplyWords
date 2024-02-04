@@ -29,8 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:elevation="5dp"
-        app:itemIconTint="?attr/colorOnBackground"
-        app:itemTextColor="?attr/colorOnBackground"
+        app:itemIconTint="?attr/colorOnPrimary"
+        app:itemTextColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/main_bottom_navigation" />
+        app:menu="@menu/main_bottom_navigation"
+        android:background="?attr/colorPrimary"/>
 </LinearLayout>
