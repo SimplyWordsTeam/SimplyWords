@@ -32,5 +32,5 @@
         app:itemIconTint="?attr/colorOnBackground"
         app:itemTextColor="?attr/colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_app_bar" />
+        app:menu="@menu/main_bottom_navigation" />
 </LinearLayout>
