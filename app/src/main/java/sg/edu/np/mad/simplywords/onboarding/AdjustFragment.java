@@ -38,7 +38,7 @@ public class AdjustFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_adjust, container, false);
+        View view = inflater.inflate(R.layout.fragment_adjust_simplification, container, false);
 
         // Makes the preview text scrollable
         TextView previewText = view.findViewById(R.id.adjust_preview);

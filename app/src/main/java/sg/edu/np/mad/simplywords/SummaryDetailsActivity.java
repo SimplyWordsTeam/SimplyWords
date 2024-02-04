@@ -1,15 +1,25 @@
 package sg.edu.np.mad.simplywords;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.slider.Slider;
 import com.google.android.material.tabs.TabLayout;
 
 import sg.edu.np.mad.simplywords.databinding.ActivitySummaryDetailsBinding;
@@ -22,6 +32,7 @@ public class SummaryDetailsActivity extends AppCompatActivity {
 
     SummaryViewModel mSummaryViewModel;
     ActivitySummaryDetailsBinding binding;
+    boolean isShowingCardView=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +88,7 @@ public class SummaryDetailsActivity extends AppCompatActivity {
             }
         });
 
+        MaterialCardView cardView =findViewById(R.id.summary_details_materialCardView);
         // Configures the sheet for translations
         TranslationBottomSheet translationBottomSheet = new TranslationBottomSheet();
         BottomAppBar bottomAppBar = findViewById(R.id.summary_details_bottom_app_bar);
@@ -84,9 +96,74 @@ public class SummaryDetailsActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.summary_details_translate) {
                 translationBottomSheet.show(getSupportFragmentManager(), translationBottomSheet.getTag());
                 return true;
+            } else if (item.getItemId() == R.id.summary_details_text_adjust) {
+                if (!isShowingCardView){
+                    cardView.setVisibility(View.VISIBLE);
+                    isShowingCardView=!isShowingCardView;
+                }else{
+                    cardView.setVisibility(View.GONE);
+                    isShowingCardView=!isShowingCardView;
+                }
+
+                return true;
             }
             return false;
         });
+
+        Slider fontSizeSlider=findViewById(R.id.summary_details_fontSizeSlider);
+        Spinner fontSpinner=findViewById(R.id.summary_details_fontSpinner);
+        TextView translatedTextView=findViewById(R.id.summary_details_translation);
+
+
+        ArrayAdapter<CharSequence> fontSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.font_options, android.R.layout.simple_spinner_item);
+        fontSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        TextView summaryTextView=findViewById(R.id.summary_details_text);
+        fontSpinner.setAdapter(fontSpinnerAdapter);
+
+        Context context=this;
+        fontSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    Typeface typeFace= ResourcesCompat.getFont(context,R.font.lexend);
+                    summaryTextView.setTypeface(typeFace);
+                } else if (position==1) {
+                    Typeface typeFace= ResourcesCompat.getFont(context,R.font.roboto);
+                    summaryTextView.setTypeface(typeFace);
+                } else if (position==2) {
+                    Typeface typeFace= ResourcesCompat.getFont(context,R.font.tinos);
+                    summaryTextView.setTypeface(typeFace);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        fontSizeSlider.setValueFrom(12);
+        fontSizeSlider.setValueTo(30);
+        fontSizeSlider.setStepSize(3);
+        float density=getResources().getDisplayMetrics().scaledDensity;
+        float initialFontSizeInPx=textView.getTextSize();
+        float initialFontSizeInSp=initialFontSizeInPx/density;
+
+        float nearestStepValue = Math.round(initialFontSizeInSp / fontSizeSlider.getStepSize()) * fontSizeSlider.getStepSize();
+        fontSizeSlider.setValue(nearestStepValue);
+
+        fontSizeSlider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(Slider slider, float value, boolean fromUser) {
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, value);
+                translatedTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, value);
+            }
+        });
+
+
     }
 
     public void onTranslate(String language) {

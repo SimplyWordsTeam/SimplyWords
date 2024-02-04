@@ -1,5 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SimplyWords</string>
+    <string name="apply">Apply</string>
+    <string name="text_styling">Text styling</string>
     <string name="simplify">Simplify</string>
     <string name="simplify_this">Simplify this</string>
     <string name="simplify_image">Simplify a photo</string>
@@ -39,7 +41,7 @@
     <string name="change_behavior">Change behavior</string>
     <string name="change_behavior_description">Not happy with your summaries? Change the behavior of the summarizer here.</string>
     <string name="change_style">Change style</string>
-    <string name="change_style_description">Don\'t like the way your summaries look? Change the styling of your summaries here.</string>
+    <string name="change_style_description">Don\'t like the way the app looks? Change the styling here.</string>
     <string name="about">About SimplyWords (for the curious!)</string>
     <string name="about_team">About the team</string>
     <string name="about_team_description">Learn more about the team behind SimplyWords.</string>
@@ -97,6 +99,13 @@
         <item>Malay</item>
         <item>Tamil</item>
     </string-array>
+    <string-array name="font_options">
+        <item>Lexend</item>
+        <item>Roboto</item>
+        <item>Tinos</item>
+    </string-array>
+
+
 
     <string name="very_simple_example">
         - Cybersecurity is about protecting against cyberattacks.\n

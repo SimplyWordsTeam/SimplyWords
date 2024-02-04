@@ -38,6 +38,17 @@
         <item name="android:windowActivityTransitions">true</item>
     </style>
 
+    <style name="Theme.SimplyWords.Lexend" parent="@style/Theme.SimplyWords">
+        <item name="fontFamily">@font/lexend</item>
+    </style>
+    <style name="Theme.SimplyWords.Roboto" parent="@style/Theme.SimplyWords">
+        <item name="fontFamily">@font/lexend</item>
+    </style>
+    <style name="Theme.SimplyWords.Tinos" parent="@style/Theme.SimplyWords">
+        <item name="fontFamily">@font/tinos</item>
+    </style>
+
+
     <style name="Theme.Transparent" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
