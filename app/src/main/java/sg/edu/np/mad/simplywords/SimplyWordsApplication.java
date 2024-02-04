@@ -8,8 +8,11 @@ public class SimplyWordsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         // Applies Material You's Dynamic Color if applicable.
         DynamicColors.applyToActivitiesIfAvailable(this);
+
+
+
+
     }
 }

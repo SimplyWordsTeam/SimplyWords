@@ -18,19 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            tools:layout="@layout/fragment_home" />
+            tools:layout="@layout/fragment_home"
+            />
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_navigation"
-        style="@style/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?attr/colorPrimary"
         android:elevation="5dp"
-        app:itemIconTint="@color/bottom_navigation_icon_color"
-        app:itemTextColor="?attr/colorOnPrimary"
+        app:itemIconTint="?attr/colorOnBackground"
+        app:itemTextColor="?attr/colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_app_bar" />
 </LinearLayout>
