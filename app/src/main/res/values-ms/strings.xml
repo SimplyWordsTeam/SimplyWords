@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimplyWords</string>
+    <string name="apply">Memohon</string>
+    <string name="text_styling">Penggayaan teks</string>
+    <string name="simplify">Ringkaskan</string>
+    <string name="simplify_this">Ringkaskan ini</string>
+    <string name="simplify_image">Ringkaskan sebuah foto</string>
+    <string name="or_lowercased">atau</string>
+    <string name="next">Seterusnya</string>
+    <string name="previous">Sebelum</string>
+    <string name="profile">Profil</string>
+    <string name="welcome_to">Selamat datang ke</string>
+    <string name="introduction">SimplyWords boleh membantu memudahkan sebarang teks yang kamu lihat supaya lebih mudah difahami. Jika kamu tidak memahami sesuatu, hanya pilih teks tersebut dan tekan butang \"Ringkaskan ini\" yang muncul. Kamu bahkan boleh meringkaskan gambar!</string>
+    <string name="welcome_exclamation">Selamat datang!</string>
+    <string name="recent_activity">Aktiviti Terbaru</string>
+    <string name="summarized">Diringkaskan</string>
+    <string name="summary_details_title_cased">Detail Ringkasan</string>
+    <string name="simplifying_text_in_progress">Sedang merumuskan teks anda...</string>
+    <string name="close">Tutup</string>
+    <string name="coming_soon">Akan Datang</string>
+    <string name="coming_soon_description">Lebih banyak fitur akan datang tidak lama lagi!</string>
+    <string name="no_text_error">Sila masukkan sedikit teks untuk diringkaskan.</string>
+    <string name="features_to_explore">Fitur untuk Deterokai</string>
+    <string name="history">Sejarah</string>
+    <string name="home">Utama</string>
+    <string name="loading_in_progress">Memuatkan...</string>
+    <string name="service_running_in_background">SimplyWords sedang berjalan di latar belakang.</string>
+    <string name="service_is_running">SimplyWords sedang berjalan.</string>
+    <string name="original_text">Teks asal</string>
+    <string name="permission_overlay_message">Kami memerlukan keizinan khas untuk dipaparkan di atas aplikasi lain. Kami akan gunakan ini untuk memaparkan teks yang disederhanakan di atas teks asal. Jika anda tidak memberikan keizinan ini, anda mungkin tidak dapat menggunakan aplikasi ini dengan sepenuhnya.</string>
+    <string name="permission_camera_message">Kami memerlukan akses ke kamera anda untuk kami memindai dan menyederhanakan perkataan.</string>
+    <string name="permission_title">Kebenaran diperlukan</string>
+    <string name="recents">Baru-baru Ini</string>
+    <string name="settings">Seting</string>
+    <string name="settings_description">Ubah pelbagai tetapan untuk aplikasi di sini.</string>
+    <string name="take_picture">Ambil gambar</string>
+    <string name="simplify_description">Lihat pertanyaan sebelumnya anda dan konfigurasikan alat Peringkas kami di sini.</string>
+    <string name="simplified_text">Teks yang diringkaskan</string>
+    <string name="simplify_input_hint">Teks untuk meringkaskan</string>
+    <string name="customization">Pensuaian</string>
+    <string name="change_behavior">Ubah tingkah laku</string>
+    <string name="change_behavior_description">Tidak puas hati dengan ringkasan anda? Ubah tingkah laku pengringkas di sini.</string>
+    <string name="change_style">Ubah gaya</string>
+    <string name="change_style_description">Tidak menyukai cara aplikasi kelihatan? Ubah gaya di sini.</string>
+    <string name="about">Mengenai SimplyWords (untuk mereka yang ingin tahu!)</string>
+    <string name="about_team">Tentang pembuat SimplyWords</string>
+    <string name="about_team_description">Ketahui lebih lanjut tentang pasukan di sebalik SimplyWords.</string>
+    <string name="credits_attributions">Kredit dan penghargaan</string>
+    <string name="version">Versi</string>
+    <string name="adjust_simplification_title">Seberapa sederhana teks yang anda mahu?</string>
+    <string name="adjust_simplification_description">Ingin lebih sederhana? Tekan dan tahan bulatan di bawah dan seret ke kiri. Jika anda ingin menjadikannya lebih terperinci, seret ke kanan.</string>
+    <string name="known_topics_title">Topik apa yang anda ketahui?</string>
+    <string name="known_topics_description">Jika anda memahami terma dan konsep yang digunakan dalam topik ini, kami akan cuba mengelak dari menyederhanakannya.</string>
+    <string name="very_simple">Sangat sederhana</string>
+    <string name="simple">Sederhana</string>
+    <string name="detailed">Terperinci</string>
+    <string name="example">Contoh</string>
+    <string name="translate">Terjemah</string>
+    <string name="pick_a_language">Pilih bahasa</string>
+    <string name="no_language_error">Sila pilih bahasa untuk diterjemahkan.</string>
+    <string name="translation_in_progress">Menterjemahkan...</string>
+    <string name="share">Kongsi</string>
+    <string name="customize">Menyuai</string>
+
+    <string-array name="topics">
+        <item name="sciences">Sains</item>
+        <item name="mathematics">Matematik</item>
+        <item name="engineering">Kejuruteraan</item>
+        <item name="technology">Teknologi</item>
+        <item name="arts">Seni</item>
+        <item name="humanities">Kemanusiaan</item>
+        <item name="business">Perniagaan</item>
+        <item name="medicine">Perubatan</item>
+        <item name="law">Undang-Undang</item>
+        <item name="education">Pendidikan</item>
+    </string-array>
+    <string-array name="time_filter_options">
+        <item>Mingu Ini</item>
+        <item>3 Minggu Terakhir</item>
+        <item>3 Bulan Terakhir</item>
+        <item>Sepanjang Masa</item>
+    </string-array>
+    <string-array name="translation_languages">
+        <item>Mandarin</item>
+        <item>Melayu</item>
+        <item>Tamil</item>
+    </string-array>
+
+    <string name="very_simple_example">
+        - Keselamatan siber adalah tentang melindungi daripada serangan siber.\n
+        - Keselamatan siber berusaha melindungi sistem, peranti, dan data anda daripada pelbagai jenis serangan, seperti virus dan ransomware.\n
+        - Adalah penting untuk mempunyai langkah keselamatan siber bagi memastikan maklumat anda selamat.
+    </string>
+    <string name="simple_example">
+        Keselamatan siber bermaksud menggunakan teknologi, kaedah, dan peraturan untuk menghentikan serangan siber atau mengurangkan kesannya. Ia membantu melindungi individu dan organisasi dengan mempertahankan sistem mereka, program, komputer, maklumat penting, dan wang daripada pelbagai jenis ancaman seperti virus dan serangan ransomware.
+    </string>
+    <string name="detailed_example">
+        Keselamatan siber adalah tentang melindungi peranti dan maklumat kita daripada serangan digital. Ini termasuk perkara seperti virus komputer atau ransomware, yang boleh merosakkan sistem kita atau mencuri data kita. Tujuannya adalah untuk menjaga kita selamat dari ancaman dalam talian ini.
+    </string>
+    <string name="simplify_error">Maaf, ada yang tak kena. Sila cuba lagi.</string>
+</resources>

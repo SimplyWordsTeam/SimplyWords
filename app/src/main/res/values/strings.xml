@@ -47,7 +47,7 @@
     <string name="about_team_description">Learn more about the team behind SimplyWords.</string>
     <string name="credits_attributions">Credits and attributions</string>
     <string name="version">Version</string>
-    <string name="version_number">0.0.0</string>
+    <string name="version_number" translatable="false">0.0.0</string>
     <string name="adjust_simplification_title">How simple do you want your text?</string>
     <string name="adjust_simplification_description">Want even simpler? Press and hold the circle below and drag to the left. If you want to make it more detailed, drag to the right.</string>
     <string name="known_topics_title">What topics do you know?</string>
@@ -61,7 +61,8 @@
     <string name="no_language_error">Please pick a language to translate to.</string>
     <string name="translation_in_progress" tools:ignore="TypographyEllipsis">Translating...</string>
     <string name="share">Share</string>
-    <string name="lorem_ipsum">
+    <string name="simplify_error">Sorry, something went wrong. Try again.</string>
+    <string name="lorem_ipsum" translatable="false">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
     volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
     dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
@@ -99,12 +100,11 @@
         <item>Malay</item>
         <item>Tamil</item>
     </string-array>
-    <string-array name="font_options">
+    <string-array name="font_options" translatable="false">
         <item>Lexend</item>
         <item>Roboto</item>
         <item>Tinos</item>
     </string-array>
-
 
 
     <string name="very_simple_example">

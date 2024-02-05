@@ -85,7 +85,7 @@ public class SimplyWordsService extends Service {
 
             @Override
             public void onError(Exception exception) {
-                overlay.updateText("Sorry, something went wrong. Try again.");
+                overlay.updateText("");
                 overlay.updateProgress(100);
             }
         });
