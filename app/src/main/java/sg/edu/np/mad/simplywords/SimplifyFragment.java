@@ -256,7 +256,7 @@ public class SimplifyFragment extends Fragment {
                 refreshRecentsSort();
                 recentActivitySortButton.setSelected(!recentsIsLatestToEarliest);
                 if (recentsIsLatestToEarliest) {
-                    recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24_inverted);
+                    recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24);
                 } else {
                     recentActivitySortButton.setBackgroundResource(R.drawable.baseline_filter_list_24);
                 }
