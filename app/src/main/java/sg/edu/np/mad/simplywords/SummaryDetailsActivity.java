@@ -128,12 +128,15 @@ public class SummaryDetailsActivity extends AppCompatActivity {
                 if(position==0){
                     Typeface typeFace= ResourcesCompat.getFont(context,R.font.lexend);
                     summaryTextView.setTypeface(typeFace);
+                    translatedTextView.setTypeface(typeFace);
                 } else if (position==1) {
                     Typeface typeFace= ResourcesCompat.getFont(context,R.font.roboto);
                     summaryTextView.setTypeface(typeFace);
+                    translatedTextView.setTypeface(typeFace);
                 } else if (position==2) {
                     Typeface typeFace= ResourcesCompat.getFont(context,R.font.tinos);
                     summaryTextView.setTypeface(typeFace);
+                    translatedTextView.setTypeface(typeFace);
                 }
             }
 

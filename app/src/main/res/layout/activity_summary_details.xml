@@ -24,6 +24,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +63,7 @@
                 android:transitionName="simplifiedText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/summary_details_tab_layout"/>
+                app:layout_constraintTop_toBottomOf="@id/summary_details_tab_layout" />
 
             <TextView
                 android:id="@+id/summary_details_translation"
@@ -130,6 +132,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/summary_details_bottom_app_bar"
         style="@style/Widget.Material3.BottomAppBar"
+        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

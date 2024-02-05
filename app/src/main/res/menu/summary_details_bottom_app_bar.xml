@@ -8,17 +8,15 @@
         android:title="@string/translate"
         app:showAsAction="always|withText" />
     <item
+        android:id="@+id/summary_details_text_adjust"
+        android:icon="@drawable/baseline_format_color_text_24"
+        android:iconTint="?attr/colorPrimaryVariant"
+        android:title="@string/customize"
+        app:showAsAction="always|withText" />
+    <item
         android:id="@+id/summary_details_share"
         android:icon="@drawable/baseline_share_24"
         android:iconTint="?attr/colorPrimaryVariant"
         android:title="@string/share"
         app:showAsAction="ifRoom|withText" />
-    <item
-        android:id="@+id/summary_details_text_adjust"
-        android:icon="@drawable/baseline_format_color_text_24"
-        android:iconTint="?attr/colorPrimaryVariant"
-        android:title="@string/share"
-        app:showAsAction="ifRoom|withText"
-
-        />
 </menu>
