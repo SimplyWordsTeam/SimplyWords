@@ -2,6 +2,7 @@ package sg.edu.np.mad.simplywords;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -106,6 +107,13 @@ public class SummaryDetailsActivity extends AppCompatActivity {
                 }
 
                 return true;
+            } else if (item.getItemId() == R.id.summary_details_share) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, textView.getText());
+
+                Intent shareIntent = Intent.createChooser(intent, null);
+                startActivity(shareIntent);
             }
             return false;
         });
