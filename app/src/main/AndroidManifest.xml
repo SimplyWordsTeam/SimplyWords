@@ -59,7 +59,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.SimplyWords">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

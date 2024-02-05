@@ -85,7 +85,7 @@ public class SimplyWordsService extends Service {
 
             @Override
             public void onError(Exception exception) {
-                overlay.updateText("");
+                overlay.updateText(getString(R.string.simplify_error));
                 overlay.updateProgress(100);
             }
         });

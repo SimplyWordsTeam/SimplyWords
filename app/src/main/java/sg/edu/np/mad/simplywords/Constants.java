@@ -13,7 +13,7 @@ public class Constants {
             "\n" +
             "If there is essential information that cannot be simplified, fit it into the rewritten simplified text as best you can.\n" +
             "\n" +
-            "Only if there is incoherent information such that a simplification cannot be made, reply exactly with '[ERRAMBIG]' as the only thing in first line. Make a new line, then explain why in technical detail after adding '[REASON_TECHNICAL] = ' before your explanation. Then, add a new line, and simplify the technical reason so that the target audience can understand it after adding '[REASON] = ' before your explanation.\n" +
+            "Only if there is incoherent information such that a simplification cannot be made, reply exactly with '[ERRAMBIG]' as the only thing in first line; in this case, do not change anything and keep it as '[ERRAMBIG]'. Make a new line, then explain why in technical detail after adding '[REASON_TECHNICAL] = ' before your explanation. Then, add a new line, and simplify the technical reason so that the target audience can understand it after adding '[REASON] = ' before your explanation.\n" +
             "\n" +
             "The following demonstrate the original (O) and simplified (S) variants of sentences you are expected to replicate:\n" +
             "\n" +

@@ -23,13 +23,13 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorBackgroundFloating"
+                app:cardBackgroundColor="?attr/colorBackgroundFloating"
                 android:alpha="0.5">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/baseline_drag_indicator_24"
-                    app:tint="?attr/colorSurfaceInverse"
+                    app:tint="?attr/colorOnBackground"
                     android:padding="1dp"
                     android:id="@+id/overlay_summary_drag"
                     android:contentDescription="drag icon"
@@ -69,11 +69,11 @@
                     android:paddingStart="16dp"
                     tools:ignore="RtlSymmetry">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="reload icon"
-                        android:src="@drawable/baseline_sync_24" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:contentDescription="reload icon"-->
+<!--                        android:src="@drawable/baseline_sync_24" />-->
 
                     <Button
                         android:id="@+id/window_close"
@@ -117,13 +117,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/baseline_keyboard_arrow_down_24"
                 android:layout_gravity="center"
-                style="@style/ShapeAppearance.Material3.Corner.None"
                 android:alpha="0.3"
+                app:cardBackgroundColor="?attr/colorBackgroundFloating"
                 >
                 <ImageView
                     android:id="@+id/overlay_summary_expand_imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:tint="?attr/colorOnBackground"
                     android:layout_gravity="center"
                     android:src="@drawable/baseline_keyboard_arrow_down_24"
                     android:contentDescription="arrow icon"

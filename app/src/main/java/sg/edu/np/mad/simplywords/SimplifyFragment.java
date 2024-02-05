@@ -24,10 +24,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -75,6 +77,7 @@ public class SimplifyFragment extends Fragment {
     Spinner recentsPeriodFilterSpinner;
     RecyclerView recentsActivityRecyclerView;
     Boolean hasCamera;
+    TextRecognizer recognizer;
     Boolean recentsIsLatestToEarliest;//  current sorting order for recents
     Integer recentsPeriodFilter;// current period filter for recents
     LinearProgressIndicator progressIndicator;
@@ -85,13 +88,14 @@ public class SimplifyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_simplify, container, false);
-        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+        recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
         //register the ActivityResult to request for camera permission
         requestCameraPermissionLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                     if (isGranted) {
                         Log.d("SimplifyFragment", "Camera permission granted");
+//                        startCamera(recognizer);
                         // Permission is granted. Continue with camera operation.
                     } else {
                         Log.d("SimplifyFragment", "Camera permission denied");
@@ -99,72 +103,16 @@ public class SimplifyFragment extends Fragment {
                     }
                 });
 
+
         //register the ActivityResultsContract to launch the camera
         takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             Log.d("SimplifyFragment", "takePictureLauncher: received call back");
+            startCamera(recognizer);
             if (result.getResultCode() == Activity.RESULT_OK) {
                 Log.d("SimplifyFragment", "takePictureLauncher: operation was successful");
-
-                try {
-
-                    File imageFile = new File(currentImagePath);
-                    Log.d("SimplifyFragment", "takePictureLauncher: got image file..." + imageFile);
-
-
-                    Bitmap imageBitMap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                    Log.d("SimplifyFragment", "takePictureLauncher: converted file to bitmap...");
-
-                    try {
-                        InputImage image = InputImage.fromBitmap(imageBitMap, 0);
-                        Log.d("SimplifyFragment", "takePictureLauncher: converted BitMap to mlkit InputImage..." + image);
-
-                        recognizer.process(image).addOnSuccessListener(new OnSuccessListener<Text>() {
-                            @Override
-                            public void onSuccess(Text visionText) {
-                                Log.d("SimplifyFragment", "takePictureLauncher: Successfully recognized text from image...");
-
-                                String text = visionText.getText();
-                                Log.d("SimplifyFragment", "Text from image: " + text);
-
-                                Toast.makeText(getContext(), getString(R.string.simplifying_text_in_progress), Toast.LENGTH_LONG).show();
-
-                                toggleState(-1);
-                                new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
-                                    @Override
-                                    public void onSuccess(String summarizedText) {
-                                        Log.d("SimplifyFragment", "takePictureLauncher: successfully generating summarised text");
-                                        Summary summary = new Summary(text, summarizedText);
-                                        mSummaryViewModel.insertSummaries(summary);
-                                        toggleState(100);
-                                    }
-
-                                    @Override
-                                    public void onError(Exception exception) {
-                                        // Display an alert dialog with the error
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                        builder.setMessage(exception.getMessage())
-                                                .setTitle("Error")
-                                                .setPositiveButton("OK", null);
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-                                        toggleState(0);
-
-                                    }
-                                });
-
-                            }
-                        });
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-
-                } catch (NullPointerException e) {
-                    throw new RuntimeException(e);
-                }
-                currentImagePath = null;
             }
-        });
 
+        });
 
         //If the user has a camera, hasCamera is set to true. Otherwise false.
         hasCamera = checkCameraHardware(getContext());
@@ -235,7 +183,6 @@ public class SimplifyFragment extends Fragment {
             }
         });
         recentsPeriodFilterSpinner.setSelection(0);
-
         // Inflate the layout for this fragment
         recentsActivityRecyclerView = view.findViewById(R.id.simplify_RecentActivityRecyclerView);
         summaryAdapter = new SummaryAdapter(new SummaryAdapter.SummaryDiff());
@@ -387,7 +334,15 @@ public class SimplifyFragment extends Fragment {
                 }
             }
         }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCamera(recognizer);
+            }
+        }
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -421,7 +376,10 @@ public class SimplifyFragment extends Fragment {
     public void requestCameraPermission() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package" + getActivity().getPackageName()));
         requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
+
     }
+
+
 
     public File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
@@ -517,6 +475,66 @@ public class SimplifyFragment extends Fragment {
             summaryAdapter.submitList(filteredSummaries);
         });
 
+
+    }
+
+
+    public void startCamera(TextRecognizer recognizer){
+            try {
+                File imageFile = new File(currentImagePath);
+                Log.d("SimplifyFragment", "takePictureLauncher: got image file..." + imageFile);
+
+
+                Bitmap imageBitMap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                Log.d("SimplifyFragment", "takePictureLauncher: converted file to bitmap...");
+
+                try {
+                    InputImage image = InputImage.fromBitmap(imageBitMap, 0);
+                    Log.d("SimplifyFragment", "takePictureLauncher: converted BitMap to mlkit InputImage..." + image);
+
+                    recognizer.process(image).addOnSuccessListener(new OnSuccessListener<Text>() {
+                        @Override
+                        public void onSuccess(Text visionText) {
+                            Log.d("SimplifyFragment", "takePictureLauncher: Successfully recognized text from image...");
+
+                            String text = visionText.getText();
+                            Log.d("SimplifyFragment", "Text from image: " + text);
+
+                            Toast.makeText(getContext(), getString(R.string.simplifying_text_in_progress), Toast.LENGTH_LONG).show();
+
+                            toggleState(-1);
+                            new LLMInteraction().generateSummarizedText(getContext(), text, new LLMInteraction.ResponseCallback() {
+                                @Override
+                                public void onSuccess(String summarizedText) {
+                                    Log.d("SimplifyFragment", "takePictureLauncher: successfully generating summarised text");
+                                    Summary summary = new Summary(text, summarizedText);
+                                    mSummaryViewModel.insertSummaries(summary);
+                                    toggleState(100);
+                                }
+
+                                @Override
+                                public void onError(Exception exception) {
+                                    // Display an alert dialog with the error
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setMessage(exception.getMessage())
+                                            .setTitle("Error")
+                                            .setPositiveButton("OK", null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                    toggleState(0);
+                                }
+                            });
+
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+            } catch (NullPointerException e) {
+                throw new RuntimeException(e);
+            }
+            currentImagePath = null;
 
     }
 
