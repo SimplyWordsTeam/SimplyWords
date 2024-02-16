@@ -124,6 +124,9 @@ public class SummaryOverlay extends AppCompatActivity {
                 } else if (position==2) {
                     Typeface typeFace= ResourcesCompat.getFont(context,R.font.tinos);
                     summaryTextView.setTypeface(typeFace);
+                }else if (position==3) {
+                    Typeface typeFace= ResourcesCompat.getFont(context,R.font.firasans);
+                    summaryTextView.setTypeface(typeFace);
                 }
             }
 

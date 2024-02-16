@@ -8,7 +8,7 @@
             app:summary="@string/change_behavior_description"
             app:title="@string/change_behavior" />
         <Preference
-            app:key="summary_stile"
+            app:key="style"
             app:summary="@string/change_style_description"
             app:title="@string/change_style" />
     </PreferenceCategory>

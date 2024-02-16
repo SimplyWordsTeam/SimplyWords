@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_styling"
+                android:textSize="@dimen/big_text"
+                android:textStyle="italic"
+                android:layout_marginTop="@dimen/fab_margin"/>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_margin">
+                    <TextView
+                        android:id="@+id/text_styling_preview"
+                        style="?attr/textAppearanceBodyLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lines="6"
+                        android:scrollbars="vertical"
+                        android:text="@string/simple_example" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="2"
+                android:layout_gravity="">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fab_margin"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:text="@string/font"
+                        android:textSize="@dimen/big_text"
+                        android:layout_gravity="start"
+                        />
+
+                    <Spinner
+                        android:id="@+id/adjust_styling_fragment_font_spinner"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fab_margin"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_marginStart="@dimen/fab_margin"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fab_margin"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:text="@string/font_size"
+                        android:textSize="@dimen/big_text"
+                        android:layout_gravity="start" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/adjust_styling_fragment_fontSize_slider"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/fab_margin"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:layout_marginStart="@dimen/fab_margin" />
+            </GridLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/adjust_styling_fragment_apply_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:text="@string/apply">
+
+            </com.google.android.material.button.MaterialButton>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

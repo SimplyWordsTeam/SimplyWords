@@ -52,6 +52,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         assert versionPreference != null;
         versionPreference.setSummary(BuildConfig.VERSION_NAME);
 
+
+        Preference stylingPreference= findPreference("style");
+        stylingPreference.setOnPreferenceClickListener(preference -> {
+            Toast.makeText(getContext(), "Style pushed.", Toast.LENGTH_SHORT).show();
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view,new StylingFragment()).commit();
+            return true;
+        });
         return view;
+
+
     }
 }

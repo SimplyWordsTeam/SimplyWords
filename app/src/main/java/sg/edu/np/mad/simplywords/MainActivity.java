@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        setTheme(R.style.Theme_SimplyWords_Lexend);
         checkOverlayPermission();
 
         // Onboards user if they have not configured the app

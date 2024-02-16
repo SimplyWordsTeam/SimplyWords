@@ -86,8 +86,8 @@ public class SimplifyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_simplify, container, false);
+        Log.d("SimplifyFragment", "parent's theme: "+getActivity().getTheme());
         recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
         //register the ActivityResult to request for camera permission
@@ -389,6 +389,8 @@ public class SimplifyFragment extends Fragment {
         currentImagePath = image.getAbsolutePath();
         return image;
     }
+
+
 
     public void refreshRecentsSort() {
 

@@ -47,6 +47,9 @@
     <style name="Theme.SimplyWords.Tinos" parent="@style/Theme.SimplyWords">
         <item name="fontFamily">@font/tinos</item>
     </style>
+    <style name="Theme.SimplyWords.FiraSans" parent="@style/Theme.SimplyWords">
+        <item name="fontFamily">@font/firasans</item>
+    </style>
 
 
     <style name="Theme.Transparent" parent="Theme.Material3.Light.NoActionBar">

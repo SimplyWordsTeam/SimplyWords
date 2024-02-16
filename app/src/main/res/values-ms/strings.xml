@@ -87,6 +87,7 @@
         <item>Tamil</item>
     </string-array>
 
+    <string name="font">Fon</string>
     <string name="very_simple_example">
         - Keselamatan siber adalah tentang melindungi daripada serangan siber.\n
         - Keselamatan siber berusaha melindungi sistem, peranti, dan data anda daripada pelbagai jenis serangan, seperti virus dan ransomware.\n
@@ -99,4 +100,6 @@
         Keselamatan siber adalah tentang melindungi peranti dan maklumat kita daripada serangan digital. Ini termasuk perkara seperti virus komputer atau ransomware, yang boleh merosakkan sistem kita atau mencuri data kita. Tujuannya adalah untuk menjaga kita selamat dari ancaman dalam talian ini.
     </string>
     <string name="simplify_error">Maaf, ada yang tak kena. Sila cuba lagi.</string>
+    <string name="style_description">Menyesuaikan gaya aplikasi.</string>
+    <string name="font_size">"Saiz Huruf "</string>
 </resources>
