@@ -17,10 +17,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/style_description"
+                android:textSize="@dimen/big_text"
+                android:layout_marginTop="@dimen/fab_margin"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/text_styling"
                 android:textSize="@dimen/big_text"
-                android:textStyle="italic"
-                android:layout_marginTop="@dimen/fab_margin"/>
+                android:layout_marginTop="@dimen/fab_margin"
+                android:textStyle="bold|italic" />
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

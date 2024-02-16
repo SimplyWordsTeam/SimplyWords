@@ -76,7 +76,7 @@
     molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
     bibendum, vel congue leo egestas.
     </string>
-    <string name="style_description">Customise the style of the app.</string>
+    <string name="style_description">Customise the style of the app here.</string>
     <string name="font">Font</string>
     <string name="font_size">Font Size</string>
     <string-array name="topics">
